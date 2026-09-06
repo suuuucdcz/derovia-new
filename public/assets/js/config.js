@@ -44,10 +44,10 @@ export const DEMO_CASES = [
     gain: 'Plus de client perdu faute d’avoir décroché',
   },
   {
-    metier: 'Bâtiment & travaux',
-    charge: 'Relancer les factures impayées — quand on y pense, et souvent trop tard.',
-    reponse: 'Les relances partent au bon moment, avec le ton qu’il faut, sans que vous y pensiez.',
-    gain: 'Des délais de paiement qui se resserrent',
+    metier: 'Cabinet comptable',
+    charge: 'Courir après les pièces que les clients n’envoient jamais à temps.',
+    reponse: 'Les relances partent seules, avec la liste exacte de ce qui manque à chacun.',
+    gain: 'Les bilans ne se jouent plus la dernière semaine',
   },
   {
     metier: 'Restauration',
@@ -67,7 +67,7 @@ export const DEMO_CASES = [
  * Temps d'affichage de chaque métier, en millisecondes.
  * Calé sur une lecture posée des trois blocs, pas sur un défilé.
  */
-export const DEMO_INTERVAL = 7000;
+export const DEMO_INTERVAL = 9500;
 
 /* --------------------------------------------------------------------------
    Questionnaire
@@ -109,19 +109,19 @@ export const OPENING_QUESTION = 'Quel est votre métier ?';
 export const TRADE_SUGGESTIONS = [
   'Bâtiment & travaux',
   'Plomberie & chauffage',
-  'Électricité',
   'Garage & mécanique',
   'Restauration',
   'Coiffure & esthétique',
-  'Paysagisme',
   'Commerce de proximité',
+  'Cabinet comptable',
+  'Agence immobilière',
 ];
 
 /**
  * Consigne système. Le modèle répond en JSON : c'est le site qui met en forme,
  * ce qui permet les réponses cliquables, la jauge et la synthèse finale.
  */
-export const SYSTEM_PROMPT = `Tu es consultant en automatisation chez Derovia. Tes interlocuteurs sont des artisans et de petits chefs d'entreprise : plombiers, garagistes, restaurateurs, coiffeurs, entreprises du bâtiment. Ils manquent de temps, pas d'idées.
+export const SYSTEM_PROMPT = `Tu es consultant en automatisation chez Derovia. Tes interlocuteurs dirigent de petites entreprises : artisans du bâtiment, garagistes, restaurateurs, coiffeurs, commerçants, mais aussi cabinets comptables et agences immobilières. Ils manquent de temps, pas d'idées.
 
 DÉROULÉ : le prospect indique d'abord son métier. Tu mènes au maximum ${MAX_TURNS} échanges, puis tu conclus.
 - Échange 1 : cite 2 ou 3 tâches concrètes de SON métier qu'on peut lui enlever des mains, puis pose UNE question sur celle qui lui coûte le plus.
