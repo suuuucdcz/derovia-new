@@ -71,6 +71,21 @@ export function createDeck({ onChange } = {}) {
     }
   };
 
+  /* --- Menu principal, généré depuis la configuration ---
+     Écrits en dur, les liens se désynchronisaient dès qu'une section était
+     ajoutée : le drapeau `nav` de SLIDES est désormais la seule référence. --- */
+  const menu = document.getElementById('site-nav-links');
+  if (menu) {
+    for (const slide of SLIDES.filter((s) => s.nav)) {
+      const lien = document.createElement('a');
+      lien.href = '#';
+      lien.dataset.goto = slide.id;
+      lien.dataset.navLink = '';
+      lien.textContent = slide.label;
+      menu.append(lien);
+    }
+  }
+
   /* --- Repères latéraux, générés depuis la configuration --- */
   if (dots) {
     for (const [index, slide] of SLIDES.entries()) {
@@ -90,7 +105,8 @@ export function createDeck({ onChange } = {}) {
     }
   }
 
-  /* --- Tout élément portant `data-goto` navigue --- */
+  /* --- Tout élément portant `data-goto` navigue ---
+     Requête faite après la génération du menu, pour l'inclure. --- */
   for (const trigger of document.querySelectorAll('[data-goto]')) {
     if (trigger.classList.contains('deck-dot')) continue;
     trigger.addEventListener('click', (event) => {

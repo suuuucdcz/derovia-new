@@ -356,6 +356,12 @@ body[data-slide="hero"] .btn-back {
   gap: 8px;
 }
 
+/* Le conteneur disparaît de la mise en page : les liens générés deviennent
+   des enfants directs du menu et en héritent l'espacement. */
+.site-nav-links {
+  display: contents;
+}
+
 .site-nav a {
   padding: 8px 14px;
   border-radius: var(--radius-pill);
