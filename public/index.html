@@ -393,7 +393,78 @@
       </section>
 
       <!-- ============================================================
-           6 — Parcours de qualification
+           6 — Rentabilité
+           ============================================================ -->
+      <section class="slide-section" id="slide-rentabilite" aria-label="Rentabilité">
+        <div class="slide-inner slide-content">
+         <div class="section-card">
+
+          <header class="section-head">
+            <p class="section-eyebrow">Rentabilité</p>
+            <h2 class="section-title">Le temps rendu, c’est de l’argent gagné</h2>
+            <p class="section-lead">
+              Une heure que vous ne passez plus à ressaisir est une heure payée
+              qui repart en production. Déplacez le curseur sur votre situation.
+            </p>
+          </header>
+
+          <div class="roi" id="rentabilite">
+
+            <div class="roi-controle">
+              <label class="roi-label" for="roi-heures">
+                Heures gagnées par semaine
+                <output class="roi-valeur" data-roi="heures">6 h</output>
+              </label>
+              <input class="roi-curseur" id="roi-heures" type="range" value="6">
+
+              <!-- Repères construits depuis ROI_REPERES. -->
+              <div class="roi-reperes"></div>
+            </div>
+
+            <div class="roi-corps">
+              <svg class="roi-graphe" role="img"
+                   aria-label="Économie cumulée comparée au prix de l’installation"></svg>
+
+              <dl class="roi-chiffres">
+                <div>
+                  <dt>Ce que ça vaut par an</dt>
+                  <dd data-roi="annuel">—</dd>
+                </div>
+                <div>
+                  <dt>L’installation</dt>
+                  <dd data-roi="prix">—</dd>
+                </div>
+                <div>
+                  <dt>Remboursée en</dt>
+                  <dd data-roi="seuil">—</dd>
+                </div>
+                <div class="roi-chiffre-fort">
+                  <dt>Gagné la première année</dt>
+                  <dd data-roi="gain">—</dd>
+                </div>
+              </dl>
+            </div>
+
+            <p class="roi-calcul" data-roi="calcul">—</p>
+
+          </div>
+
+          <p class="demo-meta">
+            <span>Base&nbsp;: 47 semaines travaillées, 28&nbsp;€ de coût horaire chargé. À ajuster sur votre cas.</span>
+            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
+              <span>Chiffrer mon cas</span>
+              <span class="btn-icon" aria-hidden="true">
+                <svg><use href="#icon-arrow-right"></use></svg>
+              </span>
+            </button>
+          </p>
+
+         </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           7 — Parcours de qualification
            ============================================================ -->
       <section class="slide-section" id="slide-parcours" aria-label="Parcours">
         <div class="slide-inner slide-content">

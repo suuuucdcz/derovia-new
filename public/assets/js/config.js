@@ -14,12 +14,14 @@ export const SLIDES = [
   { id: 'video', label: 'En vidéo', nav: true },
   { id: 'methode', label: 'Méthode', nav: true },
   { id: 'demo', label: 'Démonstration', nav: true },
+  { id: 'rentabilite', label: 'Rentabilité', nav: true },
   { id: 'parcours', label: 'Parcours', nav: false },
 ];
 
 export const SURVEY_SLIDE = 'parcours';
 export const DEMO_SLIDE = 'demo';
 export const VIDEO_SLIDE = 'video';
+export const ROI_SLIDE = 'rentabilite';
 
 /* --------------------------------------------------------------------------
    Démonstration
@@ -180,6 +182,41 @@ export const SUMMARY_FIELDS = [
   { key: 'volume', label: 'Volume' },
   { key: 'urgence', label: 'Échéance' },
   { key: 'gain', label: 'Gain estimé' },
+];
+
+/* --------------------------------------------------------------------------
+   Rentabilité
+   -------------------------------------------------------------------------- */
+
+/**
+ * Le prix vaut le tiers de la valeur créée sur un an. Il en découle une
+ * propriété qui tient quel que soit le volume : l'installation est remboursée
+ * au bout du tiers de l'année, soit quatre mois.
+ *
+ *   valeur annuelle = heures/semaine x semaines travaillées x coût horaire
+ *   prix            = valeur annuelle / 3
+ */
+export const ROI = {
+  /** Semaines effectivement travaillées dans l'année, congés déduits. */
+  semaines: 47,
+  /** Coût horaire chargé d'un salarié : salaire et charges comprises. */
+  coutHoraire: 28,
+  /** Le prix représente cette fraction de la valeur créée la première année. */
+  fraction: 3,
+  /** Bornes et pas du curseur, en heures par semaine. */
+  minHeures: 2,
+  maxHeures: 20,
+  pasHeures: 1,
+  defautHeures: 6,
+  /** Étendue du graphique, en mois. */
+  mois: 12,
+};
+
+/** Cas repères, pour situer son propre volume d'un coup d'œil. */
+export const ROI_REPERES = [
+  { heures: 3, libelle: 'Les devis du soir' },
+  { heures: 6, libelle: 'La saisie des factures' },
+  { heures: 12, libelle: 'Le standard téléphonique' },
 ];
 
 /* --------------------------------------------------------------------------

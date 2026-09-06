@@ -9,6 +9,7 @@ import { OrganicBackground } from './background.js';
 import { createDeck } from './deck.js';
 import { createDemo } from './demo.js';
 import { createFilm } from './film.js';
+import { createRentabilite } from './rentabilite.js';
 import { createSurvey } from './survey.js';
 import { DEMO_SLIDE, SLIDES, SURVEY_SLIDE, TIMING, VIDEO_SLIDE } from './config.js';
 
@@ -16,6 +17,7 @@ const background = new OrganicBackground('bg-canvas');
 const survey = createSurvey();
 const demo = createDemo();
 const film = createFilm();
+createRentabilite();
 
 let leaveTimer = null;
 let demoTimer = null;
