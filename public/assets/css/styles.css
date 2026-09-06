@@ -672,12 +672,30 @@ body[data-slide="parcours"] .btn-nav {
   display: flex;
 }
 
+/* Panneau translucide reprenant la matière de la carte du parcours : le texte
+   se détache du fond animé, qui sinon gêne la lecture. */
+.section-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 34px;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  box-shadow: var(--shadow-card);
+}
+
 /* --- Cartes d'expertise --- */
-/* 210px comme largeur plancher : les quatre cartes tiennent sur une ligne
-   en grand écran, ce qui garde la section entière dans la fenêtre. */
+/* Plancher calculé pour que les quatre cartes tiennent sur une ligne à
+   l'intérieur du panneau : 4 x 196 + 3 x 18 = 838 px, sous les 891 px utiles.
+   Au-dessus, la quatrième descendait d'une ligne et faisait déborder la
+   section. */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
   gap: 18px;
 }
 
@@ -730,7 +748,8 @@ body[data-slide="parcours"] .btn-nav {
 /* --- Étapes de la méthode --- */
 .steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  /* Même plancher que les cartes d'expertise, pour la même raison. */
+  grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
   gap: 18px;
 }
 
@@ -1766,6 +1785,22 @@ body[data-slide="parcours"] .btn-nav {
 /* ==========================================================================
    14. Petits écrans
    ========================================================================== */
+/* Écrans bas : le panneau se resserre plutôt que de faire défiler la section. */
+@media (max-height: 800px) {
+  .section-card {
+    gap: 16px;
+    padding: 22px 30px;
+  }
+
+  .section-head {
+    max-width: 720px;
+  }
+
+  .section-lead {
+    margin-top: 10px;
+  }
+}
+
 @media (max-width: 900px) {
   :root {
     --gutter: 22px;
