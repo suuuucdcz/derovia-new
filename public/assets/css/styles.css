@@ -594,8 +594,14 @@ body[data-slide="parcours"] .btn-nav {
   animation: fade-in-down 0.9s var(--ease-apple) backwards;
 }
 
+/* Le dégradé est découpé sur les glyphes : il ne peint donc rien au-delà de la
+   boîte. Or l'interlettrage négatif la referme avant la fin du dernier
+   caractère, ce qui rognait la panse du « ? ». Le rembourrage rouvre la boîte,
+   la marge négative annule son effet sur le centrage. */
 .text-gradient {
   display: inline-block;
+  padding-right: 0.06em;
+  margin-right: -0.06em;
   background: linear-gradient(135deg, #1d1d1f 20%, #4b4d54 70%, var(--accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
