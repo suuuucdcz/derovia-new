@@ -1,71 +1,100 @@
 /**
- * Derovia — Démonstration animée
+ * Derovia — démonstration par métier
  *
- * Rejoue le traitement d'une facture : lecture, extraction des données, écriture
- * comptable. Les données affichées sont fictives et figurent dans le HTML ;
- * ce module ne fait qu'orchestrer leur apparition.
+ * Fait défiler le même schéma — une charge répétitive, la réponse automatisée —
+ * d'un métier à l'autre. Le propos n'est pas le cas montré mais le fait qu'il
+ * change : l'automatisation se taille à la demande, quel que soit le domaine.
+ *
+ * Les cas vivent dans config.js ; ce module ne fait que les mettre en scène.
  */
 
-import { DEMO_TIMELINE } from './config.js';
+import { DEMO_CASES, DEMO_INTERVAL } from './config.js';
 
-const REVEALED = 'is-revealed';
+const ACTIF = 'is-current';
+const SORTIE = 'is-leaving';
 
 export function createDemo() {
   const root = document.getElementById('demo');
   if (!root) return null;
 
-  const fields = [...root.querySelectorAll('.demo-field')];
-  const result = root.querySelector('.demo-result');
-  const replay = document.getElementById('demo-replay');
+  const onglets = root.querySelector('.demo-trades');
+  const charge = root.querySelector('[data-role="charge"]');
+  const reponse = root.querySelector('[data-role="reponse"]');
+  const gain = root.querySelector('[data-role="gain"]');
 
-  /** L'utilisateur qui a demandé moins d'animations voit l'état final d'emblée. */
+  if (!onglets || !charge || !reponse || !gain) {
+    console.error('Derovia : structure de la démonstration incomplète.');
+    return null;
+  }
+
+  /** L'utilisateur qui a demandé moins d'animations garde la main. */
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  let timers = [];
+  let index = 0;
+  let minuteur = null;
 
-  const clearTimers = () => {
-    timers.forEach(clearTimeout);
-    timers = [];
-  };
+  /* --- Onglets, construits depuis la configuration --- */
+  const boutons = DEMO_CASES.map((cas, i) => {
+    const bouton = document.createElement('button');
+    bouton.type = 'button';
+    bouton.className = 'demo-trade';
+    bouton.textContent = cas.metier;
+    bouton.addEventListener('click', () => {
+      afficher(i);
+      relancer();
+    });
+    onglets.append(bouton);
+    return bouton;
+  });
 
-  const at = (delay, action) => timers.push(setTimeout(action, delay));
+  const afficher = (i) => {
+    index = i;
+    const cas = DEMO_CASES[i];
 
-  const reset = () => {
-    clearTimers();
-    root.classList.remove('is-scanning', 'is-done');
-    fields.forEach((field) => field.classList.remove(REVEALED));
-    result.classList.remove(REVEALED);
-  };
+    boutons.forEach((b, j) => b.classList.toggle(ACTIF, j === i));
 
-  const showEverything = () => {
-    root.classList.add('is-done');
-    fields.forEach((field) => field.classList.add(REVEALED));
-    result.classList.add(REVEALED);
-  };
-
-  const play = () => {
-    reset();
+    // Bref effacement avant réécriture : le remplacement se voit, sans à-coup.
+    const champs = [
+      [charge, cas.charge],
+      [reponse, cas.reponse],
+      [gain, cas.gain],
+    ];
 
     if (reducedMotion.matches) {
-      showEverything();
+      champs.forEach(([el, texte]) => { el.textContent = texte; });
       return;
     }
 
-    at(DEMO_TIMELINE.scan, () => root.classList.add('is-scanning'));
+    champs.forEach(([el]) => el.classList.add(SORTIE));
 
-    fields.forEach((field, index) => {
-      at(DEMO_TIMELINE.firstField + index * DEMO_TIMELINE.fieldInterval, () => {
-        field.classList.add(REVEALED);
+    setTimeout(() => {
+      champs.forEach(([el, texte]) => {
+        el.textContent = texte;
+        el.classList.remove(SORTIE);
       });
-    });
-
-    at(DEMO_TIMELINE.result, () => {
-      root.classList.add('is-done');
-      result.classList.add(REVEALED);
-    });
+    }, 220);
   };
 
-  replay?.addEventListener('click', play);
+  const relancer = () => {
+    clearInterval(minuteur);
+    if (reducedMotion.matches) return;
 
-  return { play, reset };
+    minuteur = setInterval(() => afficher((index + 1) % DEMO_CASES.length), DEMO_INTERVAL);
+  };
+
+  afficher(0);
+
+  return {
+    /** Reprend le défilement à l'arrivée sur la section. */
+    play() {
+      afficher(index);
+      relancer();
+    },
+
+    /** Arrête le défilement en quittant : rien ne tourne hors écran. */
+    reset() {
+      clearInterval(minuteur);
+      minuteur = null;
+    },
+  };
 }

@@ -803,206 +803,142 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   9. Démonstration
+   9. Démonstration — le même schéma, décliné par métier
    ========================================================================== */
 .demo {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-  gap: 28px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
-/* --- Le document reçu --- */
-.demo-doc {
+/* --- Onglets métiers --- */
+.demo-trades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.demo-trade {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s var(--ease-apple);
+}
+
+.demo-trade:hover {
+  color: var(--text-primary);
+  border-color: var(--line-strong);
+}
+
+.demo-trade.is-current {
+  color: var(--text-inverse);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* --- Les deux versants, et la flèche entre eux --- */
+.demo-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.demo-panel {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.demo-doc figcaption {
-  font-size: 0.78rem;
-  color: var(--text-tertiary);
-}
-
-.demo-paper {
-  position: relative;
-  overflow: hidden;
   padding: 20px 22px;
-  border: 1px solid var(--surface-border);
+  border: 1px solid var(--line-soft);
   border-radius: var(--radius-panel);
   background: var(--surface-solid);
   box-shadow: var(--shadow-raised);
 }
 
-/* Balayage de lecture : une bande lumineuse traverse le document, une fois. */
-.demo-scan {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 46%;
-  opacity: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg,
-    rgba(0, 113, 227, 0) 0%,
-    rgba(0, 113, 227, 0.14) 60%,
-    rgba(0, 113, 227, 0.40) 100%);
+/* Le versant automatisé porte la couleur : c'est là que se joue la promesse. */
+.demo-panel-reponse {
+  border-color: rgba(0, 113, 227, 0.22);
+  background: linear-gradient(180deg, rgba(0, 113, 227, 0.05) 0%, var(--surface-solid) 60%);
 }
 
-.demo.is-scanning .demo-scan {
-  animation: scan-sweep 3.4s var(--ease-apple) forwards;
-}
-
-.demo-paper-kind {
-  font-size: 0.68rem;
+.demo-panel-title {
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
 
-.demo-paper-issuer {
-  margin-top: 4px;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.demo-panel-reponse .demo-panel-title {
+  color: var(--accent);
+}
+
+/* Hauteur réservée : le texte change sans faire sauter la mise en page. */
+.demo-panel-text {
+  min-height: 4.8em;
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--text-primary);
+  transition: opacity 0.22s ease, transform 0.22s var(--ease-apple);
 }
 
-.demo-paper-meta {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2px 12px;
-  margin-top: 12px;
-  font-size: 0.82rem;
-}
-
-.demo-paper-meta dt {
-  color: var(--text-tertiary);
-}
-
-.demo-paper-meta dd {
-  color: var(--text-secondary);
-}
-
-.demo-paper-lines {
-  width: 100%;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line-soft);
-  border-collapse: collapse;
-  font-size: 0.86rem;
-}
-
-.demo-paper-lines th {
-  padding: 3px 0;
-  font-weight: 400;
-  text-align: left;
-  color: var(--text-secondary);
-}
-
-.demo-paper-lines td {
-  padding: 3px 0;
-  text-align: right;
-  color: var(--text-secondary);
-  font-variant-numeric: tabular-nums;
-}
-
-.demo-paper-total th,
-.demo-paper-total td {
-  padding-top: 9px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* --- Les données extraites --- */
-.demo-output {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.demo-output-title {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-
-.demo-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.demo-field {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 14px;
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius-field);
-  background: rgba(255, 255, 255, 0.7);
-  font-size: 0.86rem;
-  opacity: 0;
-  transform: translateX(10px);
-  transition: opacity 0.45s var(--ease-apple), transform 0.45s var(--ease-apple);
-}
-
-.demo-field.is-revealed {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.demo-field span {
-  color: var(--text-tertiary);
-}
-
-.demo-field strong {
-  font-weight: 600;
-  text-align: right;
-  color: var(--text-primary);
-  font-variant-numeric: tabular-nums;
-}
-
-.demo-result {
+.demo-arrow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border: 1px solid rgba(0, 113, 227, 0.25);
-  border-radius: var(--radius-field);
+  justify-content: center;
+  width: 40px;
+  color: var(--accent);
+}
+
+.demo-arrow svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* --- Le gain, en bas --- */
+.demo-gain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border: 1px solid rgba(0, 113, 227, 0.22);
+  border-radius: var(--radius-panel);
   background: var(--accent-soft);
-  font-size: 0.86rem;
+  font-size: 0.98rem;
   font-weight: 500;
   color: var(--text-primary);
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.5s var(--ease-apple), transform 0.5s var(--ease-apple);
 }
 
-.demo-result.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
+.demo-gain span[data-role] {
+  transition: opacity 0.22s ease, transform 0.22s var(--ease-apple);
 }
 
-.demo-result-mark {
+.demo-gain-mark {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 21px;
-  height: 21px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   color: var(--surface-solid);
   background: var(--accent);
 }
 
-.demo-result-mark svg {
-  width: 12px;
-  height: 12px;
+.demo-gain-mark svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Effacement bref pendant le remplacement du texte. */
+.demo-panel-text.is-leaving,
+.demo-gain span[data-role].is-leaving {
+  opacity: 0;
+  transform: translateY(6px);
 }
 
 /* --- Pied de la démonstration --- */
@@ -1011,38 +947,23 @@ body[data-slide="parcours"] .btn-nav {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  font-size: 0.85rem;
+  gap: 14px;
+  font-size: 0.86rem;
   color: var(--text-tertiary);
 }
 
-.demo-replay {
-  padding: 7px 16px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-pill);
-  font-size: 0.83rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.7);
-  transition: all 0.25s var(--ease-apple);
-}
-
-.demo-replay:hover {
-  background: var(--surface-solid);
-  border-color: var(--line-strong);
-}
-
-@keyframes scan-sweep {
-  0%   { opacity: 0; transform: translateY(-100%); }
-  12%  { opacity: 1; }
-  88%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(220%); }
-}
-
 @media (max-width: 760px) {
-  .demo {
+  .demo-flow {
     grid-template-columns: 1fr;
-    gap: 16px;
+  }
+
+  .demo-arrow {
+    width: 100%;
+    transform: rotate(90deg);
+  }
+
+  .demo-panel-text {
+    min-height: 0;
   }
 }
 
@@ -1804,6 +1725,14 @@ body[data-slide="parcours"] .btn-nav {
 
   .section-lead {
     margin-top: 10px;
+  }
+
+  .demo {
+    gap: 16px;
+  }
+
+  .demo-panel-text {
+    min-height: 4.2em;
   }
 }
 

@@ -26,16 +26,45 @@ export const VIDEO_SLIDE = 'video';
    -------------------------------------------------------------------------- */
 
 /**
- * Déroulé de la démonstration, en millisecondes depuis le début.
- * Les valeurs affichées sont fictives : c'est une illustration, pas un relevé.
+ * Le même schéma, décliné par métier : ce n'est pas l'automatisation d'un cas
+ * précis qu'on montre, c'est qu'elle se taille à la demande. Les exemples sont
+ * illustratifs — à remplacer par des cas réels dès que vous en aurez.
  */
-export const DEMO_TIMELINE = {
-  scan: 500,
-  /** Première donnée extraite ; les suivantes s'égrènent à `fieldInterval`. */
-  firstField: 1500,
-  fieldInterval: 550,
-  result: 4200,
-};
+export const DEMO_CASES = [
+  {
+    metier: 'Expert-comptable',
+    charge: 'Ressaisir les factures fournisseurs, une par une, toute l’année.',
+    reponse: 'Chaque pièce est lue, contrôlée, imputée. L’écriture part seule au logiciel comptable.',
+    gain: '8 minutes par facture, ramenées à quelques secondes',
+  },
+  {
+    metier: 'Cabinet d’avocats',
+    charge: 'Retrouver une clause précise dans des centaines de contrats signés.',
+    reponse: 'Une recherche par le sens, qui rend le passage exact et le contrat d’où il vient.',
+    gain: 'Une demi-journée de relecture évitée par dossier',
+  },
+  {
+    metier: 'E-commerce',
+    charge: 'Répondre chaque jour aux mêmes questions sur les délais et les retours.',
+    reponse: 'Des réponses rédigées à partir de vos fiches produits et du suivi réel des commandes.',
+    gain: 'La majorité des demandes traitées sans intervention',
+  },
+  {
+    metier: 'Industrie',
+    charge: 'Compiler à la main les relevés de production de chaque ligne.',
+    reponse: 'Les relevés se consolident seuls, et tout écart hors seuil est signalé aussitôt.',
+    gain: 'Le rapport est prêt avant la prise de poste',
+  },
+  {
+    metier: 'Recrutement',
+    charge: 'Trier des centaines de candidatures pour un seul poste.',
+    reponse: 'Une présélection argumentée, qui explique pourquoi chaque profil est retenu ou écarté.',
+    gain: 'Trois jours de tri ramenés à une matinée',
+  },
+];
+
+/** Temps d'affichage de chaque métier, en millisecondes. */
+export const DEMO_INTERVAL = 4200;
 
 /* --------------------------------------------------------------------------
    Questionnaire
