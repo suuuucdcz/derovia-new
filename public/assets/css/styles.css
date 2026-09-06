@@ -765,8 +765,6 @@ body[data-slide="parcours"] .btn-nav {
   display: none;
 }
 
-.survey[data-phase="intro"] .survey-ai-notice,
-.survey[data-phase="chat"] .survey-ai-notice,
 .survey[data-phase="intro"] .survey-intro,
 .survey[data-phase="intro"] .suggestions,
 .survey[data-phase="intro"] .chat-input,
@@ -777,6 +775,13 @@ body[data-slide="parcours"] .btn-nav {
 .survey[data-phase="summary"] .summary-card,
 .survey[data-phase="sent"] .survey-done {
   display: flex;
+}
+
+/* Texte courant : `block`, jamais `flex`, sinon le lien deviendrait un élément
+   de flex et se détacherait de la phrase. */
+.survey[data-phase="intro"] .survey-ai-notice,
+.survey[data-phase="chat"] .survey-ai-notice {
+  display: block;
 }
 
 .survey[data-phase="chat"] .chat-history,
@@ -791,22 +796,20 @@ body[data-slide="parcours"] .btn-nav {
 /* --- Mention obligatoire : le visiteur dialogue avec une IA ---
    Article 50 du règlement (UE) 2024/1689 : l'information doit être donnée de
    manière claire, au plus tard lors de la première interaction. --- */
+/* Mention légale en note de bas de carte : lisible et permanente, mais sans
+   encadré qui viendrait concurrencer la question posée. */
 .survey-ai-notice {
-  align-items: baseline;
-  gap: 8px;
-  padding: 9px 14px;
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius-field);
-  background: rgba(255, 255, 255, 0.55);
-  font-size: 0.82rem;
-  line-height: 1.45;
+  margin-top: -6px;
+  font-size: 0.76rem;
+  line-height: 1.5;
   color: var(--text-tertiary);
 }
 
 .survey-ai-notice a {
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color 0.2s ease;
 }
 
 .survey-ai-notice a:hover {
