@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr" class="video">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Derovia en vidéo</title>
+  <meta name="description" content="Derovia en une minute : comment une automatisation sur-mesure supprime la saisie répétitive.">
+  <meta name="theme-color" content="#fbfbfd">
+
+  <meta property="og:type" content="video.other">
+  <meta property="og:site_name" content="Derovia">
+  <meta property="og:title" content="Derovia en vidéo">
+  <meta property="og:description" content="Comment une automatisation sur-mesure supprime la saisie répétitive.">
+  <meta property="og:image" content="assets/video/affiche.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <script>
+    // Même garde que la page d'accueil : rien ne s'affiche avant que le fond
+    // n'ait peint sa première image.
+    document.documentElement.classList.add('js');
+    setTimeout(() => document.body?.classList.add('is-ready'), 1500);
+  </script>
+  <script type="module" src="assets/js/video-page.js"></script>
+</head>
+
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <div class="video-page">
+
+    <header class="video-header">
+      <a href="/" class="brand-mark" aria-label="Derovia, accueil">
+        <span class="brand-symbol">
+          <svg class="brand-glyph" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
+                  d="M7 4.5H12C16.142 4.5 19 7.858 19 12C19 16.142 16.142 19.5 12 19.5H7V4.5ZM9.6 7.2V16.8H11.8C14.5 16.8 16.3 14.8 16.3 12C16.3 9.2 14.5 7.2 11.8 7.2H9.6Z"/>
+          </svg>
+        </span>
+        <span class="brand-name">Derovia</span>
+      </a>
+      <a href="/" class="btn-back">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M19 12H5M12 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Retour au site</span>
+      </a>
+    </header>
+
+    <main class="video-stage">
+      <video
+        class="video-player"
+        controls
+        playsinline
+        preload="metadata"
+        poster="assets/video/affiche.jpg"
+        width="1920"
+        height="1080">
+        <source src="assets/video/derovia.mp4" type="video/mp4">
+        Votre navigateur ne peut pas lire cette vidéo.
+        <a href="assets/video/derovia.mp4">Téléchargez-la</a> pour la voir.
+      </video>
+    </main>
+
+  </div>
+
+</body>
+</html>

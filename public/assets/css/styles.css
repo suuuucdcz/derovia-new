@@ -9,10 +9,11 @@
     7. Accueil
     8. Sections de contenu (expertises, méthode)
     9. Démonstration
-    10. Parcours de qualification
-   11. Pages légales
-   12. Animations
-   13. Petits écrans
+   10. Parcours de qualification
+   11. Page vidéo
+   12. Pages légales
+   13. Animations
+   14. Petits écrans
    ========================================================================== */
 
 /* ==========================================================================
@@ -90,7 +91,9 @@ body {
 /* `html.deck` n'est posée que sur la page du deck : celle-ci occupe exactement
    la fenêtre et ne défile pas. Les pages légales sont des documents ordinaires. */
 html.deck,
-html.deck body {
+html.deck body,
+html.video,
+html.video body {
   height: 100%;
   overflow: hidden;
 }
@@ -98,11 +101,13 @@ html.deck body {
 /* Révélé par main.js une fois le fond dessiné : ni canevas blanc, ni animation
    d'entrée entamée à moitié. Sans JS, la classe `js` est absente et rien ne
    masque ; sans `deck`, les pages légales s'affichent immédiatement. */
-html.js.deck body {
+html.js.deck body,
+html.js.video body {
   opacity: 0;
 }
 
-html.js.deck body.is-ready {
+html.js.deck body.is-ready,
+html.js.video body.is-ready {
   opacity: 1;
   transition: opacity 0.4s ease;
 }
@@ -1484,7 +1489,60 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Pages légales (documents autonomes, sans deck ni fond animé)
+   11. Page vidéo (la vidéo, et rien d'autre)
+   ========================================================================== */
+.video-page {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 28px var(--gutter) 40px;
+}
+
+.video-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+/* Le lecteur occupe toute la place restante, sans jamais déborder ni sur la
+   largeur ni sur la hauteur : le format 16:9 est préservé dans les deux sens. */
+.video-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 28px;
+}
+
+.video-player {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-card);
+  background: var(--ink);
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 900px) {
+  .video-page {
+    padding: 20px var(--gutter) 28px;
+  }
+
+  .video-player {
+    border-radius: 18px;
+  }
+}
+
+/* ==========================================================================
+   12. Pages légales (documents autonomes, sans deck ni fond animé)
    ========================================================================== */
 .legal-page {
   max-width: 760px;
@@ -1658,7 +1716,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   12. Animations
+   13. Animations
    ========================================================================== */
 @keyframes fade-in-down {
   from { opacity: 0; transform: translateY(-20px); }
@@ -1686,7 +1744,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   13. Petits écrans
+   14. Petits écrans
    ========================================================================== */
 @media (max-width: 900px) {
   :root {
