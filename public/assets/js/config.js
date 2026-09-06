@@ -140,9 +140,23 @@ personne, 6 mots maximum chacune. Elles doivent répondre à la question que tu 
 JAMAIS de questions. Valide : ["Les devis", "Les relances de factures"].
 Invalide : ["Quel est votre volume ?"].
 
-Quand "done" vaut true : "suggestions" vaut [], "message" annonce en une phrase que la
-synthèse est prête pour l'équipe Derovia, et "summary" est rempli :
-{"metier": "...", "besoins": ["3 besoins maximum"], "volume": "...", "urgence": "..."}
+DERNIER ÉCHANGE ("done": true) : "suggestions" vaut [], et "message" fait trois choses,
+dans cet ordre, en 4 à 6 phrases :
+1. Tu nommes ce qu'on lui enlèverait concrètement, en reprenant ses mots à lui.
+2. Tu chiffres ce que ça lui rendrait — du temps d'abord, de l'argent si c'est évident.
+   Pars des chiffres QU'IL A DONNÉS et montre le calcul simplement
+   (exemple : « 30 devis par mois à 20 minutes, c'est 10 heures qui reviennent »).
+   S'il n'a donné aucun chiffre, raisonne sur un ordre de grandeur courant dans son métier
+   et dis-le (« pour une activité comme la vôtre, on est en général sur… »).
+3. Tu annonces en une phrase que la synthèse part à l'équipe Derovia.
+
+RÈGLE SUR LES CHIFFRES : ce sont des estimations, jamais des promesses. Écris « de l'ordre
+de », « environ », « on est en général sur ». N'invente jamais un montant précis en euros
+qu'il n'aurait pas fourni ; parle en heures, en journées, ou en pourcentage de la tâche.
+
+Et "summary" est rempli :
+{"metier": "...", "besoins": ["3 besoins maximum"], "volume": "...", "urgence": "...", "gain": "..."}
+"gain" reprend l'estimation en une ligne courte (exemple : « environ 10 h par mois »).
 Chaque champ de "summary" est une chaîne courte ; utilise "Non précisé" si l'information manque.`;
 
 /**
@@ -150,15 +164,22 @@ Chaque champ de "summary" est une chaîne courte ; utilise "Non précisé" si l'
  * volontairement : l'API refuse une sortie structurée si aucun message ne le
  * mentionne, et cette consigne doit rester valable même isolée.
  */
-export const CLOSING_INSTRUCTION =
-  `C'est le dernier échange : conclus maintenant, en json, avec "done": true et un "summary" complet.`;
+export const CLOSING_INSTRUCTION = `C'est le dernier échange. Ne te contente pas de répondre à sa dernière phrase : conclus.
+
+"message" doit obligatoirement contenir ces trois choses, dans cet ordre :
+1. Ce qu'on lui enlève concrètement, avec ses mots à lui.
+2. Le calcul du temps gagné, écrit en toutes lettres, à partir des chiffres QU'IL A DONNÉS. Exemple de formulation : « 30 devis par mois à 20 minutes, c'est environ 10 heures qui vous reviennent ». S'il n'a donné aucun chiffre, prends un ordre de grandeur courant de son métier et annonce-le comme tel.
+3. Une phrase disant que la synthèse part à l'équipe Derovia.
+
+"done" vaut true, "suggestions" vaut [], et "summary" est complet, "gain" compris.`;
 
 /** Intitulés des champs de la synthèse, dans l'ordre d'affichage. */
 export const SUMMARY_FIELDS = [
   { key: 'metier', label: 'Métier' },
-  { key: 'besoins', label: 'Besoins identifiés' },
+  { key: 'besoins', label: 'Ce qu’on vous enlève' },
   { key: 'volume', label: 'Volume' },
   { key: 'urgence', label: 'Échéance' },
+  { key: 'gain', label: 'Gain estimé' },
 ];
 
 /* --------------------------------------------------------------------------

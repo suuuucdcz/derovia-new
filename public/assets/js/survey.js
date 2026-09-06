@@ -111,6 +111,7 @@ export function createSurvey() {
       term.textContent = label;
 
       const detail = document.createElement('dd');
+      detail.dataset.key = key;
       detail.textContent = String(text);
 
       el.summaryFields.append(term, detail);

@@ -1340,6 +1340,12 @@ body[data-slide="parcours"] .btn-nav {
   color: var(--text-primary);
 }
 
+/* Le gain estimé est la ligne qui emporte la décision : elle se détache. */
+.summary-fields dd[data-key="gain"] {
+  font-weight: 600;
+  color: var(--accent);
+}
+
 .summary-form-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
