@@ -8,7 +8,7 @@
 import { OrganicBackground } from './background.js';
 import { createDeck } from './deck.js';
 import { createSurvey } from './survey.js';
-import { PRIVACY_NOTICE, SLIDES, SURVEY_SLIDE, TIMING } from './config.js';
+import { SLIDES, SURVEY_SLIDE, TIMING } from './config.js';
 
 const background = new OrganicBackground('bg-canvas');
 const survey = createSurvey();
@@ -38,10 +38,3 @@ createDeck({
 requestAnimationFrame(() => {
   requestAnimationFrame(() => document.body.classList.add('is-ready'));
 });
-
-for (const trigger of document.querySelectorAll('[data-privacy]')) {
-  trigger.addEventListener('click', (event) => {
-    event.preventDefault();
-    alert(PRIVACY_NOTICE);
-  });
-}

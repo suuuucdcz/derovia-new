@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="deck">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Derovia — Intelligence Artificielle & Automatisation</title>
   <meta name="description" content="Derovia conçoit et déploie des solutions d'intelligence artificielle et des automatisations sur-mesure pour les entreprises.">
+
+  <!-- Partage sur les réseaux et messageries.
+       À compléter après la mise en ligne : remplacer par le domaine définitif
+       et ajouter une image d'aperçu (1200×630) dans assets/. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Derovia">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Derovia — Intelligence Artificielle & Automatisation">
+  <meta property="og:description" content="Décrivez votre métier : nous identifions les automatisations qui vous font gagner du temps.">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="assets/css/styles.css">
@@ -147,7 +157,8 @@
             <p>© 2026 Derovia. Tous droits réservés.</p>
             <nav class="footer-links">
               <a href="mailto:contact@derovia.com">contact@derovia.com</a>
-              <a href="#" data-privacy>Confidentialité</a>
+              <a href="/mentions-legales.html">Mentions légales</a>
+              <a href="/confidentialite.html">Confidentialité</a>
             </nav>
           </footer>
 
@@ -281,6 +292,12 @@
               <p class="survey-step" id="survey-step">Étape 1 sur 4</p>
             </div>
 
+            <p class="survey-ai-notice">
+              Cet échange est mené par une intelligence artificielle. Vos réponses
+              lui sont transmises pour qualifier votre besoin —
+              <a href="/confidentialite.html" target="_blank" rel="noopener">en savoir plus</a>.
+            </p>
+
             <div class="survey-intro">
               <h2 id="typewriter-text" class="survey-question"></h2><span
                 class="survey-caret" id="survey-caret" aria-hidden="true">|</span>
@@ -333,8 +350,9 @@
               </button>
 
               <p class="summary-legal">
-                Vos informations servent uniquement à préparer notre échange.
-                <button type="button" class="link-button" data-privacy>En savoir plus</button>
+                Vos informations servent uniquement à préparer notre échange et ne
+                sont jamais cédées à des tiers.
+                <a href="/confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a>.
               </p>
             </form>
 

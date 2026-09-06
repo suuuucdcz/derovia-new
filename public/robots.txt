@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# À compléter après la mise en ligne : remplacer par le domaine définitif.
+# Sitemap: https://www.derovia.com/sitemap.xml

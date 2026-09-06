@@ -111,14 +111,6 @@ export const SUMMARY_FIELDS = [
    Divers
    -------------------------------------------------------------------------- */
 
-export const PRIVACY_NOTICE = [
-  'Engagement de confidentialité Derovia :',
-  '',
-  "Toutes les informations transmises concernant vos systèmes d'information, vos flux métiers",
-  "et vos projets IA font l'objet d'un engagement de secret professionnel strict (NDA sur demande).",
-  "Vos données ne sont en aucun cas commercialisées ni utilisées pour l'entraînement public de modèles.",
-].join('\n');
-
 /** Durées d'animation, en millisecondes. */
 export const TIMING = {
   /** Doit rester aligné sur la transition `.deck-track` de styles.css. */

@@ -40,6 +40,43 @@ suffit — `server.py` n'utilise que la bibliothèque standard.
 > Ne jamais committer `.env`, ni coller la clé dans `netlify.toml` : ces deux
 > fichiers partent sur GitHub. `.gitignore` exclut déjà `.env`.
 
+## À compléter avant la mise en ligne
+
+Les pages légales sont rédigées mais seize valeurs ne peuvent venir que de vous.
+Elles sont signalées en jaune dans la page, impossibles à manquer : cherchez
+`class="todo"` dans le code, ou ouvrez simplement les deux pages.
+
+**`public/mentions-legales.html`** — dénomination sociale, forme juridique,
+capital, siège, RCS/SIREN, n° de TVA, téléphone, directeur de la publication
+et sa qualité, date de publication. Les coordonnées de Netlify sont
+pré-remplies : vérifiez-les avant publication.
+
+**`public/confidentialite.html`** — responsable du traitement, adresse, DPO le
+cas échéant (sinon supprimer la ligne), mécanisme de transfert hors UE retenu
+pour Groq et Netlify, date de publication.
+
+**Ailleurs** — le domaine définitif dans `public/robots.txt` et dans les balises
+`og:` de `public/index.html`, plus une image de partage 1200×630.
+
+## Obligations couvertes
+
+| Obligation | Où |
+| --- | --- |
+| Mentions légales (LCEN art. 6 III-1) | `/mentions-legales.html` |
+| Information RGPD (art. 13) | `/confidentialite.html` |
+| Information « vous parlez à une IA » (AI Act art. 50) | mention affichée dans le parcours, avant le premier échange |
+| Bandeau cookies | **sans objet** — aucun cookie, aucun traceur, aucune ressource tierce |
+
+Le site ne dépose aucun cookie, n'utilise ni `localStorage` ni mesure d'audience
+et ne charge aucune ressource depuis un domaine tiers : aucun consentement n'est
+requis à ce titre. Cela reste vrai tant qu'aucun outil d'analyse n'est ajouté —
+le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoire.
+
+> L'AI Act n'impose pas d'indiquer qu'une IA a servi à *développer* le site. Il
+> impose d'informer le visiteur qu'il *dialogue* avec une IA, ce que fait la
+> mention du parcours. Une phrase sur l'assistance par IA lors de la conception
+> figure malgré tout dans les mentions légales, par transparence.
+
 ## Structure
 
 ```
@@ -50,6 +87,9 @@ suffit — `server.py` n'utilise que la bibliothèque standard.
 ├── .env.example                    Modèle de configuration (copier en .env)
 └── public/                         Racine web
     ├── index.html
+    ├── mentions-legales.html
+    ├── confidentialite.html
+    ├── robots.txt
     └── assets/
         ├── favicon.svg
         ├── css/styles.css

@@ -9,8 +9,9 @@
     7. Accueil
     8. Sections de contenu (expertises, méthode)
     9. Parcours de qualification
-   10. Animations
-   11. Petits écrans
+   10. Pages légales
+   11. Animations
+   12. Petits écrans
    ========================================================================== */
 
 /* ==========================================================================
@@ -79,21 +80,28 @@
 html,
 body {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
   position: relative;
   font-family: var(--font-sans);
   color: var(--text-primary);
   background-color: var(--bg-primary);
 }
 
+/* `html.deck` n'est posée que sur la page du deck : celle-ci occupe exactement
+   la fenêtre et ne défile pas. Les pages légales sont des documents ordinaires. */
+html.deck,
+html.deck body {
+  height: 100%;
+  overflow: hidden;
+}
+
 /* Révélé par main.js une fois le fond dessiné : ni canevas blanc, ni animation
-   d'entrée entamée à moitié. Sans JS, la classe `js` est absente et rien ne masque. */
-html.js body {
+   d'entrée entamée à moitié. Sans JS, la classe `js` est absente et rien ne
+   masque ; sans `deck`, les pages légales s'affichent immédiatement. */
+html.js.deck body {
   opacity: 0;
 }
 
-html.js body.is-ready {
+html.js.deck body.is-ready {
   opacity: 1;
   transition: opacity 0.4s ease;
 }
@@ -514,20 +522,6 @@ body[data-slide="parcours"] .btn-nav {
   transform: translateX(4px);
 }
 
-.link-button {
-  padding: 0;
-  font-size: inherit;
-  font-weight: 500;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease;
-}
-
-.link-button:hover {
-  border-bottom-color: currentColor;
-}
-
 /* ==========================================================================
    7. Accueil
    ========================================================================== */
@@ -761,6 +755,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* --- Visibilité selon la phase --- */
+.survey-ai-notice,
 .survey-intro,
 .chat-history,
 .suggestions,
@@ -770,6 +765,8 @@ body[data-slide="parcours"] .btn-nav {
   display: none;
 }
 
+.survey[data-phase="intro"] .survey-ai-notice,
+.survey[data-phase="chat"] .survey-ai-notice,
 .survey[data-phase="intro"] .survey-intro,
 .survey[data-phase="intro"] .suggestions,
 .survey[data-phase="intro"] .chat-input,
@@ -789,6 +786,31 @@ body[data-slide="parcours"] .btn-nav {
 
 .survey[data-phase="sent"] .survey-progress {
   display: none;
+}
+
+/* --- Mention obligatoire : le visiteur dialogue avec une IA ---
+   Article 50 du règlement (UE) 2024/1689 : l'information doit être donnée de
+   manière claire, au plus tard lors de la première interaction. --- */
+.survey-ai-notice {
+  align-items: baseline;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-field);
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+.survey-ai-notice a {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.survey-ai-notice a:hover {
+  color: var(--text-primary);
 }
 
 /* --- Jauge de progression --- */
@@ -1178,7 +1200,181 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   10. Animations
+   10. Pages légales (documents autonomes, sans deck ni fond animé)
+   ========================================================================== */
+.legal-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px var(--gutter) 80px;
+}
+
+.legal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 28px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.legal-page h1 {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+}
+
+.legal-updated {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--text-tertiary);
+}
+
+.legal-page h2 {
+  margin-top: 44px;
+  margin-bottom: 14px;
+  font-size: 1.22rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.legal-page h3 {
+  margin-top: 26px;
+  margin-bottom: 8px;
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.legal-page p,
+.legal-page li {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.legal-page p + p {
+  margin-top: 14px;
+}
+
+.legal-page ul {
+  margin-top: 12px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.legal-page li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.legal-page li::before {
+  content: "";
+  position: absolute;
+  top: 0.7em;
+  left: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.legal-page a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.legal-page a:hover {
+  border-bottom-color: currentColor;
+}
+
+.legal-page strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Blocs d'identité : intitulé à gauche, valeur à droite. */
+.legal-facts {
+  display: grid;
+  grid-template-columns: minmax(160px, auto) 1fr;
+  gap: 10px 24px;
+  margin-top: 16px;
+  padding: 22px 24px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-panel);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.96rem;
+}
+
+.legal-facts dt {
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.legal-facts dd {
+  color: var(--text-primary);
+}
+
+/* Marqueur volontairement voyant : ces valeurs doivent être renseignées
+   avant toute mise en ligne réelle. */
+.todo {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px dashed #b8860b;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #7a5c07;
+  background: #fdf6e3;
+}
+
+.legal-callout {
+  margin-top: 20px;
+  padding: 18px 22px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-field) var(--radius-field) 0;
+  background: var(--accent-soft);
+}
+
+.legal-callout p {
+  color: var(--text-primary);
+}
+
+.legal-footer {
+  margin-top: 60px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.legal-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .legal-facts {
+    grid-template-columns: 1fr;
+    gap: 2px 0;
+  }
+
+  .legal-facts dd {
+    margin-bottom: 12px;
+  }
+}
+
+/* ==========================================================================
+   11. Animations
    ========================================================================== */
 @keyframes fade-in-down {
   from { opacity: 0; transform: translateY(-20px); }
@@ -1206,7 +1402,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Petits écrans
+   12. Petits écrans
    ========================================================================== */
 @media (max-width: 900px) {
   :root {
