@@ -11,6 +11,7 @@
 export const SLIDES = [
   { id: 'hero', label: 'Accueil', nav: false },
   { id: 'expertises', label: 'Expertises', nav: true },
+  { id: 'video', label: 'En vidéo', nav: true },
   { id: 'methode', label: 'Méthode', nav: true },
   { id: 'demo', label: 'Démonstration', nav: true },
   { id: 'parcours', label: 'Parcours', nav: false },
@@ -18,6 +19,7 @@ export const SLIDES = [
 
 export const SURVEY_SLIDE = 'parcours';
 export const DEMO_SLIDE = 'demo';
+export const VIDEO_SLIDE = 'video';
 
 /* --------------------------------------------------------------------------
    Démonstration

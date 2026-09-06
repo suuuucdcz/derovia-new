@@ -10,7 +10,7 @@
     8. Sections de contenu (expertises, méthode)
     9. Démonstration
    10. Parcours de qualification
-   11. Page vidéo
+   11. Vidéo (diapositive et page)
    12. Pages légales
    13. Animations
    14. Petits écrans
@@ -1489,8 +1489,36 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Page vidéo (la vidéo, et rien d'autre)
+   11. Vidéo — diapositive du deck et page autonome
    ========================================================================== */
+
+/* --- Diapositive : un titre bref, puis le film, rien d'autre --- */
+.video-slide {
+  gap: 22px;
+}
+
+.video-slide-head {
+  flex-shrink: 0;
+  text-align: center;
+  max-width: none;
+}
+
+/* Le conteneur absorbe la hauteur restante ; le lecteur s'y inscrit sans
+   jamais déformer le 16/9. Poser `min-height: 0` sur le lecteur lui-même le
+   laisserait se réduire à zéro, puisqu'un élément flex se rétracte par défaut. */
+.video-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.video-page .video-stage {
+  padding-top: 28px;
+}
+
 .video-page {
   position: relative;
   z-index: 2;
@@ -1510,15 +1538,7 @@ body[data-slide="parcours"] .btn-nav {
 
 /* Le lecteur occupe toute la place restante, sans jamais déborder ni sur la
    largeur ni sur la hauteur : le format 16:9 est préservé dans les deux sens. */
-.video-stage {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 28px;
-}
-
+/* --- Le lecteur, partagé par la diapositive et la page autonome --- */
 .video-player {
   display: block;
   width: auto;

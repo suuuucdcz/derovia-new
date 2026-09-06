@@ -8,12 +8,14 @@
 import { OrganicBackground } from './background.js';
 import { createDeck } from './deck.js';
 import { createDemo } from './demo.js';
+import { createFilm } from './film.js';
 import { createSurvey } from './survey.js';
-import { DEMO_SLIDE, SLIDES, SURVEY_SLIDE, TIMING } from './config.js';
+import { DEMO_SLIDE, SLIDES, SURVEY_SLIDE, TIMING, VIDEO_SLIDE } from './config.js';
 
 const background = new OrganicBackground('bg-canvas');
 const survey = createSurvey();
 const demo = createDemo();
+const film = createFilm();
 
 let leaveTimer = null;
 let demoTimer = null;
@@ -33,6 +35,17 @@ createDeck({
     } else {
       // On attend la fin du glissement pour que la remise à zéro reste invisible.
       leaveTimer = setTimeout(() => survey?.reset(), TIMING.slideTransition);
+    }
+
+    // Le film ne joue que sur sa propre section : jamais de son en arrière-plan.
+    // Les sections voisines déclenchent seulement son téléchargement.
+    const distanceAuFilm = Math.abs(index - SLIDES.findIndex((s) => s.id === VIDEO_SLIDE));
+
+    if (id === VIDEO_SLIDE) {
+      film?.play();
+    } else {
+      film?.stop();
+      if (distanceAuFilm === 1) film?.prepare();
     }
 
     // La démonstration se rejoue à chaque venue, et se remet à zéro en partant.
