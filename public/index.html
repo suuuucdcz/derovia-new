@@ -409,44 +409,57 @@
           </header>
 
           <div class="roi" id="rentabilite">
+            <div class="roi-grid">
 
-            <div class="roi-controle">
-              <label class="roi-label" for="roi-heures">
-                Heures gagnées par semaine
-                <output class="roi-valeur" data-roi="heures">6 h</output>
-              </label>
-              <input class="roi-curseur" id="roi-heures" type="range" value="6">
+              <!-- Colonne gauche : Simulateur & Visualisation -->
+              <div class="roi-cockpit">
+                <div class="roi-controle">
+                  <div class="roi-controle-head">
+                    <label class="roi-label" for="roi-heures">Heures gagnées par semaine</label>
+                    <output class="roi-valeur" data-roi="heures">6 h</output>
+                  </div>
+                  <input class="roi-curseur" id="roi-heures" type="range" value="6" aria-label="Nombre d'heures gagnées par semaine">
+                  <div class="roi-reperes" role="group" aria-label="Raccourcis d'heures"></div>
+                </div>
 
-              <!-- Repères construits depuis ROI_REPERES. -->
-              <div class="roi-reperes"></div>
+                <div class="roi-visual">
+                  <svg class="roi-graphe" role="img"
+                       aria-label="Économie cumulée comparée au prix de l’installation"></svg>
+                </div>
+
+                <div class="roi-calcul-wrap">
+                  <p class="roi-calcul" data-roi="calcul">—</p>
+                </div>
+              </div>
+
+              <!-- Colonne droite : Synthèse & Impact financier -->
+              <div class="roi-dashboard">
+
+                <!-- Carte héroïque : Gain net première année -->
+                <div class="roi-hero-card">
+                  <div class="roi-hero-badge-row">
+                    <span class="roi-hero-tag">Gain net 1ʳᵉ année</span>
+                    <span class="roi-hero-amorti">Remboursée en <strong data-roi="seuil">—</strong></span>
+                  </div>
+                  <div class="roi-hero-amount" data-roi="gain">—</div>
+                  <p class="roi-hero-caption">Bénéfice net direct dans votre trésorerie après amortissement intégral de l’installation.</p>
+                </div>
+
+                <!-- 2 micro-cartes d'appui -->
+                <div class="roi-subcards">
+                  <div class="roi-subcard">
+                    <span class="roi-subcard-label">Valeur annuelle créée</span>
+                    <span class="roi-subcard-value" data-roi="annuel">—</span>
+                  </div>
+                  <div class="roi-subcard">
+                    <span class="roi-subcard-label">Coût d'installation</span>
+                    <span class="roi-subcard-value" data-roi="prix">—</span>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
-
-            <div class="roi-corps">
-              <svg class="roi-graphe" role="img"
-                   aria-label="Économie cumulée comparée au prix de l’installation"></svg>
-
-              <dl class="roi-chiffres">
-                <div>
-                  <dt>Ce que ça vaut par an</dt>
-                  <dd data-roi="annuel">—</dd>
-                </div>
-                <div>
-                  <dt>L’installation</dt>
-                  <dd data-roi="prix">—</dd>
-                </div>
-                <div>
-                  <dt>Remboursée en</dt>
-                  <dd data-roi="seuil">—</dd>
-                </div>
-                <div class="roi-chiffre-fort">
-                  <dt>Gagné la première année</dt>
-                  <dd data-roi="gain">—</dd>
-                </div>
-              </dl>
-            </div>
-
-            <p class="roi-calcul" data-roi="calcul">—</p>
-
           </div>
 
           <p class="demo-meta">

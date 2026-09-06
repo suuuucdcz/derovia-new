@@ -11,8 +11,8 @@
 
 import { ROI, ROI_REPERES } from './config.js';
 
-/** Graphique, en unités du viewBox. */
-const VUE = { largeur: 620, hauteur: 260, gaucheAxe: 8, basAxe: 34, hautAxe: 18 };
+/** Graphique, en unités du viewBox : calibré pour rester compact et élégant. */
+const VUE = { largeur: 600, hauteur: 190, gaucheAxe: 10, basAxe: 26, hautAxe: 16 };
 
 const euros = new Intl.NumberFormat('fr-FR', {
   style: 'currency',
@@ -85,11 +85,24 @@ export function createRentabilite() {
     sorties.seuil.textContent = `${Math.round(r.moisAvantSeuil)} mois`;
     sorties.gain.textContent = euros.format(r.gainPremiereAnnee);
     sorties.calcul.textContent =
-      `${heures} h × ${ROI.semaines} semaines × ${ROI.coutHoraire} € = ${euros.format(r.valeurAnnuelle)} par an`;
+      `${heures} h × ${ROI.semaines} sem. × ${ROI.coutHoraire} € = ${euros.format(r.valeurAnnuelle)} / an`;
 
     // La barre du curseur se remplit jusqu'à la valeur choisie.
     const part = (heures - ROI.minHeures) / (ROI.maxHeures - ROI.minHeures);
     curseur.style.setProperty('--part', `${part * 100}%`);
+
+    // Met en avant le repère cliquable correspondant
+    if (reperes) {
+      const boutons = reperes.querySelectorAll('.roi-repere');
+      boutons.forEach((btn, idx) => {
+        const rep = ROI_REPERES[idx];
+        if (rep && rep.heures === heures) {
+          btn.classList.add('is-current');
+        } else {
+          btn.classList.remove('is-current');
+        }
+      });
+    }
 
     tracer(graphe, r);
   };
@@ -141,12 +154,12 @@ function tracer(svg, r) {
 
     <!-- Le seuil : au-delà, l'installation est payée et le reste est gagné. -->
     <line class="roi-seuil" x1="${xSeuil}" y1="${y0}" x2="${xSeuil}" y2="${yPrix}" />
-    <circle class="roi-point" cx="${xSeuil}" cy="${yPrix}" r="6" />
-    <text class="roi-seuil-texte" x="${xSeuil + 12}" y="${yPrix + 26}">
+    <circle class="roi-point" cx="${xSeuil}" cy="${yPrix}" r="5" />
+    <text class="roi-seuil-texte" x="${xSeuil + 10}" y="${yPrix + 20}">
       Remboursé au ${Math.round(r.moisAvantSeuil)}ᵉ mois
     </text>
 
-    <text class="roi-mois" x="${x0}" y="${y0 + 22}">Mise en service</text>
-    <text class="roi-mois roi-mois-fin" x="${x1}" y="${y0 + 22}">12 mois</text>
+    <text class="roi-mois" x="${x0}" y="${y0 + 19}">Mise en service</text>
+    <text class="roi-mois roi-mois-fin" x="${x1}" y="${y0 + 19}">12 mois</text>
   `;
 }
