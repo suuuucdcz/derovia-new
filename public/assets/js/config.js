@@ -32,39 +32,42 @@ export const VIDEO_SLIDE = 'video';
  */
 export const DEMO_CASES = [
   {
-    metier: 'Expert-comptable',
-    charge: 'Ressaisir les factures fournisseurs, une par une, toute l’année.',
-    reponse: 'Chaque pièce est lue, contrôlée, imputée. L’écriture part seule au logiciel comptable.',
-    gain: '8 minutes par facture, ramenées à quelques secondes',
+    metier: 'Plomberie & chauffage',
+    charge: 'Rédiger les devis le soir, une fois la journée de chantier finie.',
+    reponse: 'Vous décrivez l’intervention ; le devis sort chiffré, mis en forme, prêt à envoyer.',
+    gain: 'Les soirées ne servent plus à faire de la paperasse',
   },
   {
-    metier: 'Cabinet d’avocats',
-    charge: 'Retrouver une clause précise dans des centaines de contrats signés.',
-    reponse: 'Une recherche par le sens, qui rend le passage exact et le contrat d’où il vient.',
-    gain: 'Une demi-journée de relecture évitée par dossier',
+    metier: 'Garage & mécanique',
+    charge: 'Répondre au téléphone les mains dans le moteur, ou ne pas répondre.',
+    reponse: 'Les appels manqués reçoivent un message, et les rendez-vous se calent tout seuls.',
+    gain: 'Plus de client perdu faute d’avoir décroché',
   },
   {
-    metier: 'E-commerce',
-    charge: 'Répondre chaque jour aux mêmes questions sur les délais et les retours.',
-    reponse: 'Des réponses rédigées à partir de vos fiches produits et du suivi réel des commandes.',
-    gain: 'La majorité des demandes traitées sans intervention',
+    metier: 'Bâtiment & travaux',
+    charge: 'Relancer les factures impayées — quand on y pense, et souvent trop tard.',
+    reponse: 'Les relances partent au bon moment, avec le ton qu’il faut, sans que vous y pensiez.',
+    gain: 'Des délais de paiement qui se resserrent',
   },
   {
-    metier: 'Industrie',
-    charge: 'Compiler à la main les relevés de production de chaque ligne.',
-    reponse: 'Les relevés se consolident seuls, et tout écart hors seuil est signalé aussitôt.',
-    gain: 'Le rapport est prêt avant la prise de poste',
+    metier: 'Restauration',
+    charge: 'Refaire chaque commande fournisseur à la main, chaque semaine.',
+    reponse: 'La commande se prépare depuis vos stocks et vos habitudes ; vous n’avez qu’à valider.',
+    gain: 'Une commande passée en deux minutes',
   },
   {
-    metier: 'Recrutement',
-    charge: 'Trier des centaines de candidatures pour un seul poste.',
-    reponse: 'Une présélection argumentée, qui explique pourquoi chaque profil est retenu ou écarté.',
-    gain: 'Trois jours de tri ramenés à une matinée',
+    metier: 'Coiffure & esthétique',
+    charge: 'Rappeler les rendez-vous un par un pour limiter les oublis.',
+    reponse: 'Les rappels partent seuls, et un créneau libéré se repropose aussitôt.',
+    gain: 'Moins de fauteuils vides dans la journée',
   },
 ];
 
-/** Temps d'affichage de chaque métier, en millisecondes. */
-export const DEMO_INTERVAL = 4200;
+/**
+ * Temps d'affichage de chaque métier, en millisecondes.
+ * Calé sur une lecture posée des trois blocs, pas sur un défilé.
+ */
+export const DEMO_INTERVAL = 7000;
 
 /* --------------------------------------------------------------------------
    Questionnaire
@@ -104,39 +107,41 @@ export const OPENING_QUESTION = 'Quel est votre métier ?';
 
 /** Réponses proposées d'emblée : un clic suffit pour démarrer. */
 export const TRADE_SUGGESTIONS = [
-  'Expert-comptable',
-  'Cabinet d’avocats',
-  'E-commerce',
-  'Industrie',
-  'Santé',
-  'Immobilier',
-  'Transport & logistique',
-  'RH & recrutement',
+  'Bâtiment & travaux',
+  'Plomberie & chauffage',
+  'Électricité',
+  'Garage & mécanique',
+  'Restauration',
+  'Coiffure & esthétique',
+  'Paysagisme',
+  'Commerce de proximité',
 ];
 
 /**
  * Consigne système. Le modèle répond en JSON : c'est le site qui met en forme,
  * ce qui permet les réponses cliquables, la jauge et la synthèse finale.
  */
-export const SYSTEM_PROMPT = `Tu es consultant en intelligence artificielle et automatisation chez Derovia. Tu qualifies le besoin d'un prospect B2B.
+export const SYSTEM_PROMPT = `Tu es consultant en automatisation chez Derovia. Tes interlocuteurs sont des artisans et de petits chefs d'entreprise : plombiers, garagistes, restaurateurs, coiffeurs, entreprises du bâtiment. Ils manquent de temps, pas d'idées.
 
 DÉROULÉ : le prospect indique d'abord son métier. Tu mènes au maximum ${MAX_TURNS} échanges, puis tu conclus.
-- Échange 1 : cite 2 ou 3 automatisations concrètes typiques de SON métier, puis pose UNE question sur son irritant principal.
-- Échanges suivants : UNE seule question courte à la fois (volume traité, outils déjà en place, échéance).
+- Échange 1 : cite 2 ou 3 tâches concrètes de SON métier qu'on peut lui enlever des mains, puis pose UNE question sur celle qui lui coûte le plus.
+- Échanges suivants : UNE seule question courte à la fois (à quelle fréquence, combien de temps, avec quels outils).
 - Dernier échange : tu conclus avec "done": true.
+
+TON : parle comme à un chef d'entreprise pressé, pas comme à un directeur informatique. Phrases courtes, mots de tous les jours. Jamais de jargon : ni « flux », ni « processus », ni « solution », ni « optimisation ». Tu dis « devis », « factures », « rendez-vous », « appels », « planning ». Vouvoiement, zéro emoji.
 
 FORMAT : réponds UNIQUEMENT en JSON valide, sans texte ni balise autour.
 {"message": "...", "suggestions": ["...", "..."], "done": false, "summary": null}
 
-"message" : 2 à 4 phrases maximum, ton B2B sobre, vouvoiement, zéro emoji, aucun jargon technique.
+"message" : 2 à 3 phrases maximum.
 
 "suggestions" : 3 ou 4 RÉPONSES que le prospect pourrait cliquer, rédigées à la première
 personne, 6 mots maximum chacune. Elles doivent répondre à la question que tu viens de poser.
-JAMAIS de questions. Valide : ["La saisie des factures", "Les relances clients"].
+JAMAIS de questions. Valide : ["Les devis", "Les relances de factures"].
 Invalide : ["Quel est votre volume ?"].
 
 Quand "done" vaut true : "suggestions" vaut [], "message" annonce en une phrase que la
-synthèse est prête pour les ingénieurs Derovia, et "summary" est rempli :
+synthèse est prête pour l'équipe Derovia, et "summary" est rempli :
 {"metier": "...", "besoins": ["3 besoins maximum"], "volume": "...", "urgence": "..."}
 Chaque champ de "summary" est une chaîne courte ; utilise "Non précisé" si l'information manque.`;
 

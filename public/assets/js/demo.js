@@ -47,32 +47,38 @@ export function createDemo() {
     return bouton;
   });
 
-  const afficher = (i) => {
+  /**
+   * @param {number} i Index du métier à montrer.
+   * @param {boolean} anime Effacer brièvement avant de réécrire. Faux à
+   *   l'arrivée sur la section : le contenu ne change pas, et l'effacement
+   *   laisserait les panneaux vides le temps de la transition.
+   */
+  const afficher = (i, anime = true) => {
     index = i;
     const cas = DEMO_CASES[i];
 
     boutons.forEach((b, j) => b.classList.toggle(ACTIF, j === i));
 
-    // Bref effacement avant réécriture : le remplacement se voit, sans à-coup.
     const champs = [
       [charge, cas.charge],
       [reponse, cas.reponse],
       [gain, cas.gain],
     ];
 
-    if (reducedMotion.matches) {
-      champs.forEach(([el, texte]) => { el.textContent = texte; });
-      return;
-    }
-
-    champs.forEach(([el]) => el.classList.add(SORTIE));
-
-    setTimeout(() => {
+    const ecrire = () => {
       champs.forEach(([el, texte]) => {
         el.textContent = texte;
         el.classList.remove(SORTIE);
       });
-    }, 220);
+    };
+
+    if (!anime || reducedMotion.matches) {
+      ecrire();
+      return;
+    }
+
+    champs.forEach(([el]) => el.classList.add(SORTIE));
+    setTimeout(ecrire, 220);
   };
 
   const relancer = () => {
@@ -82,12 +88,12 @@ export function createDemo() {
     minuteur = setInterval(() => afficher((index + 1) % DEMO_CASES.length), DEMO_INTERVAL);
   };
 
-  afficher(0);
+  afficher(0, false);
 
   return {
     /** Reprend le défilement à l'arrivée sur la section. */
     play() {
-      afficher(index);
+      afficher(index, false);
       relancer();
     },
 
