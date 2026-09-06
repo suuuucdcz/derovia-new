@@ -1,0 +1,22 @@
+# Secrets et configuration locale — ne doit jamais partir sur le dépôt
+.env
+.env.local
+
+# Données collectées en développement
+leads.jsonl
+
+# Netlify
+.netlify/
+
+# Node (seulement si des dépendances sont ajoutées plus tard)
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Systèmes d'exploitation et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,6 @@
+# Fins de ligne normalisées : le dépôt stocke des LF, quel que soit le poste.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Derovia — Intelligence Artificielle & Automatisation</title>
+  <meta name="description" content="Derovia conçoit et déploie des solutions d'intelligence artificielle et des automatisations sur-mesure pour les entreprises.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <script>
+    // La page reste masquée le temps que le deck et le fond soient prêts, pour
+    // ne jamais laisser voir un état intermédiaire. Sans JS, rien n'est masqué.
+    document.documentElement.classList.add('js');
+    // Filet de sécurité si le module ne se charge pas.
+    setTimeout(() => document.body?.classList.add('is-ready'), 1500);
+  </script>
+  <script type="module" src="assets/js/main.js"></script>
+</head>
+
+<body data-slide="hero">
+
+  <!-- Symboles SVG réutilisables, référencés plus bas via <use>. -->
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-monogram" viewBox="0 0 24 24">
+      <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
+            d="M7 4.5H12C16.142 4.5 19 7.858 19 12C19 16.142 16.142 19.5 12 19.5H7V4.5ZM9.6 7.2V16.8H11.8C14.5 16.8 16.3 14.8 16.3 12C16.3 9.2 14.5 7.2 11.8 7.2H9.6Z"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-send" viewBox="0 0 24 24">
+      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-chevron-up" viewBox="0 0 24 24">
+      <path d="M18 15l-6-6-6 6" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-document" viewBox="0 0 24 24">
+      <path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5zM14 3v5h5M9 13h6M9 17h4"
+            fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-dialog" viewBox="0 0 24 24">
+      <path d="M21 12a8 8 0 01-8 8H7l-4 3v-6a8 8 0 018-8h2a8 8 0 018 3z"
+            fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 12h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-flow" viewBox="0 0 24 24">
+      <circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="18" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="6" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M6 8.5v7M8.5 18h7M8 7h6a4 4 0 014 4v4.5"
+            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+      <path d="M4 20V4M4 20h16M8 16v-5M12.5 16V7M17 16v-3"
+            fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <!-- Déclaration des champs du parcours pour Netlify Forms : ce formulaire
+       n'est jamais affiché, il sert uniquement à la détection au déploiement.
+       Les envois réels partent de survey.js, via api.js. -->
+  <form name="besoin" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="text" name="bot-field">
+    <input type="email" name="email">
+    <input type="text" name="company">
+    <textarea name="summary"></textarea>
+    <textarea name="conversation"></textarea>
+  </form>
+
+  <!-- Fond organique animé (WebGL, repli Canvas 2D) -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- En-tête hors du deck : la marque garde exactement la même place
+       d'une diapositive à l'autre, y compris pendant la transition. -->
+  <header class="site-header">
+    <a href="#" class="brand-mark" data-goto="hero" aria-label="Derovia, accueil">
+      <span class="brand-symbol">
+        <svg class="brand-glyph" aria-hidden="true"><use href="#icon-monogram"></use></svg>
+      </span>
+      <span class="brand-name">Derovia</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navigation principale">
+      <button type="button" class="btn-back" data-goto="prev" aria-label="Section précédente">
+        <svg aria-hidden="true"><use href="#icon-chevron-up"></use></svg>
+        <span>Retour</span>
+      </button>
+      <a href="#" data-goto="expertises" data-nav-link>Expertises</a>
+      <a href="#" data-goto="methode" data-nav-link>Méthode</a>
+      <button type="button" class="btn-nav" data-goto="parcours">Définir vos besoins</button>
+    </nav>
+  </header>
+
+  <!-- Repères de section, générés depuis config.js -->
+  <nav class="deck-dots" id="deck-dots" aria-label="Sections"></nav>
+
+  <div class="deck-viewport" id="deck-viewport" style="--slide-index: 0">
+    <div class="deck-track">
+
+      <!-- ============================================================
+           1 — Accueil
+           ============================================================ -->
+      <section class="slide-section" id="slide-hero" aria-label="Accueil">
+        <div class="slide-inner">
+
+          <main class="hero">
+            <h1 class="hero-title">
+              Besoin d’un service IA<br>
+              <span class="text-gradient">ou d’une automatisation&nbsp;?</span>
+            </h1>
+
+            <p class="hero-lead">
+              Nous concevons et déployons des automatisations sur-mesure pour les
+              entreprises. Décrivez votre métier&nbsp;: nous identifions les gains
+              en quelques minutes.
+            </p>
+
+            <div class="hero-actions">
+              <button type="button" class="btn-primary" data-goto="parcours">
+                <span>Définir vos besoins</span>
+                <span class="btn-icon" aria-hidden="true">
+                  <svg><use href="#icon-arrow-right"></use></svg>
+                </span>
+              </button>
+
+              <button type="button" class="btn-secondary" data-goto="expertises">
+                Découvrir nos expertises
+              </button>
+            </div>
+          </main>
+
+          <footer class="site-footer">
+            <p>© 2026 Derovia. Tous droits réservés.</p>
+            <nav class="footer-links">
+              <a href="mailto:contact@derovia.com">contact@derovia.com</a>
+              <a href="#" data-privacy>Confidentialité</a>
+            </nav>
+          </footer>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           2 — Expertises
+           ============================================================ -->
+      <section class="slide-section" id="slide-expertises" aria-label="Expertises">
+        <div class="slide-inner slide-content">
+
+          <header class="section-head">
+            <p class="section-eyebrow">Expertises</p>
+            <h2 class="section-title">Quatre familles d’automatisation</h2>
+            <p class="section-lead">
+              La plupart des gains se logent au même endroit&nbsp;: les tâches
+              répétitives à forte volumétrie et les décisions documentées.
+            </p>
+          </header>
+
+          <ul class="card-grid">
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-document"></use></svg></span>
+              <h3>Traitement documentaire</h3>
+              <p>Lecture, extraction et classement automatiques de factures, contrats et courriers entrants.</p>
+            </li>
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-dialog"></use></svg></span>
+              <h3>Assistants métier</h3>
+              <p>Agents conversationnels branchés sur vos données internes, pour vos équipes ou vos clients.</p>
+            </li>
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-flow"></use></svg></span>
+              <h3>Orchestration des flux</h3>
+              <p>Connexion de vos outils existants et enchaînement automatique des étapes sans ressaisie.</p>
+            </li>
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-chart"></use></svg></span>
+              <h3>Analyse & anticipation</h3>
+              <p>Tableaux de bord, détection d’anomalies et prévisions au service de vos arbitrages.</p>
+            </li>
+          </ul>
+
+          <div class="section-cta">
+            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
+              <span>Voir ce qui s’applique à votre métier</span>
+              <span class="btn-icon" aria-hidden="true">
+                <svg><use href="#icon-arrow-right"></use></svg>
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           3 — Méthode
+           ============================================================ -->
+      <section class="slide-section" id="slide-methode" aria-label="Méthode">
+        <div class="slide-inner slide-content">
+
+          <header class="section-head">
+            <p class="section-eyebrow">Méthode</p>
+            <h2 class="section-title">Du cadrage à la production</h2>
+            <p class="section-lead">
+              Un engagement se déroule en quatre temps. Chacun se conclut par un
+              livrable que vous validez avant d’engager le suivant.
+            </p>
+          </header>
+
+          <ol class="steps">
+            <li class="step">
+              <span class="step-index" aria-hidden="true">01</span>
+              <div>
+                <h3>Cadrage</h3>
+                <p>Audit des flux, chiffrage des gains et choix du premier cas d’usage.</p>
+                <span class="step-meta">Environ 1 semaine</span>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-index" aria-hidden="true">02</span>
+              <div>
+                <h3>Prototype</h3>
+                <p>Une version fonctionnelle sur vos données réelles, mesurée sur vos critères.</p>
+                <span class="step-meta">2 à 3 semaines</span>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-index" aria-hidden="true">03</span>
+              <div>
+                <h3>Déploiement</h3>
+                <p>Mise en production, intégration à vos outils et formation de vos équipes.</p>
+                <span class="step-meta">4 à 6 semaines</span>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-index" aria-hidden="true">04</span>
+              <div>
+                <h3>Suivi</h3>
+                <p>Supervision, ajustements et extension progressive aux cas voisins.</p>
+                <span class="step-meta">En continu</span>
+              </div>
+            </li>
+          </ol>
+
+          <div class="section-cta">
+            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
+              <span>Démarrer par le cadrage de votre besoin</span>
+              <span class="btn-icon" aria-hidden="true">
+                <svg><use href="#icon-arrow-right"></use></svg>
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           4 — Parcours de qualification
+           ============================================================ -->
+      <section class="slide-section" id="slide-parcours" aria-label="Parcours">
+        <div class="slide-inner slide-content">
+
+          <div class="survey" id="survey" data-phase="intro">
+
+            <div class="survey-progress">
+              <div class="survey-progress-track">
+                <span class="survey-progress-fill" id="survey-progress-fill"></span>
+              </div>
+              <p class="survey-step" id="survey-step">Étape 1 sur 4</p>
+            </div>
+
+            <div class="survey-intro">
+              <h2 id="typewriter-text" class="survey-question"></h2><span
+                class="survey-caret" id="survey-caret" aria-hidden="true">|</span>
+            </div>
+
+            <!-- Les messages sont insérés avant l'indicateur d'attente. -->
+            <div id="chat-history" class="chat-history" aria-live="polite">
+              <p class="chat-loading"><span class="pulse-dot" aria-hidden="true"></span>Analyse en cours…</p>
+            </div>
+
+            <div class="suggestions" id="suggestions"></div>
+
+            <div class="chat-input">
+              <textarea id="needs-input" class="chat-textarea" rows="1"
+                        placeholder="Ou répondez librement…"
+                        aria-label="Votre réponse"></textarea>
+
+              <div class="chat-actions">
+                <button id="btn-analyze" class="btn-submit" type="button" disabled>
+                  <span>Envoyer</span>
+                  <svg aria-hidden="true"><use href="#icon-send"></use></svg>
+                </button>
+              </div>
+            </div>
+
+            <form class="summary-card" id="summary-form" novalidate>
+              <h3 class="summary-title">Synthèse de votre besoin</h3>
+              <dl class="summary-fields" id="summary-fields"></dl>
+
+              <div class="summary-form-row">
+                <label class="field">
+                  <span>Adresse professionnelle</span>
+                  <input type="email" id="lead-email" name="email"
+                         autocomplete="email" placeholder="prenom@entreprise.com" required>
+                </label>
+                <label class="field">
+                  <span>Société <em>(facultatif)</em></span>
+                  <input type="text" id="lead-company" name="company"
+                         autocomplete="organization" placeholder="Nom de votre société">
+                </label>
+              </div>
+
+              <p class="form-error" id="lead-error" hidden></p>
+
+              <button type="submit" class="btn-primary btn-block" id="btn-send-lead">
+                <span>Transmettre à nos ingénieurs</span>
+                <span class="btn-icon" aria-hidden="true">
+                  <svg><use href="#icon-arrow-right"></use></svg>
+                </span>
+              </button>
+
+              <p class="summary-legal">
+                Vos informations servent uniquement à préparer notre échange.
+                <button type="button" class="link-button" data-privacy>En savoir plus</button>
+              </p>
+            </form>
+
+            <div class="survey-done">
+              <span class="done-badge" aria-hidden="true">
+                <svg><use href="#icon-check"></use></svg>
+              </span>
+              <h3>Besoin transmis</h3>
+              <p>Un ingénieur Derovia revient vers vous sous 48&nbsp;heures ouvrées avec une première lecture de votre cas.</p>
+              <button type="button" class="btn-secondary" data-goto="hero">Retour à l’accueil</button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>

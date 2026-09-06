@@ -1,0 +1,24 @@
+[build]
+  # Site statique : rien à compiler, `public/` est publié tel quel.
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Les noms de fichiers ne portent pas d'empreinte : le navigateur doit donc
+# revalider les sources à chaque visite pour voir le dernier déploiement.
+[[headers]]
+  for = "/assets/*"
+
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
