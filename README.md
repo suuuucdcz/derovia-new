@@ -89,6 +89,7 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
     ├── index.html
     ├── mentions-legales.html
     ├── confidentialite.html
+    ├── 404.html
     ├── robots.txt
     └── assets/
         ├── favicon.svg
@@ -98,6 +99,7 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
             ├── config.js       Diapositives, prompts, seuils, durées
             ├── deck.js         Navigation entre diapositives
             ├── survey.js       Parcours de qualification (4 phases)
+            ├── demo.js         Déroulé de la démonstration
             ├── api.js          Appels réseau et validation des réponses
             ├── background.js   Fond organique animé
             └── shaders.js      Shaders GLSL du fond
@@ -105,12 +107,13 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
 
 ## Les quatre diapositives
 
-| # | Section    | Rôle                                                      |
-| - | ---------- | --------------------------------------------------------- |
-| 1 | Accueil    | Accroche et double appel à l'action                       |
-| 2 | Expertises | Quatre familles d'automatisation                          |
-| 3 | Méthode    | Le déroulé d'un engagement, en quatre temps               |
-| 4 | Parcours   | Qualification conversationnelle et transmission du besoin |
+| # | Section       | Rôle                                                      |
+| - | ------------- | --------------------------------------------------------- |
+| 1 | Accueil       | Accroche et double appel à l'action                       |
+| 2 | Expertises    | Quatre familles d'automatisation                          |
+| 3 | Méthode       | Le déroulé d'un engagement, en quatre temps               |
+| 4 | Démonstration | Le traitement d'une facture, rejoué avec des données fictives |
+| 5 | Parcours      | Qualification conversationnelle et transmission du besoin |
 
 L'ordre et les intitulés viennent de `SLIDES` dans
 [config.js](public/assets/js/config.js) : ajouter une entrée et la section
@@ -150,6 +153,23 @@ Ce modèle raisonne avant de répondre et consomme couramment 900 jetons : le
 budget est fixé à 2000 pour que la sortie JSON ne soit jamais tronquée, ce que
 l'API rejetterait (`json_validate_failed`). Une seconde tentative, après une
 courte pause, absorbe un échec ponctuel ou une limite de débit.
+
+## La démonstration
+
+Une facture fictive est lue, ses données extraites une à une, puis l'écriture
+comptable annoncée. Le déroulé est piloté par
+[demo.js](public/assets/js/demo.js) et minuté dans `DEMO_TIMELINE` ; les valeurs
+affichées vivent dans le HTML, pour qu'on puisse les changer sans toucher au
+code. La séquence se rejoue à chaque venue sur la section, et un bouton permet
+de la relancer. Si le visiteur a demandé moins d'animations, l'état final
+s'affiche directement.
+
+## Sans JavaScript
+
+Le deck ne peut pas naviguer sans JavaScript. Un bloc `<noscript>` le convertit
+alors en page qui défile : les cinq sections s'empilent, les repères et le
+parcours s'effacent, et une adresse de contact remplace le questionnaire. Le
+contenu reste donc entièrement accessible.
 
 ## Le fond animé
 

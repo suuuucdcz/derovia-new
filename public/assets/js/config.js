@@ -12,10 +12,28 @@ export const SLIDES = [
   { id: 'hero', label: 'Accueil', nav: false },
   { id: 'expertises', label: 'Expertises', nav: true },
   { id: 'methode', label: 'Méthode', nav: true },
+  { id: 'demo', label: 'Démonstration', nav: true },
   { id: 'parcours', label: 'Parcours', nav: false },
 ];
 
 export const SURVEY_SLIDE = 'parcours';
+export const DEMO_SLIDE = 'demo';
+
+/* --------------------------------------------------------------------------
+   Démonstration
+   -------------------------------------------------------------------------- */
+
+/**
+ * Déroulé de la démonstration, en millisecondes depuis le début.
+ * Les valeurs affichées sont fictives : c'est une illustration, pas un relevé.
+ */
+export const DEMO_TIMELINE = {
+  scan: 500,
+  /** Première donnée extraite ; les suivantes s'égrènent à `fieldInterval`. */
+  firstField: 1500,
+  fieldInterval: 550,
+  result: 4200,
+};
 
 /* --------------------------------------------------------------------------
    Questionnaire

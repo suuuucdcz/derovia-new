@@ -7,13 +7,16 @@
 
 import { OrganicBackground } from './background.js';
 import { createDeck } from './deck.js';
+import { createDemo } from './demo.js';
 import { createSurvey } from './survey.js';
-import { SLIDES, SURVEY_SLIDE, TIMING } from './config.js';
+import { DEMO_SLIDE, SLIDES, SURVEY_SLIDE, TIMING } from './config.js';
 
 const background = new OrganicBackground('bg-canvas');
 const survey = createSurvey();
+const demo = createDemo();
 
 let leaveTimer = null;
+let demoTimer = null;
 
 createDeck({
   onChange({ id, index }) {
@@ -30,6 +33,15 @@ createDeck({
     } else {
       // On attend la fin du glissement pour que la remise à zéro reste invisible.
       leaveTimer = setTimeout(() => survey?.reset(), TIMING.slideTransition);
+    }
+
+    // La démonstration se rejoue à chaque venue, et se remet à zéro en partant.
+    if (id === DEMO_SLIDE) {
+      clearTimeout(demoTimer);
+      demoTimer = setTimeout(() => demo?.play(), TIMING.slideTransition);
+    } else {
+      clearTimeout(demoTimer);
+      demo?.reset();
     }
   },
 });

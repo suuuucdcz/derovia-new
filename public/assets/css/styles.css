@@ -8,10 +8,11 @@
     6. Boutons
     7. Accueil
     8. Sections de contenu (expertises, méthode)
-    9. Parcours de qualification
-   10. Pages légales
-   11. Animations
-   12. Petits écrans
+    9. Démonstration
+    10. Parcours de qualification
+   11. Pages légales
+   12. Animations
+   13. Petits écrans
    ========================================================================== */
 
 /* ==========================================================================
@@ -124,6 +125,42 @@ ol {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* Escamoté jusqu'à recevoir le focus : premier arrêt de la navigation clavier. */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-inverse);
+  background: var(--ink);
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.25s var(--ease-apple);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Message de repli du parcours, affiché uniquement sans JavaScript. */
+.survey-noscript {
+  padding: 18px 20px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-panel);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.survey-noscript a {
+  color: var(--accent);
 }
 
 /* Conteneur des <symbol> : présent dans le flux mais jamais visible. */
@@ -736,7 +773,251 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   9. Parcours de qualification
+   9. Démonstration
+   ========================================================================== */
+.demo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+/* --- Le document reçu --- */
+.demo-doc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.demo-doc figcaption {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.demo-paper {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 22px;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-panel);
+  background: var(--surface-solid);
+  box-shadow: var(--shadow-raised);
+}
+
+/* Balayage de lecture : une bande lumineuse traverse le document, une fois. */
+.demo-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 46%;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(0, 113, 227, 0) 0%,
+    rgba(0, 113, 227, 0.14) 60%,
+    rgba(0, 113, 227, 0.40) 100%);
+}
+
+.demo.is-scanning .demo-scan {
+  animation: scan-sweep 3.4s var(--ease-apple) forwards;
+}
+
+.demo-paper-kind {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.demo-paper-issuer {
+  margin-top: 4px;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.demo-paper-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin-top: 12px;
+  font-size: 0.82rem;
+}
+
+.demo-paper-meta dt {
+  color: var(--text-tertiary);
+}
+
+.demo-paper-meta dd {
+  color: var(--text-secondary);
+}
+
+.demo-paper-lines {
+  width: 100%;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.demo-paper-lines th {
+  padding: 3px 0;
+  font-weight: 400;
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+.demo-paper-lines td {
+  padding: 3px 0;
+  text-align: right;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-paper-total th,
+.demo-paper-total td {
+  padding-top: 9px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --- Les données extraites --- */
+.demo-output {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.demo-output-title {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.demo-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.demo-field {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-field);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 0.86rem;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.45s var(--ease-apple), transform 0.45s var(--ease-apple);
+}
+
+.demo-field.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.demo-field span {
+  color: var(--text-tertiary);
+}
+
+.demo-field strong {
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 113, 227, 0.25);
+  border-radius: var(--radius-field);
+  background: var(--accent-soft);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s var(--ease-apple), transform 0.5s var(--ease-apple);
+}
+
+.demo-result.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.demo-result-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  color: var(--surface-solid);
+  background: var(--accent);
+}
+
+.demo-result-mark svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* --- Pied de la démonstration --- */
+.demo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.demo-replay {
+  padding: 7px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.25s var(--ease-apple);
+}
+
+.demo-replay:hover {
+  background: var(--surface-solid);
+  border-color: var(--line-strong);
+}
+
+@keyframes scan-sweep {
+  0%   { opacity: 0; transform: translateY(-100%); }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(220%); }
+}
+
+@media (max-width: 760px) {
+  .demo {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ==========================================================================
+   10. Parcours de qualification
    ========================================================================== */
 .survey {
   width: 100%;
@@ -1203,7 +1484,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   10. Pages légales (documents autonomes, sans deck ni fond animé)
+   11. Pages légales (documents autonomes, sans deck ni fond animé)
    ========================================================================== */
 .legal-page {
   max-width: 760px;
@@ -1377,7 +1658,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Animations
+   12. Animations
    ========================================================================== */
 @keyframes fade-in-down {
   from { opacity: 0; transform: translateY(-20px); }
@@ -1405,7 +1686,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   12. Petits écrans
+   13. Petits écrans
    ========================================================================== */
 @media (max-width: 900px) {
   :root {

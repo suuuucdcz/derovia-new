@@ -19,6 +19,20 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <meta name="theme-color" content="#fbfbfd">
+
+  <!-- Sans JavaScript, le deck ne peut pas naviguer : il redevient une page
+       ordinaire qui défile, et le parcours cède la place à une adresse. -->
+  <noscript>
+    <style>
+      html.deck, html.deck body { height: auto; overflow: auto; }
+      .deck-viewport { height: auto; overflow: visible; }
+      .deck-track { transform: none; }
+      .slide-section { flex-basis: auto; min-height: 100vh; }
+      .site-header { position: absolute; }
+      .deck-dots, .btn-nav, .btn-back, #survey { display: none; }
+    </style>
+  </noscript>
 
   <script>
     // La page reste masquée le temps que le deck et le fond soient prêts, pour
@@ -31,6 +45,8 @@
 </head>
 
 <body data-slide="hero">
+
+  <a class="skip-link" href="#slide-parcours">Aller au parcours de qualification</a>
 
   <!-- Symboles SVG réutilisables, référencés plus bas via <use>. -->
   <svg class="svg-sprite" aria-hidden="true">
@@ -278,7 +294,75 @@
       </section>
 
       <!-- ============================================================
-           4 — Parcours de qualification
+           4 — Démonstration
+           ============================================================ -->
+      <section class="slide-section" id="slide-demo" aria-label="Démonstration">
+        <div class="slide-inner slide-content">
+
+          <header class="section-head">
+            <p class="section-eyebrow">Démonstration</p>
+            <h2 class="section-title">Une facture, traitée sans personne</h2>
+            <p class="section-lead">
+              De la réception du courriel à l’écriture comptable. Les données
+              ci-dessous sont fictives.
+            </p>
+          </header>
+
+          <div class="demo" id="demo">
+
+            <figure class="demo-doc">
+              <figcaption>Reçue par courriel · 09:14</figcaption>
+
+              <div class="demo-paper">
+                <span class="demo-scan" aria-hidden="true"></span>
+
+                <p class="demo-paper-kind">Facture</p>
+                <p class="demo-paper-issuer">Delmas &amp; Fils SAS</p>
+
+                <dl class="demo-paper-meta">
+                  <dt>N°</dt><dd>F-2026-0871</dd>
+                  <dt>Échéance</dt><dd>30/09/2026</dd>
+                </dl>
+
+                <table class="demo-paper-lines">
+                  <tr><th scope="row">Prestation</th><td>1 040,00 €</td></tr>
+                  <tr><th scope="row">TVA 20 %</th><td>208,00 €</td></tr>
+                  <tr class="demo-paper-total"><th scope="row">Total</th><td>1 248,00 €</td></tr>
+                </table>
+              </div>
+            </figure>
+
+            <div class="demo-output">
+              <p class="demo-output-title">Données extraites</p>
+
+              <ul class="demo-fields">
+                <li class="demo-field"><span>Fournisseur</span><strong>Delmas &amp; Fils SAS</strong></li>
+                <li class="demo-field"><span>N° de pièce</span><strong>F-2026-0871</strong></li>
+                <li class="demo-field"><span>Montant TTC</span><strong>1 248,00 €</strong></li>
+                <li class="demo-field"><span>TVA déductible</span><strong>208,00 €</strong></li>
+                <li class="demo-field"><span>Compte imputé</span><strong>401DELMAS</strong></li>
+              </ul>
+
+              <p class="demo-result">
+                <span class="demo-result-mark" aria-hidden="true">
+                  <svg><use href="#icon-check"></use></svg>
+                </span>
+                Écriture comptable créée et pièce archivée.
+              </p>
+            </div>
+
+          </div>
+
+          <p class="demo-meta">
+            <span>4&nbsp;secondes · aucune saisie · le comptable ne fait que valider.</span>
+            <button type="button" class="demo-replay" id="demo-replay">Rejouer</button>
+          </p>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           5 — Parcours de qualification
            ============================================================ -->
       <section class="slide-section" id="slide-parcours" aria-label="Parcours">
         <div class="slide-inner slide-content">
@@ -355,6 +439,14 @@
                 <a href="/confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a>.
               </p>
             </form>
+
+            <noscript>
+              <p class="survey-noscript">
+                Le parcours de qualification nécessite JavaScript. Écrivez-nous à
+                <a href="mailto:contact@derovia.com">contact@derovia.com</a> et
+                décrivez votre métier : nous vous répondons sous 48&nbsp;heures ouvrées.
+              </p>
+            </noscript>
 
             <div class="survey-done">
               <span class="done-badge" aria-hidden="true">
