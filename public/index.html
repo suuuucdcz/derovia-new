@@ -109,8 +109,8 @@
     <input type="text" name="metier">
     <input type="text" name="besoins">
     <input type="text" name="volume">
-    <input type="text" name="urgence">
-    <input type="text" name="gain">
+    <input type="text" name="gainTemps">
+    <input type="text" name="gainArgent">
     <textarea name="echange"></textarea>
   </form>
 
@@ -533,6 +533,13 @@
             <form class="summary-card" id="summary-form" novalidate>
               <h3 class="summary-title">Synthèse de votre besoin</h3>
               <dl class="summary-fields" id="summary-fields"></dl>
+
+              <!-- Le taux est celui de la page Rentabilité : un visiteur qui
+                   vérifie doit retomber sur le même calcul. -->
+              <p class="summary-methode">
+                Estimation calculée sur un coût horaire chargé de 28 €, le même que
+                <button type="button" class="lien-texte" data-goto="rentabilite">la page Rentabilité</button>.
+              </p>
 
               <div class="summary-form-row">
                 <label class="field">

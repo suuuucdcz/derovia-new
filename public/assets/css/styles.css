@@ -1710,10 +1710,50 @@ body[data-slide="parcours"] .btn-nav {
   color: var(--text-primary);
 }
 
-/* Le gain estimé est la ligne qui emporte la décision : elle se détache. */
-.summary-fields dd[data-key="gain"] {
+/* Les deux dernières lignes sont celles qui emportent la décision : le temps
+   rendu et ce qu'il vaut. Un filet les sépare du descriptif du besoin, qui
+   n'est qu'un constat, et la couleur d'accent les fait sortir de la liste. */
+.summary-fields dt[data-key="gainTemps"],
+.summary-fields dd[data-key="gainTemps"] {
+  margin-top: 4px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.summary-fields dd[data-key^="gain"] {
   font-weight: 600;
   color: var(--accent);
+}
+
+/* Le montant annuel est le chiffre qu'on retient : il est le plus gros. */
+.summary-fields dd[data-key="gainArgent"] {
+  font-size: 1.15rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* D'où vient le taux : la même base que la page Rentabilité, vérifiable en un
+   clic. Un chiffre dont on peut remonter la source se conteste moins. */
+.summary-methode {
+  margin-top: -4px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+.lien-texte {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.lien-texte:hover {
+  opacity: 0.75;
 }
 
 .summary-form-row {
@@ -2117,6 +2157,21 @@ body[data-slide="parcours"] .btn-nav {
     min-height: 4.2em;
   }
 
+  /* La synthèse est la carte la plus chargée du parcours, et celle où le
+     visiteur décide : le bouton d'envoi doit rester visible sans défilement. */
+  .summary-card {
+    gap: 11px;
+    padding: 16px 20px;
+  }
+
+  .summary-fields {
+    gap: 5px 20px;
+  }
+
+  .summary-methode {
+    font-size: 0.74rem;
+  }
+
   /* La rentabilité : ajustement fin sur écrans bas */
   #slide-rentabilite .section-card {
     padding: 18px 26px 16px;
@@ -2244,6 +2299,13 @@ body[data-slide="parcours"] .btn-nav {
 
   .summary-fields dd {
     margin-bottom: 8px;
+  }
+
+  /* Empilés, l'intitulé et la valeur porteraient chacun leur filet. */
+  .summary-fields dd[data-key="gainTemps"] {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
   }
 }
 

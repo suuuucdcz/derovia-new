@@ -72,119 +72,6 @@ export const DEMO_CASES = [
 export const DEMO_INTERVAL = 9500;
 
 /* --------------------------------------------------------------------------
-   Questionnaire
-   -------------------------------------------------------------------------- */
-
-export const API_ENDPOINT = '/api/groq';
-
-/**
- * Netlify intercepte les envois de formulaire postés à la racine du site ;
- * `server.py` fait de même en local. Un seul chemin pour les deux environnements.
- */
-export const LEADS_ENDPOINT = '/';
-export const LEADS_FORM_NAME = 'besoin';
-
-export const MODEL = {
-  name: 'openai/gpt-oss-20b',
-  temperature: 0.4,
-  /**
-   * Large marge volontaire : ce modèle raisonne avant de répondre et consomme
-   * couramment 900 jetons. Trop juste, la sortie JSON est tronquée et l'API
-   * rejette la requête (`json_validate_failed`).
-   */
-  maxTokens: 2000,
-};
-
-/** Une seconde tentative suffit à absorber un échec ponctuel de génération. */
-export const MODEL_RETRIES = 1;
-
-/** Pause avant la reprise : laisse aussi passer une limite de débit momentanée. */
-export const MODEL_RETRY_DELAY = 700;
-
-/** Nombre d'échanges avant la synthèse. Sert aussi de jauge de progression. */
-export const MAX_TURNS = 4;
-
-/** Première question, écrite en machine à écrire à l'ouverture du parcours. */
-export const OPENING_QUESTION = 'Quel est votre métier ?';
-
-/** Réponses proposées d'emblée : un clic suffit pour démarrer. */
-export const TRADE_SUGGESTIONS = [
-  'Bâtiment & travaux',
-  'Plomberie & chauffage',
-  'Garage & mécanique',
-  'Restauration',
-  'Coiffure & esthétique',
-  'Commerce de proximité',
-  'Cabinet comptable',
-  'Agence immobilière',
-];
-
-/**
- * Consigne système. Le modèle répond en JSON : c'est le site qui met en forme,
- * ce qui permet les réponses cliquables, la jauge et la synthèse finale.
- */
-export const SYSTEM_PROMPT = `Tu es consultant en automatisation chez Derovia. Tes interlocuteurs dirigent de petites entreprises : artisans du bâtiment, garagistes, restaurateurs, coiffeurs, commerçants, mais aussi cabinets comptables et agences immobilières. Ils manquent de temps, pas d'idées.
-
-DÉROULÉ : le prospect indique d'abord son métier. Tu mènes au maximum ${MAX_TURNS} échanges, puis tu conclus.
-- Échange 1 : cite 2 ou 3 tâches concrètes de SON métier qu'on peut lui enlever des mains, puis pose UNE question sur celle qui lui coûte le plus.
-- Échanges suivants : UNE seule question courte à la fois (à quelle fréquence, combien de temps, avec quels outils).
-- Dernier échange : tu conclus avec "done": true.
-
-TON : parle comme à un chef d'entreprise pressé, pas comme à un directeur informatique. Phrases courtes, mots de tous les jours. Jamais de jargon : ni « flux », ni « processus », ni « solution », ni « optimisation ». Tu dis « devis », « factures », « rendez-vous », « appels », « planning ». Vouvoiement, zéro emoji.
-
-FORMAT : réponds UNIQUEMENT en JSON valide, sans texte ni balise autour.
-{"message": "...", "suggestions": ["...", "..."], "done": false, "summary": null}
-
-"message" : 2 à 3 phrases maximum.
-
-"suggestions" : 3 ou 4 RÉPONSES que le prospect pourrait cliquer, rédigées à la première
-personne, 6 mots maximum chacune. Elles doivent répondre à la question que tu viens de poser.
-JAMAIS de questions. Valide : ["Les devis", "Les relances de factures"].
-Invalide : ["Quel est votre volume ?"].
-
-DERNIER ÉCHANGE ("done": true) : "suggestions" vaut [], et "message" fait trois choses,
-dans cet ordre, en 4 à 6 phrases :
-1. Tu nommes ce qu'on lui enlèverait concrètement, en reprenant ses mots à lui.
-2. Tu chiffres ce que ça lui rendrait — du temps d'abord, de l'argent si c'est évident.
-   Pars des chiffres QU'IL A DONNÉS et montre le calcul simplement
-   (exemple : « 30 devis par mois à 20 minutes, c'est 10 heures qui reviennent »).
-   S'il n'a donné aucun chiffre, raisonne sur un ordre de grandeur courant dans son métier
-   et dis-le (« pour une activité comme la vôtre, on est en général sur… »).
-3. Tu annonces en une phrase que la synthèse part à l'équipe Derovia.
-
-RÈGLE SUR LES CHIFFRES : ce sont des estimations, jamais des promesses. Écris « de l'ordre
-de », « environ », « on est en général sur ». N'invente jamais un montant précis en euros
-qu'il n'aurait pas fourni ; parle en heures, en journées, ou en pourcentage de la tâche.
-
-Et "summary" est rempli :
-{"metier": "...", "besoins": ["3 besoins maximum"], "volume": "...", "urgence": "...", "gain": "..."}
-"gain" reprend l'estimation en une ligne courte (exemple : « environ 10 h par mois »).
-Chaque champ de "summary" est une chaîne courte ; utilise "Non précisé" si l'information manque.`;
-
-/**
- * Injecté au dernier tour pour garantir une conclusion. Le mot « json » y figure
- * volontairement : l'API refuse une sortie structurée si aucun message ne le
- * mentionne, et cette consigne doit rester valable même isolée.
- */
-export const CLOSING_INSTRUCTION = `C'est le dernier échange. Ne te contente pas de répondre à sa dernière phrase : conclus.
-
-"message" doit obligatoirement contenir ces trois choses, dans cet ordre :
-1. Ce qu'on lui enlève concrètement, avec ses mots à lui.
-2. Le calcul du temps gagné, écrit en toutes lettres, à partir des chiffres QU'IL A DONNÉS. Exemple de formulation : « 30 devis par mois à 20 minutes, c'est environ 10 heures qui vous reviennent ». S'il n'a donné aucun chiffre, prends un ordre de grandeur courant de son métier et annonce-le comme tel.
-3. Une phrase disant que la synthèse part à l'équipe Derovia.
-
-"done" vaut true, "suggestions" vaut [], et "summary" est complet, "gain" compris.`;
-
-/** Intitulés des champs de la synthèse, dans l'ordre d'affichage. */
-export const SUMMARY_FIELDS = [
-  { key: 'metier', label: 'Métier' },
-  { key: 'besoins', label: 'Ce qu’on vous enlève' },
-  { key: 'volume', label: 'Volume' },
-  { key: 'urgence', label: 'Échéance' },
-  { key: 'gain', label: 'Gain estimé' },
-];
-
-/* --------------------------------------------------------------------------
    Rentabilité
    -------------------------------------------------------------------------- */
 
@@ -217,6 +104,151 @@ export const ROI_REPERES = [
   { heures: 3, libelle: 'Les devis du soir' },
   { heures: 6, libelle: 'La saisie des factures' },
   { heures: 12, libelle: 'Le standard téléphonique' },
+];
+
+/* --------------------------------------------------------------------------
+   Questionnaire
+   -------------------------------------------------------------------------- */
+
+export const API_ENDPOINT = '/api/groq';
+
+/**
+ * Netlify intercepte les envois de formulaire postés à la racine du site ;
+ * `server.py` fait de même en local. Un seul chemin pour les deux environnements.
+ */
+export const LEADS_ENDPOINT = '/';
+export const LEADS_FORM_NAME = 'besoin';
+
+export const MODEL = {
+  name: 'openai/gpt-oss-20b',
+  temperature: 0.4,
+  /**
+   * Large marge volontaire : ce modèle raisonne avant de répondre et consomme
+   * couramment 900 jetons — davantage au dernier tour, où il pose un calcul
+   * avant de conclure. Trop juste, la sortie JSON est tronquée et l'API
+   * rejette la requête (`json_validate_failed`).
+   */
+  maxTokens: 2600,
+};
+
+/** Une seconde tentative suffit à absorber un échec ponctuel de génération. */
+export const MODEL_RETRIES = 1;
+
+/** Pause avant la reprise : laisse aussi passer une limite de débit momentanée. */
+export const MODEL_RETRY_DELAY = 700;
+
+/** Nombre d'échanges avant la synthèse. Sert aussi de jauge de progression. */
+export const MAX_TURNS = 4;
+
+/** Première question, écrite en machine à écrire à l'ouverture du parcours. */
+export const OPENING_QUESTION = 'Quel est votre métier ?';
+
+/** Réponses proposées d'emblée : un clic suffit pour démarrer. */
+export const TRADE_SUGGESTIONS = [
+  'Bâtiment & travaux',
+  'Plomberie & chauffage',
+  'Garage & mécanique',
+  'Restauration',
+  'Coiffure & esthétique',
+  'Commerce de proximité',
+  'Cabinet comptable',
+  'Agence immobilière',
+];
+
+/**
+ * Consigne système. Le modèle répond en JSON : c'est le site qui met en forme,
+ * ce qui permet les réponses cliquables, la jauge et la synthèse finale.
+ */
+export const SYSTEM_PROMPT = `Tu es consultant en automatisation chez Derovia. Tes interlocuteurs dirigent de petites entreprises : artisans du bâtiment, garagistes, restaurateurs, coiffeurs, commerçants, mais aussi cabinets comptables et agences immobilières. Ils manquent de temps, pas d'idées.
+
+TA MISSION : repartir avec DEUX CHIFFRES — combien de fois par mois il fait la tâche, et combien de temps elle lui prend à chaque fois. Sans eux tu ne peux rien chiffrer, et c'est le chiffrage qui emporte la décision.
+
+DÉROULÉ : le prospect indique d'abord son métier. Tu mènes au maximum ${MAX_TURNS} échanges, puis tu conclus.
+- Échange 1 : cite 2 ou 3 tâches concrètes de SON métier qu'on peut lui enlever des mains, puis demande laquelle lui coûte le plus.
+- Échange 2 : demande le VOLUME — combien de fois par semaine ou par mois.
+- Échange 3 : demande la DURÉE — « ça vous prend combien de temps à chaque fois ? »
+- Dernier échange : tu conclus avec "done": true.
+
+FAIS MONTER LE COMPTEUR. Dès qu'il te donne un CHIFFRE, ouvre ta réponse en disant ce que ce chiffre représente, puis enchaîne sur ta question. Il doit voir ce qu'il perd grandir à chaque réponse, pas seulement à la fin.
+Le mouvement, sans jamais recopier une formule toute faite : tu ramènes le volume qu'il vient d'annoncer à un temps parlant (une demi-journée par semaine, deux jours par mois), puis tu demandes la suite.
+INTERDIT tant qu'il n'a rien chiffré : tu n'avances aucun volume ni aucune durée qu'il n'a pas prononcés. Tu poses ta question, c'est tout. Et tu ne réutilises jamais deux fois la même tournure.
+
+S'il refuse de chiffrer ou répond à côté, prends un ordre de grandeur courant de son métier, annonce-le comme tel (« pour une activité comme la vôtre, on est en général sur… ») et avance. N'insiste jamais deux fois sur la même question.
+
+TON : parle comme à un chef d'entreprise pressé, pas comme à un directeur informatique. Phrases courtes, mots de tous les jours. Jamais de jargon : ni « flux », ni « processus », ni « solution », ni « optimisation ». Tu dis « devis », « factures », « rendez-vous », « appels », « planning ». Vouvoiement, zéro emoji. Typographie française : une espace avant « ? » et « : ».
+
+FORMAT : réponds UNIQUEMENT en JSON valide, sans texte ni balise autour.
+{"message": "...", "suggestions": ["...", "..."], "done": false, "summary": null}
+
+"message" : 2 à 3 phrases maximum.
+
+"suggestions" : 3 ou 4 RÉPONSES que le prospect pourrait cliquer, rédigées à la première
+personne, 6 mots maximum chacune. Elles doivent répondre à la question que tu viens de poser.
+JAMAIS de questions. Valide : ["Les devis", "Une trentaine par mois"].
+Invalide : ["Quel est votre volume ?"].
+
+DERNIER ÉCHANGE ("done": true) : "suggestions" vaut [], et "message" fait ces cinq choses,
+dans cet ordre, en 5 à 7 phrases :
+1. Tu nommes ce qu'on lui enlèverait, en reprenant ses mots à lui. Une phrase entière, jamais un fragment.
+2. LE TEMPS — tu poses le calcul en toutes lettres à partir de SES chiffres :
+   « 30 devis par mois à 20 minutes, c'est environ 10 heures par mois. »
+3. L'ARGENT — tu convertis ces heures en euros sur un an et tu dis d'où vient le taux :
+   heures par mois × 12 × ${ROI.coutHoraire}, arrondi à la centaine.
+   « Sur la base d'un coût horaire chargé de ${ROI.coutHoraire} €, c'est de l'ordre de 3 400 € par an. »
+4. L'IMAGE — tu ramènes ces heures à des journées de travail (heures par an ÷ 7) pour que
+   le chiffre parle : « l'équivalent de 17 journées rendues dans l'année. »
+5. Une phrase : la synthèse part à l'équipe Derovia, qui revient vers lui.
+N'ANNONCE JAMAIS CE PLAN. Pas de numéros, pas d'intitulés recopiés (« Le temps : », « Ce qu'on
+vous enlève : »). Tu écris d'un trait, comme un consultant qui parle.
+
+RÈGLE SUR LES CHIFFRES : ce sont des estimations, et tu le dis (« environ », « de l'ordre de »).
+Le montant en euros est ce que ce temps lui RAPPORTE, ce qu'on lui REND. Ne l'appelle jamais
+un « coût », jamais un « prix » : il ne doit à aucun moment pouvoir se lire comme le tarif de
+Derovia. Ne cite jamais le prix d'une installation, ne t'engage sur aucun délai.
+
+Et "summary" est rempli :
+{"metier": "...", "besoins": ["3 besoins maximum"], "volume": "...", "gainTemps": "...", "gainArgent": "..."}
+"besoins" ne contient QUE ce qu'il a lui-même cité, jamais une tâche que tu as ajoutée.
+"gainTemps" : le temps rendu, en une ligne (« environ 10 h par mois »).
+"gainArgent" : la valeur sur un an, en une ligne (« de l'ordre de 3 400 € »).
+Chaque champ de "summary" est une chaîne courte ; utilise "Non précisé" si l'information manque,
+mais "gainTemps" et "gainArgent" doivent TOUJOURS porter un chiffre, quitte à partir d'un ordre
+de grandeur du métier.`;
+
+/**
+ * Injecté au dernier tour pour garantir une conclusion. Le mot « json » y figure
+ * volontairement : l'API refuse une sortie structurée si aucun message ne le
+ * mentionne, et cette consigne doit rester valable même isolée.
+ */
+export const CLOSING_INSTRUCTION = `C'est le dernier échange. Quoi qu'il vienne de répondre — un chiffre, un refus, un hors-sujet — tu conclus MAINTENANT. Tu ne poses plus aucune question, tu ne redemandes rien.
+
+Le json de "message" doit obligatoirement contenir ces cinq choses, dans cet ordre :
+1. Ce qu'on lui enlève concrètement, avec ses mots à lui, en une phrase entière — jamais un fragment comme « Les devis. ».
+2. Le temps gagné, calcul posé en toutes lettres à partir de SES chiffres : « 30 devis par mois à 20 minutes, c'est environ 10 heures par mois ». S'il n'a rien chiffré, pars d'un ordre de grandeur courant de son métier et annonce-le comme tel.
+3. La valeur de ce temps sur un an : heures par mois × 12 × ${ROI.coutHoraire}, arrondi à la centaine, en précisant qu'il s'agit d'un coût horaire chargé de ${ROI.coutHoraire} €. Ce montant n'est ni un prix, ni une promesse.
+4. Ce que ça représente en journées de travail rendues dans l'année (heures par an ÷ 7).
+5. Une phrase disant que la synthèse part à l'équipe Derovia.
+
+N'annonce jamais ce plan : ni numéros, ni intitulés recopiés. Tu écris d'un trait, comme on parle.
+
+"done" vaut true, "suggestions" vaut [], et "summary" est complet : "gainTemps" et "gainArgent" portent chacun un chiffre.`;
+
+/**
+ * Relance quand le modèle repose une question au lieu de conclure — ce qui
+ * arrive lorsque la dernière réponse est un refus de chiffrer. Sans elle, le
+ * prospect resterait indéfiniment dans l'échange.
+ */
+export const CLOSING_FALLBACK = `Tu viens de reposer une question alors que l'échange est terminé. C'est fini : plus AUCUNE question.
+
+Réponds en json avec "done": true, "suggestions": [], et un "summary" complet. S'il n'a pas voulu chiffrer, pars d'un ordre de grandeur courant de son métier et annonce-le comme tel — mais "gainTemps" et "gainArgent" portent un chiffre.`;
+
+/** Intitulés des champs de la synthèse, dans l'ordre d'affichage. */
+export const SUMMARY_FIELDS = [
+  { key: 'metier', label: 'Métier' },
+  { key: 'besoins', label: 'Ce qu’on vous enlève' },
+  { key: 'volume', label: 'Volume' },
+  { key: 'gainTemps', label: 'Temps rendu' },
+  { key: 'gainArgent', label: 'Ce que ça vaut sur un an' },
 ];
 
 /* --------------------------------------------------------------------------

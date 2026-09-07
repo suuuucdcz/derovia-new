@@ -42,7 +42,7 @@ GROQ_PATH = "/api/groq"
 LEADS_PATH = "/"
 
 # Clés de la synthèse, dans l'ordre de SUMMARY_FIELDS (config.js).
-SUMMARY_KEYS = ("metier", "besoins", "volume", "urgence", "gain")
+SUMMARY_KEYS = ("metier", "besoins", "volume", "gainTemps", "gainArgent")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 # Garde-fou : une requête légitime pèse quelques kilo-octets.

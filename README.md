@@ -62,12 +62,12 @@ héberge `contact@derovia.fr` sans frais.
     subject   Derovia — Menuisier — jean@menuiserie-durand.fr
     email     jean@menuiserie-durand.fr
     company   Menuiserie Durand
-    metier    Menuisier
-    besoins   Devis à rédiger à la main · Relances clients oubliées
-    volume    30 devis par mois
-    urgence   Dès que possible
-    gain      environ 10 h par mois
-    echange   Prospect : Je suis menuisier
+    metier      Menuisier
+    besoins     Devis à rédiger à la main · Relances clients oubliées
+    volume      30 devis par mois
+    gainTemps   environ 10 h par mois
+    gainArgent  de l'ordre de 3 400 €
+    echange     Prospect : Je suis menuisier
 
               Derovia : Combien de devis rédigez-vous par mois ?
 

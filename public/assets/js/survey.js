@@ -10,6 +10,7 @@
 
 import { askModel, submitLead } from './api.js';
 import {
+  CLOSING_FALLBACK,
   CLOSING_INSTRUCTION,
   MAX_TURNS,
   OPENING_QUESTION,
@@ -108,6 +109,9 @@ export function createSurvey() {
       if (!text) continue;
 
       const term = document.createElement('dt');
+      // La clé est portée par les deux cellules : une ligne de la synthèse peut
+      // ainsi se mettre en avant d'un bout à l'autre.
+      term.dataset.key = key;
       term.textContent = label;
 
       const detail = document.createElement('dd');
@@ -137,6 +141,25 @@ export function createSurvey() {
      Échanges
      ---------------------------------------------------------------------- */
 
+  /**
+   * Réclame la conclusion. Quand la dernière réponse est un refus de chiffrer
+   * (« je ne compte pas »), le modèle repose parfois sa question au lieu de
+   * conclure : une relance plus sèche le décide. Sans elle, le parcours ne se
+   * terminait jamais.
+   */
+  const conclure = async () => {
+    const reply = await askModel([
+      ...conversation,
+      { role: 'system', content: CLOSING_INSTRUCTION },
+    ]);
+    if (reply.done) return reply;
+
+    return askModel([
+      ...conversation,
+      { role: 'system', content: `${CLOSING_INSTRUCTION}\n\n${CLOSING_FALLBACK}` },
+    ]);
+  };
+
   const send = async (text) => {
     const answer = text.trim();
     if (!answer || busy) return;
@@ -153,19 +176,17 @@ export function createSurvey() {
     setProgress();
     el.history.scrollTop = el.history.scrollHeight;
 
-    // Au dernier tour, on demande explicitement la conclusion.
-    const messages =
-      turn >= MAX_TURNS
-        ? [...conversation, { role: 'system', content: CLOSING_INSTRUCTION }]
-        : conversation;
+    const dernier = turn >= MAX_TURNS;
 
     try {
-      const reply = await askModel(messages);
+      const reply = dernier ? await conclure() : await askModel(conversation);
       conversation.push({ role: 'assistant', content: JSON.stringify(reply) });
 
       appendMessage(reply.message, 'assistant');
 
-      if (reply.done) {
+      // Au dernier tour on passe à la synthèse quoi qu'il arrive : mieux vaut
+      // une synthèse incomplète qu'un prospect coincé dans l'échange.
+      if (reply.done || dernier) {
         summary = reply.summary;
         renderSummary(summary);
         turn = MAX_TURNS;
