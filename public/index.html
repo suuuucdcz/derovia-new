@@ -97,13 +97,21 @@
 
   <!-- Déclaration des champs du parcours pour Netlify Forms : ce formulaire
        n'est jamais affiché, il sert uniquement à la détection au déploiement.
+       Netlify n'enregistre que les champs déclarés ici, et les restitue dans
+       cet ordre dans le courriel de notification.
        Les envois réels partent de survey.js, via api.js. -->
   <form name="besoin" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
     <input type="text" name="bot-field">
+    <!-- Netlify reprend « subject » comme objet du courriel. -->
+    <input type="text" name="subject">
     <input type="email" name="email">
     <input type="text" name="company">
-    <textarea name="summary"></textarea>
-    <textarea name="conversation"></textarea>
+    <input type="text" name="metier">
+    <input type="text" name="besoins">
+    <input type="text" name="volume">
+    <input type="text" name="urgence">
+    <input type="text" name="gain">
+    <textarea name="echange"></textarea>
   </form>
 
   <!-- Fond organique animé (WebGL, repli Canvas 2D) -->

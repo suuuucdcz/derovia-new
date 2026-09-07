@@ -33,12 +33,54 @@ suffit — `server.py` n'utilise que la bibliothèque standard.
    fonction Netlify qui ajoute l'en-tête d'autorisation.
 3. **Déployer** — le premier déploiement part automatiquement, puis à chaque
    `git push` sur la branche principale.
-4. **Recevoir les besoins qualifiés** — *Forms → besoin* liste les envois.
-   Activer la notification par courriel dans *Forms → Settings →
-   Form notifications*.
+4. **Brancher la boîte mail** — voir la section suivante.
 
 > Ne jamais committer `.env`, ni coller la clé dans `netlify.toml` : ces deux
 > fichiers partent sur GitHub. `.gitignore` exclut déjà `.env`.
+
+## Recevoir les besoins par courriel
+
+Chaque parcours terminé arrive dans *Forms → besoin* sur Netlify. Pour qu'il
+arrive aussi dans une boîte mail :
+
+*Site configuration → Forms → Form notifications → Add notification → Email
+notification*, puis choisir le formulaire `besoin` et saisir l'adresse.
+
+Rien d'autre à installer : ni clé, ni service tiers, ni dépendance. Le socle
+gratuit de Netlify couvre **100 envois par mois**, largement au-dessus de ce que
+produit un site de prospection ; au-delà, l'option est payante.
+
+**Quelle adresse ?** Une boîte dédiée plutôt que la messagerie personnelle : les
+besoins qualifiés se retrouvent, se transfèrent et se partagent à deux sans
+fouiller. Tant que le domaine n'est pas déposé, n'importe quelle adresse
+gratuite convient. Une fois `derovia.fr` en main, le plan gratuit de Zoho Mail
+héberge `contact@derovia.fr` sans frais.
+
+**Ce que contient le courriel.** L'objet porte le métier et l'adresse
+(`Derovia — Menuisier — jean@…`), et chaque information a son propre champ :
+
+    subject   Derovia — Menuisier — jean@menuiserie-durand.fr
+    email     jean@menuiserie-durand.fr
+    company   Menuiserie Durand
+    metier    Menuisier
+    besoins   Devis à rédiger à la main · Relances clients oubliées
+    volume    30 devis par mois
+    urgence   Dès que possible
+    gain      environ 10 h par mois
+    echange   Prospect : Je suis menuisier
+
+              Derovia : Combien de devis rédigez-vous par mois ?
+
+              Prospect : 30 environ
+
+`echange` conserve le dialogue entier : ce que le prospect a écrit de sa main
+vaut souvent plus que la synthèse.
+
+La mise en forme est construite dans [api.js](public/assets/js/api.js).
+Netlify n'enregistre que les champs déclarés dans le formulaire caché en tête
+d'[index.html](public/index.html) : ajouter une ligne à `SUMMARY_FIELDS`
+suppose d'ajouter aussi l'`<input>` correspondant, sinon le champ est envoyé
+mais jamais retenu.
 
 ## À compléter avant la mise en ligne
 

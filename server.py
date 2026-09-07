@@ -40,6 +40,9 @@ LEADS_FILE = ROOT / "leads.jsonl"
 GROQ_PATH = "/api/groq"
 # Netlify intercepte les envois de formulaire postés à la racine du site.
 LEADS_PATH = "/"
+
+# Clés de la synthèse, dans l'ordre de SUMMARY_FIELDS (config.js).
+SUMMARY_KEYS = ("metier", "besoins", "volume", "urgence", "gain")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 # Garde-fou : une requête légitime pèse quelques kilo-octets.
@@ -64,14 +67,6 @@ def load_env_file(path: Path) -> None:
 
         key, _, value = line.partition("=")
         os.environ.setdefault(key.strip(), value.strip().strip("\"'"))
-
-
-def decode_json_field(raw: str):
-    """Rend l'objet sérialisé dans un champ de formulaire, ou la chaîne brute."""
-    try:
-        return json.loads(raw) if raw else None
-    except json.JSONDecodeError:
-        return raw
 
 
 class DeroviaHandler(SimpleHTTPRequestHandler):
@@ -133,13 +128,15 @@ class DeroviaHandler(SimpleHTTPRequestHandler):
             self._send_json(400, {"error": "Adresse électronique invalide"})
             return
 
+        # Mêmes champs qu'en production : ce que montre `leads.jsonl` est ce
+        # que contiendra le courriel de notification envoyé par Netlify.
         record = {
             "received_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "subject": field("subject"),
             "email": email,
             "company": field("company"),
-            # Les champs de formulaire sont des chaînes : on restaure la structure.
-            "summary": decode_json_field(field("summary")),
-            "conversation": decode_json_field(field("conversation")),
+            "synthese": {cle: field(cle) for cle in SUMMARY_KEYS},
+            "echange": field("echange"),
         }
 
         try:

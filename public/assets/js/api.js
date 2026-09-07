@@ -14,6 +14,7 @@ import {
   MODEL,
   MODEL_RETRIES,
   MODEL_RETRY_DELAY,
+  SUMMARY_FIELDS,
 } from './config.js';
 
 /** Réponse attendue du modèle, une fois validée. */
@@ -68,17 +69,30 @@ async function requestReply(messages) {
 /**
  * Transmet le besoin qualifié. L'envoi est encodé comme un formulaire : c'est le
  * format attendu par Netlify Forms en production, et par `server.py` en local.
+ *
+ * Chaque information part dans son propre champ, en texte lisible. Le courriel
+ * de notification devient ainsi une fiche qu'on lit d'un coup d'œil sur un
+ * téléphone, au lieu d'un bloc JSON à déplier.
+ *
  * @param {{email: string, company: string, summary: object, conversation: Array}} lead
  */
 export async function submitLead(lead) {
   const body = new URLSearchParams({
     'form-name': LEADS_FORM_NAME,
+    // Netlify reprend ce champ comme objet du courriel de notification.
+    subject: sujet(lead),
     email: lead.email,
     company: lead.company ?? '',
-    // Les champs de formulaire sont des chaînes : la structure est sérialisée.
-    summary: JSON.stringify(lead.summary ?? null),
-    conversation: JSON.stringify(lead.conversation ?? []),
+    echange: transcrire(lead.conversation ?? []),
   });
+
+  // Un champ par ligne de la synthèse. Ajouter une entrée à SUMMARY_FIELDS
+  // suffit ici, mais il faut aussi la déclarer dans le formulaire caché
+  // d'index.html : Netlify n'enregistre que les champs qu'il a vus au
+  // déploiement.
+  for (const { key } of SUMMARY_FIELDS) {
+    body.set(key, lisible(lead.summary?.[key]));
+  }
 
   const response = await fetch(LEADS_ENDPOINT, {
     method: 'POST',
@@ -87,6 +101,39 @@ export async function submitLead(lead) {
   });
 
   if (!response.ok) throw new Error(`Réponse ${response.status} lors de la transmission`);
+}
+
+/** Une valeur de synthèse est un texte ou une liste ; les deux se lisent. */
+const lisible = (valeur) =>
+  Array.isArray(valeur) ? valeur.join(' · ') : String(valeur ?? '').trim();
+
+/** Objet du courriel : le métier et l'adresse suffisent à trier une boîte. */
+function sujet(lead) {
+  const metier = lisible(lead.summary?.metier) || 'Nouveau besoin';
+  return `Derovia — ${metier} — ${lead.email}`;
+}
+
+const INTERLOCUTEURS = { user: 'Prospect', assistant: 'Derovia' };
+
+/**
+ * Rend l'échange sous forme de dialogue. Les réponses du modèle sont conservées
+ * en JSON dans la conversation, car il faut les lui renvoyer telles quelles :
+ * on n'en garde ici que le message adressé au prospect.
+ */
+function transcrire(conversation) {
+  return conversation
+    .map((entree) => `${INTERLOCUTEURS[entree.role] ?? entree.role} : ${propos(entree)}`)
+    .join('\n\n');
+}
+
+function propos(entree) {
+  if (entree.role !== 'assistant') return entree.content;
+
+  try {
+    return JSON.parse(entree.content).message ?? entree.content;
+  } catch {
+    return entree.content;
+  }
 }
 
 /**
