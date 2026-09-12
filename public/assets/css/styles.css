@@ -2878,19 +2878,18 @@ body.menu-ouvert .deck-dots {
   .site-header::before {
     content: "";
     position: absolute;
-    inset: -1px 0 -18px;
+    /* Le voile couvre l'en-tête en plein, puis déborde de 26 px en dessous :
+       le fondu se joue entièrement dans ce débord. Dégradé sur toute la
+       hauteur, le texte qui passait sous la moitié basse de l'en-tête n'était
+       ni flouté ni voilé — il s'y lisait en filigrane, comme une trace. */
+    inset: -1px 0 -26px;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgba(251, 251, 253, 0.94) 0%,
-      rgba(251, 251, 253, 0.86) 46%,
-      rgba(251, 251, 253, 0) 100%
-    );
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    -webkit-mask-image: linear-gradient(to bottom, #000 52%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 52%, transparent 100%);
+    background: rgba(251, 251, 253, 0.92);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 26px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 26px), transparent 100%);
   }
 
   .site-header {
@@ -2954,10 +2953,20 @@ body.menu-ouvert .deck-dots {
     scrollbar-width: none;
   }
 
-  /* Seul le rail des métiers touche le bord de la carte : il en est l'enfant
-     direct, et les marges négatives valent exactement son rembourrage. Celui
-     des repères vit dans un panneau qui a déjà le sien. */
+  /* Chaque rail court jusqu'au bord de son contenant, faute de quoi la
+     dernière pastille paraît tranchée au milieu d'une marge — un défaut,
+     pas une invitation à faire glisser. Les valeurs sont fixées ici pour que
+     le débord corresponde exactement au rembourrage. */
   .demo-trades {
+    margin-inline: -16px;
+    padding-inline: 16px;
+  }
+
+  .roi-cockpit {
+    padding: 14px 16px;
+  }
+
+  .roi-reperes {
     margin-inline: -16px;
     padding-inline: 16px;
   }
