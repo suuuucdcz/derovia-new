@@ -2879,6 +2879,155 @@ body.menu-ouvert .deck-dots {
     border-top: 1px solid var(--line-soft);
   }
 
+  /* --- Largeur utile ---
+     Les cartes s'emboîtaient : gouttière 22, carte de section 34, panneau
+     intérieur 18. Il ne restait que 263 px de texte sur un écran de 375, d'où
+     des paragraphes en colonne étroite et des pastilles seules sur leur ligne.
+     En rognant les deux premiers niveaux, le texte récupère une cinquantaine
+     de pixels — presque une ligne de gagnée à chaque paragraphe. */
+  :root {
+    --gutter: 16px;
+  }
+
+  .section-card {
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+
+  /* --- Titres ---
+     `3.6vw` ne donne plus rien d'utile sous 400 px : le titre tombait au
+     minimum de la fourchette, calibré pour un grand écran. */
+  .section-title {
+    font-size: 1.55rem;
+    line-height: 1.18;
+  }
+
+  .section-lead {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .section-eyebrow {
+    margin-bottom: 8px;
+    font-size: 0.72rem;
+  }
+
+  /* --- Sélecteurs en rail ---
+     Un libellé comme « Plomberie & chauffage » fait 170 px : deux n'ont jamais
+     tenu sur une ligne, et le retour à la ligne les empilait une par une. En
+     rail horizontal ils tiennent sur une seule, comme les filtres d'une
+     application. Les marges négatives font courir le rail jusqu'au bord de la
+     carte, sinon la dernière pastille paraîtrait coupée par une marge. */
+  .demo-trades,
+  .roi-reperes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* Sans `min-width: 0`, un enfant de flex ou de grille refuse de passer
+       sous la largeur de son contenu : au lieu de défiler, le rail élargissait
+       toute la carte et la poussait hors de l'écran. */
+    min-width: 0;
+    scrollbar-width: none;
+  }
+
+  /* Seul le rail des métiers touche le bord de la carte : il en est l'enfant
+     direct, et les marges négatives valent exactement son rembourrage. Celui
+     des repères vit dans un panneau qui a déjà le sien. */
+  .demo-trades {
+    margin-inline: -16px;
+    padding-inline: 16px;
+  }
+
+  /* La chaîne entière doit accepter de rétrécir, sinon le débordement remonte
+     de parent en parent jusqu'à la carte. */
+  .roi-grid,
+  .roi-cockpit,
+  .roi-controle,
+  .roi-subcards {
+    min-width: 0;
+  }
+
+  .demo-trades::-webkit-scrollbar,
+  .roi-reperes::-webkit-scrollbar {
+    display: none;
+  }
+
+  .demo-trade,
+  .roi-repere {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  /* --- Listes de cartes ---
+     Icône au-dessus du titre, une carte mesurait 130 px pour trois lignes de
+     texte. À gauche du titre, elle en mesure 80 : quatre cartes empilées
+     gagnent 200 px, sans qu'un mot disparaisse. */
+  .card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 13px;
+    padding: 14px 16px;
+  }
+
+  .card-icon {
+    grid-row: span 2;
+    align-self: start;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 0;
+  }
+
+  .card-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .card h3 {
+    align-self: center;
+    font-size: 0.98rem;
+  }
+
+  .card p {
+    margin-top: 3px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .card-grid {
+    gap: 10px;
+  }
+
+  /* Même traitement pour les étapes : le numéro passe en regard du titre. */
+  .steps {
+    gap: 10px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 12px;
+    gap: 0 12px;
+    padding: 12px 2px 14px;
+  }
+
+  .step-index {
+    align-self: center;
+  }
+
+  .step h3 {
+    font-size: 0.98rem;
+  }
+
+  .step p {
+    margin-top: 3px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .step-meta {
+    margin-top: 7px;
+  }
+
   /* Le graphique de rentabilité disparaît. Sur 280 px de large, ses libellés
      — « Mise en service », « Remboursé au 4ᵉ mois », « 12 mois » — ne se
      lisent plus : il n'illustre plus rien, il occupe. Les montants juste en

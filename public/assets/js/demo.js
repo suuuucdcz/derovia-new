@@ -59,6 +59,17 @@ export function createDemo() {
 
     boutons.forEach((b, j) => b.classList.toggle(ACTIF, j === i));
 
+    // Sur téléphone, les onglets forment un rail horizontal : le métier retenu
+    // serait hors champ au fil du défilement automatique. On déplace le rail
+    // lui-même, jamais la page — `scrollIntoView` l'entraînerait avec elle.
+    const bouton = boutons[i];
+    if (bouton && onglets.scrollWidth > onglets.clientWidth) {
+      onglets.scrollTo({
+        left: bouton.offsetLeft - (onglets.clientWidth - bouton.offsetWidth) / 2,
+        behavior: reducedMotion.matches ? 'auto' : 'smooth',
+      });
+    }
+
     const champs = [
       [charge, cas.charge],
       [reponse, cas.reponse],

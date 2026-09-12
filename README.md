@@ -245,6 +245,23 @@ ne se lisent plus à 280 px de large, et les montants juste en dessous portent
 seuls la démonstration), et le mot « Derovia » à côté du monogramme sous 480 px,
 qui coûtait exactement la place manquante à l'appel à l'action.
 
+**Ce qui change de forme.** Empilé tel quel, le site devenait un ruban vertical
+de 8 000 px. Trois corrections l'ont ramené à 6 200 sans qu'un mot disparaisse :
+
+- *La largeur utile.* Les cartes s'emboîtaient — gouttière 48, carte de section
+  34, panneau intérieur 18 — et il ne restait que 263 px de texte sur un écran
+  de 375. En rognant les deux premiers niveaux : 311 px, soit presque une ligne
+  gagnée à chaque paragraphe.
+- *Les sélecteurs deviennent des rails.* « Plomberie & chauffage » fait 170 px :
+  deux pastilles n'ont jamais tenu sur une ligne, et le retour à la ligne les
+  empilait une par une — cinq lignes, 275 px. En rail horizontal, 36 px. La
+  démonstration y fait glisser le métier retenu au fil de son défilement, en
+  déplaçant le rail et jamais la page. Un rail exige `min-width: 0` sur toute
+  sa lignée d'ancêtres, sans quoi il élargit la carte au lieu de défiler.
+- *L'icône passe à gauche du titre* dans les cartes et les étapes. Une carte
+  mesure 80 px au lieu de 130 ; les quatre expertises tiennent désormais sur un
+  écran, bouton compris.
+
 ⚠ La requête est écrite deux fois, dans `config.js` et dans `styles.css`. Elles
 doivent rester identiques : modifier l'une sans l'autre laisserait le script et
 la mise en page dans deux modes différents.
