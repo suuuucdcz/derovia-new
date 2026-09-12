@@ -249,11 +249,13 @@ ne se lisent plus à 280 px de large, et les montants juste en dessous portent
 seuls la démonstration), et le mot « Derovia » à côté du monogramme sous 480 px,
 qui coûtait exactement la place manquante à l'appel à l'action.
 
-S'y ajoutent trois retraits propres au téléphone et à la rentabilité. La fenêtre
-SmartScreen reproduite et la note du premier lancement disparaissent : un
-téléphone n'installe pas une application Windows, ces deux éléments décrivent
-des moments qui n'arriveront pas là. **La consigne reste écrite en toutes
-lettres** — c'est elle qui compte, pas le dessin. Et la ligne
+S'y ajoutent deux retraits propres au téléphone et à la rentabilité. Tout ce qui
+décrit l'installation disparaît — l'avertissement SmartScreen, sa marche à
+suivre, la note du premier lancement : un téléphone n'installe pas une
+application Windows, et ces éléments décrivent des moments qui n'arriveront pas
+là. Ils reviennent en entier sur l'ordinateur, avant le clic qui compte, si bien
+que rien n'est caché à qui s'apprête à installer. À la place, la seule chose
+utile ici : `.dl-plateforme`, une ligne qui dit où ça s'installe. Et la ligne
 « 6 h × 47 sem. × 28 € = 7 896 € / an » s'efface, parce qu'elle répète le montant
 que la carte « Valeur annuelle créée » affiche trois lignes plus bas : côte à
 côte les deux se lisaient d'un coup d'œil, empilés c'était deux fois la même

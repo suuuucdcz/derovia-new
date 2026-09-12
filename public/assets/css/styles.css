@@ -1709,6 +1709,14 @@ body.menu-ouvert .deck-dots {
   color: var(--text-tertiary);
 }
 
+/* Réservée au mode défilement, où l'encadré d'avertissement n'a plus lieu
+   d'être. Sur grand écran, on est déjà sur la machine qui installera. */
+.dl-plateforme {
+  display: none;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
 /* ==========================================================================
    13. Parcours de qualification
    ========================================================================== */
@@ -3045,14 +3053,19 @@ body.menu-ouvert .deck-dots {
   }
 
   /* --- Téléchargement ---
-     Un téléphone ne peut pas installer une application Windows : la fenêtre
-     reproduite n'y sert à rien, elle sera revue sur l'ordinateur au moment
-     d'installer. La consigne, elle, reste écrite en toutes lettres — c'est
-     elle qui compte, pas le dessin. La note du premier lancement part pour la
-     même raison : elle décrit un moment qui n'arrivera pas ici. */
-  .ss-fenetre,
+     Un téléphone n'installe pas une application Windows. Tout ce qui décrit
+     l'installation s'efface donc : l'avertissement SmartScreen, sa marche à
+     suivre et la note du premier lancement décrivent des moments qui
+     n'arriveront pas ici. Ils reviennent en entier sur l'ordinateur, avant le
+     clic qui compte — rien n'est caché à qui s'apprête à installer.
+     À la place, la seule chose utile ici : où ça s'installe. */
+  .dl-alerte,
   .dl-note {
     display: none;
+  }
+
+  .dl-plateforme {
+    display: block;
   }
 
   /* --- Rentabilité ---
