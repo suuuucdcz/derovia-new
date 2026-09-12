@@ -206,6 +206,49 @@ propagation.
 Sur téléphone, c'est un gain net : les liens horizontaux y étaient simplement
 masqués, il n'y avait aucun menu.
 
+### Le mode défilement
+
+En dessous de `REQUETE_DEFILEMENT` ([config.js](public/assets/js/config.js)) —
+820 px de large **ou** 560 px de haut — le deck cesse d'être un deck : les
+sections s'empilent et la page défile normalement.
+
+La raison est un conflit de gestes. Une diapositive plein écran sur un téléphone
+oblige à faire défiler l'intérieur d'une section pendant que le glissement sert
+déjà à en changer : deux gestes pour un seul doigt, et un contenu comprimé dans
+une hauteur qui ne lui convient pas. La hauteur compte autant que la largeur —
+un téléphone couché fait 375 px de haut, où aucune section ne tiendrait.
+
+Ce que le mode change :
+
+- `deck.js` cesse d'intercepter molette, glissement et flèches : c'est le
+  navigateur qui fait défiler.
+- Un `IntersectionObserver` remplace la position imposée. Une marge négative de
+  45 % ne laisse passer qu'une bande étroite au milieu de l'écran : une seule
+  section la croise à la fois, quelle que soit sa hauteur. Un seuil en
+  pourcentage ne se déclencherait jamais pour une section plus haute que la
+  fenêtre.
+- `goTo` déplace la page au lieu du deck, avec `scroll-margin-top` pour que
+  l'en-tête fixe ne recouvre pas la section visée.
+- Le pied de page, logé dans l'accueil où il se cale en bas d'écran, rejoint la
+  fin du document. Déplacé, jamais dupliqué.
+- L'en-tête prend un fond : flottant au-dessus de diapositives centrées il n'en
+  avait pas besoin, sur une page qui défile le texte lui passe dessous.
+- Le parcours de qualification ne se remet plus à zéro quand on le quitte : on
+  ne le quitte pas volontairement, on le dépasse du pouce.
+
+La bascule est vivante : redimensionner la fenêtre au-delà du seuil rebranche
+l'autre mode sans rechargement.
+
+**Ce qui disparaît sur petit écran** : les pastilles latérales (la barre du
+navigateur dit déjà où l'on en est), le graphique de rentabilité (ses libellés
+ne se lisent plus à 280 px de large, et les montants juste en dessous portent
+seuls la démonstration), et le mot « Derovia » à côté du monogramme sous 480 px,
+qui coûtait exactement la place manquante à l'appel à l'action.
+
+⚠ La requête est écrite deux fois, dans `config.js` et dans `styles.css`. Elles
+doivent rester identiques : modifier l'une sans l'autre laisserait le script et
+la mise en page dans deux modes différents.
+
 ## Le parcours de qualification
 
 Quatre phases, portées par `data-phase` sur le conteneur `#survey` :

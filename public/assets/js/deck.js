@@ -9,7 +9,7 @@
  * élément portant `data-goto` (un identifiant de section, ou `prev` / `next`).
  */
 
-import { SLIDES } from './config.js';
+import { REQUETE_DEFILEMENT, SLIDES } from './config.js';
 
 /** Intensité de l'effet magnétique des boutons principaux (0 = désactivé). */
 const MAGNET_STRENGTH = 0.12;
@@ -33,6 +33,14 @@ export function createDeck({ onChange } = {}) {
 
   const dots = document.getElementById('deck-dots');
   const indexOf = (id) => SLIDES.findIndex((slide) => slide.id === id);
+  const sectionOf = (index) => document.getElementById(`slide-${SLIDES[index].id}`);
+
+  /* --- Deux modes ---
+     Sur grand écran, les sections glissent sous une fenêtre fixe. Sur petit
+     écran, elles s'empilent et la page défile : c'est le navigateur qui gère
+     le geste, et le doigt n'a plus qu'une chose à faire. --- */
+  const petitEcran = window.matchMedia(REQUETE_DEFILEMENT);
+  let enDefilement = petitEcran.matches;
 
   let current = 0;
 
@@ -47,18 +55,29 @@ export function createDeck({ onChange } = {}) {
     else if (typeof target === 'number') index = target;
     else index = indexOf(target);
 
-    if (index < 0 || index >= SLIDES.length || index === current) return false;
+    if (index < 0 || index >= SLIDES.length) return false;
 
-    current = index;
+    if (enDefilement) {
+      // L'observateur annoncera l'arrivée : ici on ne fait que se déplacer.
+      sectionOf(index)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return index !== current;
+    }
+
+    if (index === current) return false;
     viewport.style.setProperty('--slide-index', String(index));
+    marquerCourante(index);
+    return true;
+  };
+
+  /** Enregistre la section atteinte et prévient le reste de l'application. */
+  const marquerCourante = (index) => {
+    current = index;
     // Sur <body> aussi : les éléments hors du deck (en-tête) s'y adaptent.
     viewport.dataset.slide = SLIDES[index].id;
     document.body.dataset.slide = SLIDES[index].id;
-    document.body.classList.add('has-navigated');
 
     syncNav(index);
     onChange?.({ ...SLIDES[index], index });
-    return true;
   };
 
   const syncNav = (index) => {
@@ -87,6 +106,49 @@ export function createDeck({ onChange } = {}) {
     }
   }
 
+  /* --- Mode défilement : la section visible fait foi ---
+     Rien n'est imposé, on constate. La marge négative ne laisse passer qu'une
+     bande étroite au milieu de l'écran : une seule section la croise à la fois,
+     quelle que soit sa hauteur — un seuil en pourcentage ne se déclencherait
+     jamais pour une section plus haute que la fenêtre. --- */
+  const sections = SLIDES.map((_, index) => sectionOf(index)).filter(Boolean);
+  const rangs = new Map(sections.map((section, index) => [section, index]));
+
+  const observateur = new IntersectionObserver(
+    (entrees) => {
+      const arrivee = entrees.find((entree) => entree.isIntersecting);
+      if (!arrivee) return;
+
+      const index = rangs.get(arrivee.target);
+      if (index !== undefined && index !== current) marquerCourante(index);
+    },
+    { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+  );
+
+  /* Le pied de page est logé dans l'accueil, où il se cale en bas d'écran.
+     Sur une page qui défile, il se retrouverait au premier tiers du document :
+     il rejoint la fin. Déplacé, jamais dupliqué. */
+  const pied = document.querySelector('.site-footer');
+  const logeDuPied = pied?.parentElement;
+
+  const appliquerMode = () => {
+    if (pied) (enDefilement ? viewport : logeDuPied)?.append(pied);
+
+    if (enDefilement) {
+      // C'est la page qui se déplace : le décalage des diapositives doit partir.
+      viewport.style.setProperty('--slide-index', '0');
+      for (const section of sections) observateur.observe(section);
+    } else {
+      observateur.disconnect();
+      viewport.style.setProperty('--slide-index', String(current));
+    }
+  };
+
+  petitEcran.addEventListener('change', (event) => {
+    enDefilement = event.matches;
+    appliquerMode();
+  });
+
   /* --- Tout élément portant `data-goto` navigue --- */
   for (const trigger of document.querySelectorAll('[data-goto]')) {
     if (trigger.classList.contains('deck-dot')) continue;
@@ -98,21 +160,30 @@ export function createDeck({ onChange } = {}) {
 
   document.querySelectorAll('.btn-primary, .btn-secondary').forEach(bindMagneticEffect);
 
-  bindWheel(viewport, goTo);
-  bindSwipe(viewport, goTo);
-  bindKeyboard(goTo);
+  // En mode défilement, c'est le navigateur qui fait défiler : intercepter la
+  // molette, le glissement ou les flèches ne ferait que lui disputer le geste.
+  const enModeDeck = () => !enDefilement;
+
+  bindWheel(viewport, goTo, enModeDeck);
+  bindSwipe(viewport, goTo, enModeDeck);
+  bindKeyboard(goTo, enModeDeck);
 
   viewport.dataset.slide = SLIDES[0].id;
   syncNav(0);
+  appliquerMode();
 
-  return { goTo, get current() { return current; } };
+  return {
+    goTo,
+    get current() { return current; },
+    get enDefilement() { return enDefilement; },
+  };
 }
 
 /* ==========================================================================
    Gestes
    ========================================================================== */
 
-function bindWheel(viewport, goTo) {
+function bindWheel(viewport, goTo, enModeDeck) {
   let accumulated = 0;
   let lastEvent = 0;
   let lockedUntil = 0;
@@ -120,6 +191,8 @@ function bindWheel(viewport, goTo) {
   viewport.addEventListener(
     'wheel',
     (event) => {
+      if (!enModeDeck()) return;
+
       // Une zone interne encore défilable garde la main : la conversation et
       // les sections trop hautes doivent pouvoir défiler normalement.
       if (findScrollable(event.target, event.deltaY, viewport)) return;
@@ -145,13 +218,14 @@ function bindWheel(viewport, goTo) {
   );
 }
 
-function bindSwipe(viewport, goTo) {
+function bindSwipe(viewport, goTo, enModeDeck) {
   let startY = null;
   let startTarget = null;
 
   viewport.addEventListener(
     'touchstart',
     (event) => {
+      if (!enModeDeck()) return;
       startY = event.touches[0]?.clientY ?? null;
       startTarget = event.target;
     },
@@ -176,8 +250,10 @@ function bindSwipe(viewport, goTo) {
   );
 }
 
-function bindKeyboard(goTo) {
+function bindKeyboard(goTo, enModeDeck) {
   window.addEventListener('keydown', (event) => {
+    if (!enModeDeck()) return;
+
     const target = event.target;
     if (target instanceof HTMLTextAreaElement || target instanceof HTMLInputElement) return;
 

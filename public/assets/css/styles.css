@@ -17,6 +17,7 @@
    15. Pages légales
    16. Animations
    17. Petits écrans
+   18. Mode défilement (téléphones, fenêtres basses)
    ========================================================================== */
 
 /* ==========================================================================
@@ -2794,6 +2795,122 @@ body.menu-ouvert .deck-dots {
 
   .smartscreen {
     gap: 6px;
+  }
+}
+
+/* ==========================================================================
+   18. Mode défilement — téléphones et fenêtres basses
+   ==========================================================================
+   Le deck cesse d'être un deck : les sections s'empilent et la page défile.
+   Sur un écran de téléphone, une diapositive plein écran oblige à faire
+   défiler l'intérieur d'une section pendant que le glissement sert déjà à en
+   changer — deux gestes pour un seul doigt. Ici, il n'y en a plus qu'un.
+
+   ⚠ Requête identique à REQUETE_DEFILEMENT dans config.js : deck.js s'y
+     accorde pour cesser d'intercepter la molette, le glissement et les
+     flèches. Modifier l'une sans l'autre casserait la navigation.
+   ========================================================================== */
+@media (max-width: 820px), (max-height: 560px) {
+  html.deck,
+  html.deck body {
+    height: auto;
+    overflow: visible;
+  }
+
+  /* `100vw` compte la barre de défilement, qui n'existait pas tant que la page
+     ne défilait pas : la largeur dépassait désormais de sa largeur exacte, et
+     la page glissait latéralement. */
+  .deck-viewport {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .deck-track {
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  /* La section prend la hauteur de son contenu, ni plus ni moins : plus rien
+     à comprimer, plus rien à faire défiler à l'intérieur. */
+  .slide-section {
+    flex: 0 0 auto;
+    min-height: 0;
+    width: 100%;
+    /* L'en-tête est fixe : sans cette marge, une section visée par le panneau
+       viendrait se ranger dessous. */
+    scroll-margin-top: calc(var(--header-height) - 8px);
+  }
+
+  .slide-inner {
+    height: auto;
+    overflow: visible;
+    justify-content: flex-start;
+    padding: 30px var(--gutter) 34px;
+  }
+
+  .slide-content {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  /* Seule la première section réserve la place de l'en-tête au-dessus d'elle. */
+  #slide-hero .slide-inner {
+    padding-top: calc(var(--header-height) + 16px);
+  }
+
+  /* Flottant au-dessus de diapositives centrées, l'en-tête n'avait besoin
+     d'aucun fond. Sur une page qui défile, le texte lui passe dessous. */
+  .site-header {
+    background: rgba(251, 251, 253, 0.82);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .site-header {
+    gap: 12px;
+  }
+
+  /* Rendu à la fin du document, il reprend l'allure d'un vrai pied de page. */
+  .site-footer {
+    padding: 26px var(--gutter) 34px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  /* Le graphique de rentabilité disparaît. Sur 280 px de large, ses libellés
+     — « Mise en service », « Remboursé au 4ᵉ mois », « 12 mois » — ne se
+     lisent plus : il n'illustre plus rien, il occupe. Les montants juste en
+     dessous portent seuls la démonstration, et mieux. */
+  .roi-visual {
+    display: none;
+  }
+
+  /* Les pastilles supposaient un nombre fini d'écrans : sur une page qui
+     défile, la barre du navigateur dit déjà où l'on en est. */
+  .deck-dots {
+    display: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Sous 480 px, le monogramme porte seul la marque : le mot « Derovia » coûtait
+   93 px, soit précisément ce qui manquait à l'appel à l'action pour tenir sur
+   la ligne. Le monogramme ramène toujours à l'accueil, et le nom reste écrit
+   dans le titre comme dans le pied de page. */
+@media (max-width: 480px) {
+  .brand-name {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 

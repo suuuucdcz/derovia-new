@@ -22,6 +22,21 @@ export const SLIDES = [
   { id: 'parcours', label: 'Parcours', resume: 'Décrivez votre besoin, on le chiffre' },
 ];
 
+/**
+ * En dessous de cette taille, le deck cesse d'être un deck : les sections
+ * s'empilent et la page défile normalement. Sur un écran de téléphone, une
+ * diapositive plein écran oblige à faire défiler l'intérieur d'une section
+ * pendant que le glissement sert déjà à changer de section — deux gestes pour
+ * un seul doigt.
+ *
+ * La hauteur compte autant que la largeur : un téléphone couché fait 375 px de
+ * haut, où aucune section ne tiendrait.
+ *
+ * ⚠ Cette requête est répétée telle quelle dans styles.css (« Mode défilement »).
+ *   Les deux doivent rester identiques.
+ */
+export const REQUETE_DEFILEMENT = '(max-width: 820px), (max-height: 560px)';
+
 export const SURVEY_SLIDE = 'parcours';
 export const DEMO_SLIDE = 'demo';
 export const VIDEO_SLIDE = 'video';

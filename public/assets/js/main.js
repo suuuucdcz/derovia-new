@@ -35,8 +35,11 @@ const deck = createDeck({
     clearTimeout(leaveTimer);
     if (isSurvey) {
       survey?.start();
-    } else {
+    } else if (!deck?.enDefilement) {
       // On attend la fin du glissement pour que la remise à zéro reste invisible.
+      // En mode défilement, on ne remet rien à zéro : le parcours ne se quitte
+      // pas volontairement, on le dépasse du pouce — et une conversation en
+      // cours ne doit pas s'effacer pour autant.
       leaveTimer = setTimeout(() => survey?.reset(), TIMING.slideTransition);
     }
 
