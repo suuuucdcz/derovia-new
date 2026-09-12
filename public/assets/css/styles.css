@@ -2882,23 +2882,17 @@ body.menu-ouvert .deck-dots {
        le fondu se joue entièrement dans ce débord. Dégradé sur toute la
        hauteur, le texte qui passait sous la moitié basse de l'en-tête n'était
        ni flouté ni voilé — il s'y lisait en filigrane, comme une trace. */
-    inset: -1px 0 -22px;
+    /* Le voile s'arrête au bas de l'en-tête : il débordait de 22 px en dessous,
+       et venait mordre sur le titre. Le fondu se joue donc dans les 16 derniers
+       pixels de l'en-tête lui-même — plus court, et plus rien en dessous. */
+    inset: -1px 0 0;
     z-index: -1;
     pointer-events: none;
-    /* Le flou fait la lisibilité, le blanc ne fait que l'appuyer : à 0,92 il
-       délavait le fond sur toute la largeur. C'est le flou qu'on augmente. */
-    background: rgba(251, 251, 253, 0.55);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent 100%);
-    opacity: 0;
-    transition: opacity 0.3s var(--ease-apple);
-  }
-
-  /* Posée par deck.js dès que la page a quitté le haut. */
-  body.a-defile .site-header::before {
-    opacity: 1;
+    background: rgba(251, 251, 253, 0.9);
+    backdrop-filter: blur(20px) saturate(145%);
+    -webkit-backdrop-filter: blur(20px) saturate(145%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 16px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 16px), transparent 100%);
   }
 
   .site-header {
@@ -2919,6 +2913,9 @@ body.menu-ouvert .deck-dots {
      de pixels — presque une ligne de gagnée à chaque paragraphe. */
   :root {
     --gutter: 16px;
+    /* Le voile épouse l'en-tête : le raccourcir le raccourcit d'autant.
+       Les boutons font 40 px, il reste 14 px de marge de part et d'autre. */
+    --header-height: 68px;
   }
 
   .section-card {

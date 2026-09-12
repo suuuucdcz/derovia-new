@@ -131,23 +131,8 @@ export function createDeck({ onChange } = {}) {
   const pied = document.querySelector('.site-footer');
   const logeDuPied = pied?.parentElement;
 
-  /* En haut de page, rien ne passe sous l'en-tête : le voile n'y couvrirait
-     que le fond animé, pour rien. Il ne s'arme qu'une fois le défilement
-     entamé, et disparaît dès qu'on revient en haut. */
-  const marquerDefilement = () => {
-    document.body.classList.toggle('a-defile', window.scrollY > 24);
-  };
-
   const appliquerMode = () => {
     if (pied) (enDefilement ? viewport : logeDuPied)?.append(pied);
-
-    if (enDefilement) {
-      window.addEventListener('scroll', marquerDefilement, { passive: true });
-      marquerDefilement();
-    } else {
-      window.removeEventListener('scroll', marquerDefilement);
-      document.body.classList.remove('a-defile');
-    }
 
     if (enDefilement) {
       // C'est la page qui se déplace : le décalage des diapositives doit partir.
