@@ -9,11 +9,13 @@
     7. Accueil
     8. Sections de contenu (expertises, méthode)
     9. Démonstration
-   10. Parcours de qualification
-   11. Vidéo (diapositive et page)
-   12. Pages légales
-   13. Animations
-   15. Petits écrans
+   10. Rentabilité
+   11. Logiciel (téléchargement Windows)
+   12. Parcours de qualification
+   13. Vidéo (diapositive et page)
+   14. Pages légales
+   15. Animations
+   16. Petits écrans
    ========================================================================== */
 
 /* ==========================================================================
@@ -486,6 +488,7 @@ body[data-slide="parcours"] .btn-nav {
   font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: -0.01em;
+  text-decoration: none;
   transition: all 0.4s var(--ease-apple);
 }
 
@@ -1338,7 +1341,235 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Parcours de qualification
+   11. Logiciel — téléchargement de la suite Windows
+   ========================================================================== */
+.dl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: 26px;
+  align-items: start;
+}
+
+/* --- Colonne gauche : l'action, puis ce qu'il faut savoir avant de cliquer --- */
+.dl-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.btn-download {
+  padding: 15px 28px;
+  font-size: 1rem;
+}
+
+/* La flèche descend au survol : on télécharge, on ne passe pas à la suite. */
+.btn-download:hover .btn-icon {
+  transform: translateY(3px);
+}
+
+/* Une seule ligne qui se replie, ponctuée de points : cinq informations
+   courtes empilées prenaient 116 px pour ce qui se lit d'un regard. */
+.dl-specs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 10px;
+  font-size: 0.87rem;
+  color: var(--text-secondary);
+}
+
+.dl-specs li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dl-specs li:not(:last-child)::after {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.55;
+}
+
+/* --- L'avertissement Windows ---
+   En bleu, jamais en rouge : l'écran SmartScreen fait déjà peur, le rôle de
+   l'encadré est de le désamorcer. Annoncé avant le clic, il transforme une
+   surprise inquiétante en étape attendue. --- */
+.dl-alerte {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px 18px;
+  border: 1px solid rgba(0, 113, 227, 0.2);
+  border-radius: var(--radius-panel);
+  background: var(--accent-soft);
+}
+
+.dl-alerte-titre {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.dl-alerte-marque {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-inverse);
+  background: var(--accent);
+}
+
+.dl-alerte > p {
+  font-size: 0.89rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* --- Reproduction de la fenêtre SmartScreen ---
+   Une illustration, pas une capture : elle montre où cliquer sans alourdir
+   la page d'une image, et suit le thème du site. --- */
+.smartscreen {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ss-fenetre {
+  padding: 13px 15px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-solid);
+  box-shadow: var(--shadow-raised);
+}
+
+.ss-titre {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ss-corps {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+.ss-lien {
+  margin-top: 9px;
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+
+.ss-boutons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.ss-bouton {
+  padding: 5px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: var(--surface-muted);
+}
+
+/* Les deux seuls éléments sur lesquels cliquer, cerclés comme sur une notice. */
+.ss-cible {
+  display: inline-block;
+  border-radius: 6px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.smartscreen figcaption {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.smartscreen figcaption strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dl-etape {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  margin-right: 2px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-inverse);
+  background: var(--accent);
+}
+
+/* --- Les trois outils --- */
+.dl-outils {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+/* Icône à gauche du texte plutôt qu'au-dessus : la même carte, 60 px de moins
+   en hauteur — de quoi faire tenir la section sur un portable 720 px. */
+.dl-outils .card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 13px;
+  padding: 15px 17px;
+}
+
+.dl-outils .card-icon {
+  grid-row: span 2;
+  align-self: start;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 0;
+  border-radius: 10px;
+}
+
+.dl-outils .card-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.dl-outils .card h3 {
+  align-self: center;
+  font-size: 1rem;
+}
+
+.dl-outils .card p {
+  margin-top: 3px;
+  font-size: 0.89rem;
+  line-height: 1.5;
+}
+
+.dl-note {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   12. Parcours de qualification
    ========================================================================== */
 .survey {
   width: 100%;
@@ -1851,7 +2082,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Vidéo — diapositive du deck et page autonome
+   13. Vidéo — diapositive du deck et page autonome
    ========================================================================== */
 
 /* --- Diapositive : un titre bref, puis le film, rien d'autre --- */
@@ -1924,7 +2155,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   13. Pages légales (documents autonomes, sans deck ni fond animé)
+   14. Pages légales (documents autonomes, sans deck ni fond animé)
    ========================================================================== */
 .legal-page {
   max-width: 760px;
@@ -2098,7 +2329,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   14. Animations
+   15. Animations
    ========================================================================== */
 @keyframes fade-in-down {
   from { opacity: 0; transform: translateY(-20px); }
@@ -2126,7 +2357,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   14. Petits écrans
+   16. Petits écrans
    ========================================================================== */
 /* Écrans bas : le panneau se resserre plutôt que de faire défiler la section. */
 @media (max-height: 800px) {
@@ -2155,6 +2386,43 @@ body[data-slide="parcours"] .btn-nav {
 
   .demo-panel-text {
     min-height: 4.2em;
+  }
+
+  .dl-grid {
+    gap: 18px;
+  }
+
+  .dl-action {
+    gap: 12px;
+  }
+
+  .dl-alerte {
+    gap: 6px;
+    padding: 13px 15px;
+  }
+
+  .smartscreen {
+    gap: 7px;
+  }
+
+  #telechargement {
+    gap: 13px;
+  }
+
+  .dl-outils .card {
+    padding: 13px 15px;
+  }
+
+  .ss-fenetre {
+    padding: 11px 13px 10px;
+  }
+
+  .ss-lien {
+    margin-top: 7px;
+  }
+
+  .ss-boutons {
+    margin-top: 8px;
   }
 
   /* La synthèse est la carte la plus chargée du parcours, et celle où le
@@ -2228,6 +2496,11 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 @media (max-width: 900px) {
+  .dl-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
   :root {
     --gutter: 22px;
     --header-height: 76px;
@@ -2301,11 +2574,65 @@ body[data-slide="parcours"] .btn-nav {
     margin-bottom: 8px;
   }
 
+  /* Pleine largeur, et le libellé se raccourcit : « pour Windows » tiendrait
+     sur une seconde ligne, alors que la ligne juste en dessous le redit. */
+  .btn-download {
+    width: 100%;
+  }
+
+  .btn-download-os {
+    display: none;
+  }
+
   /* Empilés, l'intitulé et la valeur porteraient chacun leur filet. */
   .summary-fields dd[data-key="gainTemps"] {
     margin-top: 0;
     padding-top: 0;
     border-top: 0;
+  }
+}
+
+/* Portables 1366x768 : la fenêtre utile tombe à ~640 px. Toutes les autres
+   sections y tiennent, celle du logiciel doit y tenir aussi. Ce bloc suit
+   celui des 800 px, sinon il serait écrasé par lui. */
+@media (max-height: 640px) {
+  #telechargement {
+    gap: 11px;
+  }
+
+  .dl-outils .card {
+    padding: 11px 14px;
+  }
+
+  .dl-outils .card p {
+    font-size: 0.85rem;
+  }
+
+  .dl-note {
+    font-size: 0.8rem;
+  }
+
+  .ss-corps {
+    margin-top: 3px;
+  }
+
+  .ss-boutons {
+    margin-top: 7px;
+  }
+
+  /* L'encadré devient le poste le plus haut de la section : c'est lui qui
+     doit céder les derniers pixels. */
+  .dl-alerte {
+    gap: 5px;
+    padding: 11px 14px;
+  }
+
+  .ss-fenetre {
+    padding: 9px 12px 9px;
+  }
+
+  .smartscreen {
+    gap: 6px;
   }
 }
 

@@ -88,6 +88,26 @@
       <path d="M6 8.5v7M8.5 18h7M8 7h6a4 4 0 014 4v4.5"
             fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
     </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+    </symbol>
+
+    <symbol id="icon-balance" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" d="M12 4v16M7 20h10M4.5 8h15M12 5.5 5 8l-2 5a3.2 3.2 0 0 0 4 0zM12 5.5 19 8l2 5a3.2 3.2 0 0 1-4 0z"/>
+    </symbol>
+
+    <symbol id="icon-convert" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" d="M4 8h13m0 0-3.5-3.5M17 8l-3.5 3.5M20 16H7m0 0 3.5-3.5M7 16l3.5 3.5"/>
+    </symbol>
+
+    <symbol id="icon-compress" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" d="M12 3v6m0 0 3-3m-3 3L9 6m3 15v-6m0 0 3 3m-3-3-3 3M4 12h16"/>
+    </symbol>
+
     <symbol id="icon-chart" viewBox="0 0 24 24">
       <path d="M4 20V4M4 20h16M8 16v-5M12.5 16V7M17 16v-3"
             fill="none" stroke="currentColor" stroke-width="1.8"
@@ -479,6 +499,109 @@
               </span>
             </button>
           </p>
+
+         </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           7 — Télécharger le logiciel
+
+           L'adresse de téléchargement pointe sur « latest » : elle ne change
+           jamais d'une version à l'autre. Le seul élément à reprendre après
+           une publication est le numéro de version affiché ci-dessous, et
+           l'oublier reste sans conséquence — le visiteur reçoit de toute
+           façon la dernière version.
+           ============================================================ -->
+      <section class="slide-section" id="slide-telechargement" aria-label="Télécharger">
+        <div class="slide-inner slide-content">
+         <div class="section-card" id="telechargement">
+
+          <header class="section-head">
+            <p class="section-eyebrow">Le logiciel</p>
+            <h2 class="section-title">Derovia pour Windows</h2>
+            <p class="section-lead">
+              Trois outils de bureau dans une seule application, gratuite.
+              Vos fichiers ne quittent jamais votre machine.
+            </p>
+          </header>
+
+          <div class="dl-grid">
+
+            <div class="dl-action">
+              <a class="btn-primary btn-download"
+                 href="https://github.com/suuuucdcz/derovia-suite/releases/latest/download/Derovia-setup.exe">
+                <span class="btn-icon" aria-hidden="true">
+                  <svg><use href="#icon-download"></use></svg>
+                </span>
+                <span>Télécharger<span class="btn-download-os"> pour Windows</span></span>
+              </a>
+
+              <ul class="dl-specs">
+                <li>Windows 10 ou 11, 64&nbsp;bits</li>
+                <li>Installeur de 2,9&nbsp;Mo</li>
+                <li>Version 0.2.1</li>
+                <li>Gratuit</li>
+                <li>Se met à jour tout seul</li>
+              </ul>
+
+              <p class="dl-note">
+                À la première ouverture, Derovia prépare ses moteurs de conversion&nbsp;:
+                comptez une minute. L'application reste utilisable pendant ce temps.
+              </p>
+            </div>
+
+            <!-- L'avertissement SmartScreen fait abandonner la majorité des
+                 visiteurs qui ne s'y attendent pas : il est annoncé avant le
+                 clic, pas après. -->
+            <aside class="dl-alerte">
+              <h3 class="dl-alerte-titre">
+                <span class="dl-alerte-marque" aria-hidden="true">!</span>
+                Windows affichera un avertissement, c'est normal
+              </h3>
+              <p>
+                Derovia est une application récente, pas encore référencée par Microsoft.
+              </p>
+
+              <figure class="smartscreen">
+                <div class="ss-fenetre" aria-hidden="true">
+                  <p class="ss-titre">Windows a protégé votre ordinateur</p>
+                  <p class="ss-corps">
+                    Microsoft Defender SmartScreen a empêché le démarrage d'une
+                    application non reconnue.
+                  </p>
+                  <p class="ss-lien"><span class="ss-cible">Informations complémentaires</span></p>
+                  <div class="ss-boutons">
+                    <span class="ss-bouton ss-cible">Exécuter quand même</span>
+                    <span class="ss-bouton">Ne pas exécuter</span>
+                  </div>
+                </div>
+                <figcaption>
+                  <span class="dl-etape">1</span> Cliquez sur <strong>Informations complémentaires</strong>,
+                  puis <span class="dl-etape">2</span> sur <strong>Exécuter quand même</strong>.
+                </figcaption>
+              </figure>
+            </aside>
+
+          </div>
+
+          <ul class="card-grid dl-outils">
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-balance"></use></svg></span>
+              <h3>Arbitrage</h3>
+              <p>Acheter ou louer un logement, un véhicule, du matériel&nbsp;? Le point de bascule, en années.</p>
+            </li>
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-convert"></use></svg></span>
+              <h3>Convertisseur</h3>
+              <p>Documents et images&nbsp;: Word, PDF, Markdown, HTML, texte, PNG, JPEG, WebP.</p>
+            </li>
+            <li class="card">
+              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-compress"></use></svg></span>
+              <h3>Compresseur</h3>
+              <p>Allège images, PDF et autres fichiers sans quitter votre ordinateur.</p>
+            </li>
+          </ul>
 
          </div>
         </div>

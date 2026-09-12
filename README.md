@@ -147,15 +147,18 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
             └── shaders.js      Shaders GLSL du fond
 ```
 
-## Les quatre diapositives
+## Les huit diapositives
 
-| # | Section       | Rôle                                                      |
-| - | ------------- | --------------------------------------------------------- |
-| 1 | Accueil       | Accroche et double appel à l'action                       |
-| 2 | Expertises    | Quatre familles d'automatisation                          |
-| 3 | Méthode       | Le déroulé d'un engagement, en quatre temps               |
-| 4 | Démonstration | Le traitement d'une facture, rejoué avec des données fictives |
-| 5 | Parcours      | Qualification conversationnelle et transmission du besoin |
+| # | Section       | Rôle                                                        |
+| - | ------------- | ----------------------------------------------------------- |
+| 1 | Accueil       | Accroche et double appel à l'action                         |
+| 2 | Expertises    | Quatre familles d'automatisation                            |
+| 3 | En vidéo      | La présentation animée, en une minute                       |
+| 4 | Méthode       | Le déroulé d'un engagement, en quatre temps                 |
+| 5 | Démonstration | La même corvée déclinée d'un métier à l'autre               |
+| 6 | Rentabilité   | Ce que le temps rendu rapporte, curseur à l'appui           |
+| 7 | Télécharger   | La suite Windows, et l'avertissement qui va avec            |
+| 8 | Parcours      | Qualification conversationnelle et transmission du besoin   |
 
 L'ordre et les intitulés viennent de `SLIDES` dans
 [config.js](public/assets/js/config.js) : ajouter une entrée et la section
@@ -198,13 +201,30 @@ courte pause, absorbe un échec ponctuel ou une limite de débit.
 
 ## La démonstration
 
-Une facture fictive est lue, ses données extraites une à une, puis l'écriture
-comptable annoncée. Le déroulé est piloté par
-[demo.js](public/assets/js/demo.js) et minuté dans `DEMO_TIMELINE` ; les valeurs
-affichées vivent dans le HTML, pour qu'on puisse les changer sans toucher au
-code. La séquence se rejoue à chaque venue sur la section, et un bouton permet
-de la relancer. Si le visiteur a demandé moins d'animations, l'état final
-s'affiche directement.
+Le même schéma — une charge répétitive, la réponse automatisée, le temps rendu —
+défile d'un métier à l'autre. Le propos n'est pas le cas montré mais le fait
+qu'il change : l'automatisation se taille à la demande, quel que soit le
+domaine. Les cas vivent dans `DEMO_CASES` ([config.js](public/assets/js/config.js)),
+[demo.js](public/assets/js/demo.js) ne fait que les mettre en scène. Un clic sur
+un onglet fige le métier choisi. Si le visiteur a demandé moins d'animations,
+le défilement ne démarre pas.
+
+## La section de téléchargement
+
+L'adresse pointe sur `releases/latest/download/` : elle ne change jamais d'une
+version à l'autre, et il n'y a donc pas d'historique des versions à tenir.
+
+Le seul élément à reprendre après une publication est le **numéro de version
+affiché**, en clair dans [index.html](public/index.html) — l'oublier reste sans
+conséquence, le visiteur reçoit de toute façon la dernière version.
+
+L'avertissement SmartScreen est annoncé avant le clic, jamais après : sans
+préavis, la majorité des visiteurs abandonnent devant l'écran bleu de Windows.
+L'encadré est bleu et non rouge pour la même raison — il désamorce, il n'alarme
+pas. La fenêtre reproduite est une illustration en HTML, pas une capture : rien
+à charger, et elle suit le thème du site.
+
+C'est la seule section entièrement fonctionnelle sans JavaScript.
 
 ## Sans JavaScript
 

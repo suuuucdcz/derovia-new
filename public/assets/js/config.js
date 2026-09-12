@@ -15,6 +15,7 @@ export const SLIDES = [
   { id: 'methode', label: 'Méthode', nav: true },
   { id: 'demo', label: 'Démonstration', nav: true },
   { id: 'rentabilite', label: 'Rentabilité', nav: true },
+  { id: 'telechargement', label: 'Télécharger', nav: true },
   { id: 'parcours', label: 'Parcours', nav: false },
 ];
 
