@@ -7,16 +7,19 @@
    Deck
    -------------------------------------------------------------------------- */
 
-/** Diapositives, dans l'ordre. `nav` à false = absente du menu principal. */
+/**
+ * Diapositives, dans l'ordre. `resume` n'apparaît que dans le panneau de
+ * navigation : une ligne qui dit ce qu'on trouvera avant d'y aller.
+ */
 export const SLIDES = [
-  { id: 'hero', label: 'Accueil', nav: false },
-  { id: 'expertises', label: 'Expertises', nav: true },
-  { id: 'video', label: 'En vidéo', nav: true },
-  { id: 'methode', label: 'Méthode', nav: true },
-  { id: 'demo', label: 'Démonstration', nav: true },
-  { id: 'rentabilite', label: 'Rentabilité', nav: true },
-  { id: 'telechargement', label: 'Télécharger', nav: true },
-  { id: 'parcours', label: 'Parcours', nav: false },
+  { id: 'hero', label: 'Accueil', resume: 'Ce que fait Derovia, en deux lignes' },
+  { id: 'expertises', label: 'Expertises', resume: 'Les quatre corvées qu’on vous enlève' },
+  { id: 'video', label: 'En vidéo', resume: 'La présentation animée, en une minute' },
+  { id: 'methode', label: 'Méthode', resume: 'Le déroulé d’un engagement, en quatre temps' },
+  { id: 'demo', label: 'Démonstration', resume: 'La même corvée, d’un métier à l’autre' },
+  { id: 'rentabilite', label: 'Rentabilité', resume: 'Ce que le temps rendu vous rapporte' },
+  { id: 'telechargement', label: 'Télécharger', resume: 'La suite d’outils Windows, gratuite' },
+  { id: 'parcours', label: 'Parcours', resume: 'Décrivez votre besoin, on le chiffre' },
 ];
 
 export const SURVEY_SLIDE = 'parcours';

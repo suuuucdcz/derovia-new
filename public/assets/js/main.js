@@ -9,6 +9,7 @@ import { OrganicBackground } from './background.js';
 import { createDeck } from './deck.js';
 import { createDemo } from './demo.js';
 import { createFilm } from './film.js';
+import { createMenu } from './menu.js';
 import { createRentabilite } from './rentabilite.js';
 import { createSurvey } from './survey.js';
 import { DEMO_SLIDE, SLIDES, SURVEY_SLIDE, TIMING, VIDEO_SLIDE } from './config.js';
@@ -22,7 +23,7 @@ createRentabilite();
 let leaveTimer = null;
 let demoTimer = null;
 
-createDeck({
+const deck = createDeck({
   onChange({ id, index }) {
     // La palette dérive régulièrement de la première à la dernière diapositive.
     background.setPalette(index / Math.max(SLIDES.length - 1, 1));
@@ -60,6 +61,10 @@ createDeck({
     }
   },
 });
+
+// Le panneau pilote le deck plutôt que de poser ses propres `data-goto` : la
+// dépendance est explicite, et l'ordre d'initialisation cesse d'avoir un sens.
+if (deck) createMenu(deck);
 
 // Deux images plus tard, le fond a peint sa première passe : on peut montrer.
 requestAnimationFrame(() => {

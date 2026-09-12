@@ -65,26 +65,8 @@ export function createDeck({ onChange } = {}) {
     for (const link of document.querySelectorAll('[data-goto]')) {
       const isCurrent = indexOf(link.dataset.goto) === index;
       link.classList.toggle('is-current', isCurrent);
-      if (link.dataset.navLink !== undefined) {
-        link.setAttribute('aria-current', isCurrent ? 'true' : 'false');
-      }
     }
   };
-
-  /* --- Menu principal, généré depuis la configuration ---
-     Écrits en dur, les liens se désynchronisaient dès qu'une section était
-     ajoutée : le drapeau `nav` de SLIDES est désormais la seule référence. --- */
-  const menu = document.getElementById('site-nav-links');
-  if (menu) {
-    for (const slide of SLIDES.filter((s) => s.nav)) {
-      const lien = document.createElement('a');
-      lien.href = '#';
-      lien.dataset.goto = slide.id;
-      lien.dataset.navLink = '';
-      lien.textContent = slide.label;
-      menu.append(lien);
-    }
-  }
 
   /* --- Repères latéraux, générés depuis la configuration --- */
   if (dots) {
@@ -105,8 +87,7 @@ export function createDeck({ onChange } = {}) {
     }
   }
 
-  /* --- Tout élément portant `data-goto` navigue ---
-     Requête faite après la génération du menu, pour l'inclure. --- */
+  /* --- Tout élément portant `data-goto` navigue --- */
   for (const trigger of document.querySelectorAll('[data-goto]')) {
     if (trigger.classList.contains('deck-dot')) continue;
     trigger.addEventListener('click', (event) => {
@@ -199,6 +180,12 @@ function bindKeyboard(goTo) {
   window.addEventListener('keydown', (event) => {
     const target = event.target;
     if (target instanceof HTMLTextAreaElement || target instanceof HTMLInputElement) return;
+
+    // Le panneau de navigation a la main tant qu'il est ouvert : ni Échap ni
+    // les flèches ne doivent déplacer une pile qu'on ne voit plus. La règle est
+    // posée ici plutôt qu'interceptée ailleurs — elle ne dépend alors ni de
+    // l'ordre d'inscription des écouteurs, ni de la phase de propagation.
+    if (document.body.classList.contains('menu-ouvert')) return;
 
     if (event.key === 'ArrowDown' || event.key === 'PageDown') goTo('next');
     if (event.key === 'ArrowUp' || event.key === 'PageUp') goTo('prev');

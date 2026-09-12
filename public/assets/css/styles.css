@@ -5,17 +5,18 @@
     3. Décor (fond animé, grain)
     4. Deck & diapositives
     5. En-tête fixe & repères de section
-    6. Boutons
-    7. Accueil
-    8. Sections de contenu (expertises, méthode)
-    9. Démonstration
-   10. Rentabilité
-   11. Logiciel (téléchargement Windows)
-   12. Parcours de qualification
-   13. Vidéo (diapositive et page)
-   14. Pages légales
-   15. Animations
-   16. Petits écrans
+    6. Panneau de navigation
+    7. Boutons
+    8. Accueil
+    9. Sections de contenu (expertises, méthode)
+   10. Démonstration
+   11. Rentabilité
+   12. Logiciel (téléchargement Windows)
+   13. Parcours de qualification
+   14. Vidéo (diapositive et page)
+   15. Pages légales
+   16. Animations
+   17. Petits écrans
    ========================================================================== */
 
 /* ==========================================================================
@@ -358,30 +359,58 @@ body[data-slide="hero"] .btn-back {
   gap: 8px;
 }
 
-/* Le conteneur disparaît de la mise en page : les liens générés deviennent
-   des enfants directs du menu et en héritent l'espacement. */
-.site-nav-links {
-  display: contents;
-}
-
-.site-nav a {
-  padding: 8px 14px;
+/* --- Bouton du panneau ---
+   Il remplace le menu horizontal, qui gagnait un onglet à chaque section
+   ajoutée. Les deux barres se croisent à l'ouverture : le même bouton ferme. */
+.btn-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-right: 6px;
+  padding: 8px 17px 8px 14px;
+  border: 1px solid var(--line);
   border-radius: var(--radius-pill);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 500;
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-.site-nav a:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.55);
-}
-
-.site-nav a.is-current {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s var(--ease-apple);
+}
+
+.btn-menu:hover {
+  background: var(--surface-solid);
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
+}
+
+.btn-menu-barres {
+  position: relative;
+  width: 15px;
+  height: 11px;
+}
+
+.btn-menu-barres i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-apple);
+}
+
+.btn-menu-barres i:first-child { top: 0; }
+.btn-menu-barres i:last-child { bottom: 0; }
+
+/* (11 − 1,5) / 2 : chaque barre rejoint exactement le centre avant de pivoter. */
+body.menu-ouvert .btn-menu-barres i:first-child {
+  transform: translateY(4.75px) rotate(45deg);
+}
+
+body.menu-ouvert .btn-menu-barres i:last-child {
+  transform: translateY(-4.75px) rotate(-45deg);
 }
 
 .btn-nav {
@@ -474,7 +503,118 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   6. Boutons
+   6. Panneau de navigation
+   ========================================================================== */
+/* Il se place SOUS l'en-tête (z-index inférieur) : la marque et le bouton qui
+   l'a ouvert restent visibles et en place, et ce même bouton le referme. */
+.menu-panneau {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  /* `safe` : sur un écran trop bas, la liste se cale en haut plutôt que de
+     déborder des deux côtés, où le début deviendrait inatteignable. */
+  justify-content: safe center;
+  align-items: center;
+  padding: calc(var(--header-height) + 10px) var(--gutter) 40px;
+  overflow-y: auto;
+  background: rgba(251, 251, 253, 0.7);
+  backdrop-filter: blur(34px) saturate(140%);
+  -webkit-backdrop-filter: blur(34px) saturate(140%);
+  /* Fermé par `visibility` et non par `display` : l'élément reste rendu, donc
+     la transition part au premier coup sans qu'on ait à attendre une image.
+     `visibility: hidden` le retire tout de même du focus, du pointeur et de
+     l'arbre d'accessibilité — il est bien absent, pas seulement transparent. */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.32s var(--ease-apple), visibility 0s linear 0.32s;
+}
+
+.menu-panneau.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.32s var(--ease-apple), visibility 0s;
+}
+
+.menu-liste {
+  width: 100%;
+  max-width: 660px;
+}
+
+/* L'entrée en scène est portée par la ligne, le survol par le bouton : les
+   deux transformations ne se disputent pas la même propriété. */
+.menu-liste li {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.45s var(--ease-apple), transform 0.45s var(--ease-apple);
+  transition-delay: calc(var(--i, 0) * 35ms);
+}
+
+.menu-panneau.is-open .menu-liste li {
+  opacity: 1;
+  transform: none;
+}
+
+.menu-entree {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0 16px;
+  padding: 13px 16px;
+  border-radius: var(--radius-panel);
+  text-align: left;
+  transition: background-color 0.25s var(--ease-apple), transform 0.25s var(--ease-apple);
+}
+
+.menu-entree:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateX(5px);
+}
+
+.menu-numero {
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+
+.menu-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.menu-titre {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.menu-resume {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+/* Les repères latéraux font double emploi avec le panneau : ils s'effacent
+   le temps qu'il est ouvert. */
+body.menu-ouvert .deck-dots {
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-apple);
+}
+
+/* La section où l'on se trouve déjà : reconnaissable sans être un bouton mort. */
+.menu-entree.is-current .menu-numero,
+.menu-entree.is-current .menu-titre {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   7. Boutons
    ========================================================================== */
 .btn-primary,
 .btn-secondary {
@@ -574,7 +714,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   7. Accueil
+   8. Accueil
    ========================================================================== */
 .hero {
   margin: auto;
@@ -654,7 +794,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   8. Sections de contenu
+   9. Sections de contenu
    ========================================================================== */
 .section-head {
   max-width: 640px;
@@ -812,7 +952,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   9. Démonstration — le même schéma, décliné par métier
+   10. Démonstration — le même schéma, décliné par métier
    ========================================================================== */
 .demo {
   display: flex;
@@ -977,7 +1117,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   10. Rentabilité — ce que le temps rendu rapporte
+   11. Rentabilité — ce que le temps rendu rapporte
    ========================================================================== */
 #slide-rentabilite .section-card {
   padding: 24px 32px 20px;
@@ -1341,7 +1481,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   11. Logiciel — téléchargement de la suite Windows
+   12. Logiciel — téléchargement de la suite Windows
    ========================================================================== */
 .dl-grid {
   display: grid;
@@ -1569,7 +1709,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   12. Parcours de qualification
+   13. Parcours de qualification
    ========================================================================== */
 .survey {
   width: 100%;
@@ -2082,7 +2222,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   13. Vidéo — diapositive du deck et page autonome
+   14. Vidéo — diapositive du deck et page autonome
    ========================================================================== */
 
 /* --- Diapositive : un titre bref, puis le film, rien d'autre --- */
@@ -2155,7 +2295,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   14. Pages légales (documents autonomes, sans deck ni fond animé)
+   15. Pages légales (documents autonomes, sans deck ni fond animé)
    ========================================================================== */
 .legal-page {
   max-width: 760px;
@@ -2329,7 +2469,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   15. Animations
+   16. Animations
    ========================================================================== */
 @keyframes fade-in-down {
   from { opacity: 0; transform: translateY(-20px); }
@@ -2357,7 +2497,7 @@ body[data-slide="parcours"] .btn-nav {
 }
 
 /* ==========================================================================
-   16. Petits écrans
+   17. Petits écrans
    ========================================================================== */
 /* Écrans bas : le panneau se resserre plutôt que de faire défiler la section. */
 @media (max-height: 800px) {
@@ -2506,12 +2646,14 @@ body[data-slide="parcours"] .btn-nav {
     --header-height: 76px;
   }
 
-  .site-nav a {
+  .btn-back span,
+  .btn-menu-libelle {
     display: none;
   }
 
-  .btn-back span {
-    display: none;
+  .btn-menu {
+    margin-right: 8px;
+    padding: 8px 11px;
   }
 
   .btn-back {
@@ -2618,6 +2760,25 @@ body[data-slide="parcours"] .btn-nav {
 
   .ss-boutons {
     margin-top: 7px;
+  }
+
+  /* Les huit entrées du panneau doivent tenir sans défilement : un menu qu'on
+     fait glisser pour en voir le bout n'en est plus tout à fait un. */
+  .menu-panneau {
+    padding-top: calc(var(--header-height) + 4px);
+    padding-bottom: 16px;
+  }
+
+  .menu-entree {
+    padding: 8px 16px;
+  }
+
+  .menu-titre {
+    font-size: 1.15rem;
+  }
+
+  .menu-resume {
+    font-size: 0.85rem;
   }
 
   /* L'encadré devient le poste le plus haut de la section : c'est lui qui

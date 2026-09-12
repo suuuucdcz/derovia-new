@@ -153,11 +153,22 @@
         <svg aria-hidden="true"><use href="#icon-chevron-up"></use></svg>
         <span>Retour</span>
       </button>
-      <!-- Les liens sont générés depuis SLIDES : ajouter une section suffit. -->
-      <span class="site-nav-links" id="site-nav-links"></span>
+      <button type="button" class="btn-menu" id="btn-menu"
+              aria-expanded="false" aria-controls="menu-panneau">
+        <span class="btn-menu-barres" aria-hidden="true"><i></i><i></i></span>
+        <span class="btn-menu-libelle">Menu</span>
+      </button>
       <button type="button" class="btn-nav" data-goto="parcours">Définir vos besoins</button>
     </nav>
   </header>
+
+  <!-- Panneau de navigation. Il passe SOUS l'en-tête : la marque et le bouton
+       qui l'a ouvert restent en place, et ce même bouton le referme. Les
+       entrées sont générées depuis SLIDES. -->
+  <div class="menu-panneau" id="menu-panneau" role="dialog" aria-modal="true"
+       aria-label="Sections du site">
+    <ol class="menu-liste" id="menu-liste"></ol>
+  </div>
 
   <!-- Repères de section, générés depuis config.js -->
   <nav class="deck-dots" id="deck-dots" aria-label="Sections"></nav>

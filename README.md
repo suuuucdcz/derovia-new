@@ -140,6 +140,7 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
             ├── main.js         Point d'entrée : assemble et relie les modules
             ├── config.js       Diapositives, prompts, seuils, durées
             ├── deck.js         Navigation entre diapositives
+            ├── menu.js         Panneau listant toutes les sections
             ├── survey.js       Parcours de qualification (4 phases)
             ├── demo.js         Déroulé de la démonstration
             ├── api.js          Appels réseau et validation des réponses
@@ -172,7 +173,8 @@ s'ajustent seuls.
 | Molette, glissement tactile             | Section suivante/précédente |
 | ↑ ↓, Page précédente/suivante, Échap    | Idem                        |
 | Origine                                 | Retour à l'accueil          |
-| Pastilles à droite, menu, bouton Retour | Accès direct                |
+| Pastilles à droite, bouton Retour       | Accès direct                |
+| Bouton Menu                             | Le panneau de toutes les sections |
 
 Une molette ne franchit qu'une section à la fois : le delta doit dépasser un
 seuil, puis une pause d'une seconde laisse la transition se terminer. Toute zone
@@ -181,6 +183,28 @@ fenêtre — garde la priorité sur le déplacement du deck.
 
 Tout élément portant `data-goto` navigue : un identifiant de section, ou bien
 `prev` / `next`.
+
+### Le panneau de navigation
+
+Le menu horizontal gagnait un onglet à chaque section ajoutée. Un seul bouton le
+remplace ([menu.js](public/assets/js/menu.js)), qui ouvre un panneau listant
+toutes les sections, numérotées et résumées d'une ligne. Les entrées viennent de
+`SLIDES` : le champ `resume` n'existe que pour lui.
+
+Le panneau passe **sous** l'en-tête, jamais par-dessus : la marque garde sa
+place, et le bouton qui a ouvert referme. Il bascule par `visibility`, pas par
+`display` — l'élément reste rendu, donc la transition part au premier coup sans
+dépendre d'une image d'animation.
+
+Pendant l'ouverture, le deck et les pastilles sont rendus `inert` : le focus ne
+part jamais derrière le panneau. Le clavier du deck se tait de lui-même tant que
+`menu-ouvert` est posé sur `<body>` — la règle vit dans
+[deck.js](public/assets/js/deck.js) plutôt que d'être interceptée ailleurs, pour
+ne dépendre ni de l'ordre d'inscription des écouteurs, ni de la phase de
+propagation.
+
+Sur téléphone, c'est un gain net : les liens horizontaux y étaient simplement
+masqués, il n'y avait aucun menu.
 
 ## Le parcours de qualification
 
