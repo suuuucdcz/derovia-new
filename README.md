@@ -231,8 +231,12 @@ Ce que le mode change :
   l'en-tête fixe ne recouvre pas la section visée.
 - Le pied de page, logé dans l'accueil où il se cale en bas d'écran, rejoint la
   fin du document. Déplacé, jamais dupliqué.
-- L'en-tête prend un fond : flottant au-dessus de diapositives centrées il n'en
-  avait pas besoin, sur une page qui défile le texte lui passe dessous.
+- L'en-tête prend un voile : flottant au-dessus de diapositives centrées il n'en
+  avait pas besoin, sur une page qui défile le texte lui passe dessous. Le voile
+  est porté par un pseudo-élément en dégradé, dont le flou est fondu par le même
+  masque — un fond plein tracé jusqu'à un filet donnait un bandeau blanc coupé
+  net. Le calque est un pseudo-élément et non l'en-tête lui-même, sinon le
+  masque emporterait aussi la marque et les boutons.
 - Le parcours de qualification ne se remet plus à zéro quand on le quitte : on
   ne le quitte pas volontairement, on le dépasse du pouce.
 
@@ -244,6 +248,16 @@ navigateur dit déjà où l'on en est), le graphique de rentabilité (ses libell
 ne se lisent plus à 280 px de large, et les montants juste en dessous portent
 seuls la démonstration), et le mot « Derovia » à côté du monogramme sous 480 px,
 qui coûtait exactement la place manquante à l'appel à l'action.
+
+S'y ajoutent trois retraits propres au téléphone et à la rentabilité. La fenêtre
+SmartScreen reproduite et la note du premier lancement disparaissent : un
+téléphone n'installe pas une application Windows, ces deux éléments décrivent
+des moments qui n'arriveront pas là. **La consigne reste écrite en toutes
+lettres** — c'est elle qui compte, pas le dessin. Et la ligne
+« 6 h × 47 sem. × 28 € = 7 896 € / an » s'efface, parce qu'elle répète le montant
+que la carte « Valeur annuelle créée » affiche trois lignes plus bas : côte à
+côte les deux se lisaient d'un coup d'œil, empilés c'était deux fois la même
+chose.
 
 **Ce qui change de forme.** Empilé tel quel, le site devenait un ruban vertical
 de 8 000 px. Trois corrections l'ont ramené à 6 200 sans qu'un mot disparaisse :
