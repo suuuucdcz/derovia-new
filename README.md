@@ -117,7 +117,9 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
 ├── server.py                       Serveur de développement local
 ├── .env.example                    Modèle de configuration (copier en .env)
 └── public/                         Racine web
-    ├── index.html
+    ├── index.html                   Le deck
+    ├── logiciel.html                Page autonome : la suite Windows
+    ├── video.html                   Page autonome : la vidéo seule
     ├── mentions-legales.html
     ├── confidentialite.html
     ├── 404.html
@@ -127,17 +129,20 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
         ├── css/styles.css
         └── js/
             ├── main.js         Point d'entrée : assemble et relie les modules
-            ├── config.js       Diapositives, prompts, seuils, durées
+            ├── config.js       Diapositives, questionnaire, seuils
             ├── deck.js         Navigation entre diapositives
-            ├── menu.js         Panneau listant toutes les sections
-            ├── survey.js       Parcours de qualification (4 phases)
+            ├── menu.js         Panneau listant sections et pages
+            ├── formulaire.js   Le questionnaire, en six étapes
             ├── demo.js         Déroulé de la démonstration
-            ├── api.js          Appels réseau et validation des réponses
+            ├── rentabilite.js  Curseur et graphique du retour sur temps
+            ├── film.js         Lecture de la vidéo du deck
+            ├── api.js          Transmission du besoin
+            ├── page-fond.js    Fond des pages autonomes
             ├── background.js   Fond organique animé
             └── shaders.js      Shaders GLSL du fond
 ```
 
-## Les huit diapositives
+## Les sept diapositives
 
 | # | Section       | Rôle                                                        |
 | - | ------------- | ----------------------------------------------------------- |
@@ -147,8 +152,7 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
 | 4 | Méthode       | Le déroulé d'un engagement, en quatre temps                 |
 | 5 | Démonstration | La même corvée déclinée d'un métier à l'autre               |
 | 6 | Rentabilité   | Ce que le temps rendu rapporte, curseur à l'appui           |
-| 7 | Télécharger   | La suite Windows, et l'avertissement qui va avec            |
-| 8 | Parcours      | Qualification conversationnelle et transmission du besoin   |
+| 7 | Parcours      | Le questionnaire en six étapes, et sa transmission          |
 
 L'ordre et les intitulés viennent de `SLIDES` dans
 [config.js](public/assets/js/config.js) : ajouter une entrée et la section
@@ -163,12 +167,12 @@ s'ajustent seuls.
 | ↑ ↓, Page précédente/suivante, Échap    | Idem                        |
 | Origine                                 | Retour à l'accueil          |
 | Pastilles à droite, bouton Retour       | Accès direct                |
-| Bouton Menu                             | Le panneau de toutes les sections |
+| Bouton Menu                             | Le panneau des sections et des pages |
 
 Une molette ne franchit qu'une section à la fois : le delta doit dépasser un
 seuil, puis une pause d'une seconde laisse la transition se terminer. Toute zone
-interne encore défilable — la conversation, une section trop haute pour la
-fenêtre — garde la priorité sur le déplacement du deck.
+interne encore défilable — une section trop haute pour la fenêtre — garde la
+priorité sur le déplacement du deck.
 
 Tout élément portant `data-goto` navigue : un identifiant de section, ou bien
 `prev` / `next`.
@@ -228,12 +232,9 @@ Ce que le mode change :
   masque emporterait aussi la marque et les boutons.
 - Le parcours de qualification ne se remet plus à zéro quand on le quitte : on
   ne le quitte pas volontairement, on le dépasse du pouce.
-- La conversation cesse d'être une boîte défilante. Enfermée dans 46 vh, elle
-  coupait la question en cours au milieu d'une phrase, sur une page qui défile
-  déjà. Elle prend sa taille naturelle, et `survey.js` fait suivre la page à
-  chaque nouveau message — le test porte sur l'élément (est-il encore
-  défilable ?) plutôt que sur une largeur de fenêtre, pour rester juste quel
-  que soit le seuil choisi ailleurs.
+- Aucun panneau ne défile dans son coin. Une zone défilante à l'intérieur
+  d'une page qui défile déjà, c'est deux gestes pour un pouce : le
+  questionnaire comme les sections prennent leur taille naturelle.
 
 La bascule est vivante : redimensionner la fenêtre au-delà du seuil rebranche
 l'autre mode sans rechargement.
@@ -338,7 +339,19 @@ domaine. Les cas vivent dans `DEMO_CASES` ([config.js](public/assets/js/config.j
 un onglet fige le métier choisi. Si le visiteur a demandé moins d'animations,
 le défilement ne démarre pas.
 
-## La section de téléchargement
+## La page logiciel
+
+Elle a d'abord été la septième diapositive du deck. Elle en est sortie parce
+qu'elle chargeait la page d'accueil d'une information que peu de visiteurs
+viennent y chercher. Elle vit maintenant dans `public/logiciel.html`,
+atteignable par le panneau de navigation — sous les sections, séparée d'un
+filet — et par le pied de page.
+
+Les pages autonomes se déclarent dans `PAGES`
+([config.js](public/assets/js/config.js)) ; `menu.js` les rend comme de vrais
+liens, avec une flèche au lieu d'un numéro d'ordre qu'elles n'ont pas. Elles
+partagent l'en-tête `.page-header` et le module `page-fond.js` avec la page
+vidéo.
 
 L'adresse pointe sur `releases/latest/download/` : elle ne change jamais d'une
 version à l'autre, et il n'y a donc pas d'historique des versions à tenir.

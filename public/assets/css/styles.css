@@ -601,6 +601,23 @@ body[data-slide="parcours"] .btn-nav {
   color: var(--text-secondary);
 }
 
+/* Une page autonome quitte le deck : elle se distingue des sections par un
+   filet et une flèche, plutôt que par un numéro d'ordre qu'elle n'a pas. */
+.menu-ligne-page {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.menu-page {
+  text-decoration: none;
+}
+
+.menu-page .menu-numero {
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
 /* Les repères latéraux font double emploi avec le panneau : ils s'effacent
    le temps qu'il est ouvert. */
 body.menu-ouvert .deck-dots {
@@ -2169,7 +2186,8 @@ body.menu-ouvert .deck-dots {
   padding: 28px var(--gutter) 40px;
 }
 
-.video-header {
+/* Commun aux pages autonomes : vidéo et logiciel. */
+.page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2200,6 +2218,35 @@ body.menu-ouvert .deck-dots {
   .video-player {
     border-radius: 18px;
   }
+}
+
+/* --- Page autonome qui défile (le logiciel) ---
+   La page vidéo occupe exactement l'écran ; celle-ci est plus haute que lui et
+   doit donc défiler normalement. Elle ne porte aucune classe sur `html` : rien
+   ne verrouille sa hauteur. --- */
+.page-autonome {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 28px var(--gutter) 0;
+}
+
+.page-corps {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  flex: 1;
+}
+
+.page-pied {
+  max-width: var(--content-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 22px 0 28px;
+  border-top: 1px solid var(--line-soft);
 }
 
 /* ==========================================================================

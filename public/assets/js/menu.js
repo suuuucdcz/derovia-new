@@ -9,7 +9,7 @@
  * qui a ouvert sert aussi à refermer.
  */
 
-import { SLIDES } from './config.js';
+import { PAGES, SLIDES } from './config.js';
 
 /**
  * @param {{goTo: (id: string) => boolean}} deck Le deck à piloter.
@@ -66,6 +66,39 @@ export function createMenu(deck) {
     liste.append(ligne);
     return entree;
   });
+
+  /* --- Pages autonomes ---
+     Elles quittent le deck : ce sont de vrais liens, pas des destinations à
+     faire glisser. Elles suivent les sections, séparées d'un filet. --- */
+  for (const [index, page] of PAGES.entries()) {
+    const lien = document.createElement('a');
+    lien.className = 'menu-entree menu-page';
+    lien.href = page.href;
+
+    const numero = document.createElement('span');
+    numero.className = 'menu-numero';
+    numero.textContent = '→';
+
+    const texte = document.createElement('span');
+    texte.className = 'menu-texte';
+
+    const titre = document.createElement('span');
+    titre.className = 'menu-titre';
+    titre.textContent = page.label;
+
+    const resume = document.createElement('span');
+    resume.className = 'menu-resume';
+    resume.textContent = page.resume;
+
+    texte.append(titre, resume);
+    lien.append(numero, texte);
+
+    const ligne = document.createElement('li');
+    ligne.className = 'menu-ligne-page';
+    ligne.style.setProperty('--i', String(SLIDES.length + index));
+    ligne.append(lien);
+    liste.append(ligne);
+  }
 
   /* --- Ouverture et fermeture --- */
 

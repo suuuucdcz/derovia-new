@@ -18,7 +18,6 @@ export const SLIDES = [
   { id: 'methode', label: 'Méthode', resume: 'Le déroulé d’un engagement, en quatre temps' },
   { id: 'demo', label: 'Démonstration', resume: 'La même corvée, d’un métier à l’autre' },
   { id: 'rentabilite', label: 'Rentabilité', resume: 'Ce que le temps rendu vous rapporte' },
-  { id: 'telechargement', label: 'Télécharger', resume: 'La suite d’outils Windows, gratuite' },
   { id: 'parcours', label: 'Parcours', resume: 'Décrivez votre besoin, on le chiffre' },
 ];
 
@@ -36,6 +35,19 @@ export const SLIDES = [
  *   Les deux doivent rester identiques.
  */
 export const REQUETE_DEFILEMENT = '(max-width: 820px), (max-height: 560px)';
+
+/**
+ * Pages autonomes, listées sous les sections dans le panneau de navigation.
+ * Le logiciel y a sa place plutôt qu'une diapositive : il chargeait la page
+ * d'accueil d'une information que peu de visiteurs viennent y chercher.
+ */
+export const PAGES = [
+  {
+    href: '/logiciel.html',
+    label: 'Le logiciel',
+    resume: 'La suite d’outils Windows, gratuite',
+  },
+];
 
 export const SURVEY_SLIDE = 'parcours';
 export const DEMO_SLIDE = 'demo';
