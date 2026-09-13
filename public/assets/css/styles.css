@@ -1998,20 +1998,24 @@ body.menu-ouvert .deck-dots {
 }
 
 /* --- Récapitulatif de la dernière étape --- */
+/* Pas d'encadré dans l'encadré : la carte du questionnaire suffit. Le
+   récapitulatif est une liste, tenue par deux filets — plus plat, donc
+   plus calme. */
 .form-recap {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  padding: 15px 18px;
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius-panel);
-  background: rgba(255, 255, 255, 0.7);
+  gap: 8px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .recap-titre {
-  font-size: 0.98rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
 .summary-fields {
@@ -2042,36 +2046,48 @@ body.menu-ouvert .deck-dots {
 
 .summary-fields dd[data-key^="gain"] {
   font-weight: 600;
-  color: var(--accent);
+  color: var(--text-primary);
 }
 
 .summary-fields dd[data-key="gainArgent"] {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.25;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 /* La dernière étape porte le récapitulatif ET les coordonnées : c'est la plus
    haute. Les deux champs facultatifs, qui sont courts, partagent une ligne. */
-/* `:not([hidden])` est indispensable : `:has()` emprunte la spécificité de son
-   argument, et un identifiant l'emporte sur `.etape[hidden]`. Sans lui, la
-   dernière étape reste affichée en permanence, sous la première. */
+/* --- La dernière étape, en deux colonnes ---
+   Elle porte le récapitulatif ET les coordonnées. Empilés, ils formaient un
+   ruban de 440 px qui débordait de la carte. Côte à côte, on voit ce qu'on a
+   répondu pendant qu'on saisit son adresse — et tout tient sans défilement.
+
+   `:not([hidden])` est indispensable : `:has()` emprunte la spécificité de
+   son argument, et un identifiant l'emporte sur `.etape[hidden]`. Sans lui,
+   cette étape resterait affichée en permanence, sous la première. --- */
 .etape:not([hidden]):has(#form-recap) {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: start;
-  gap: 15px 14px;
+  gap: 14px 26px;
 }
 
+/* Par défaut tout occupe la largeur : titre, message d'erreur, commandes. */
 .etape:not([hidden]):has(#form-recap) > * {
   grid-column: 1 / -1;
 }
 
-.etape:not([hidden]):has(#form-recap) .champ[data-nom="company"] {
+/* Le récapitulatif tient la colonne de gauche sur toute la hauteur des
+   champs qui lui font face. */
+.etape:not([hidden]):has(#form-recap) .form-recap {
   grid-column: 1;
+  grid-row: 3 / span 4;
 }
 
-.etape:not([hidden]):has(#form-recap) .champ[data-nom="telephone"] {
+.etape:not([hidden]):has(#form-recap) .champ[data-nom="email"],
+.etape:not([hidden]):has(#form-recap) .champ[data-nom="company"],
+.etape:not([hidden]):has(#form-recap) .champ[data-nom="telephone"],
+.etape:not([hidden]):has(#form-recap) .champ[data-nom="contact"] {
   grid-column: 2;
 }
 
@@ -3051,8 +3067,22 @@ body.menu-ouvert .deck-dots {
   }
 
   /* Deux colonnes seraient trop étroites ici, et la page défile de toute façon. */
+  /* Deux colonnes seraient trop étroites ici, et la page défile de toute
+     façon. Les placements explicites doivent tomber avec elles, sinon la
+     colonne 2 renaît en colonne implicite. */
   .etape:not([hidden]):has(#form-recap) {
     grid-template-columns: 1fr;
+  }
+
+  /* Les sélecteurs doivent égaler ceux qu'ils annulent : `> *` pesait moins
+     que `.champ[data-nom=…]`, et la colonne 2 survivait. */
+  .etape:not([hidden]):has(#form-recap) .form-recap,
+  .etape:not([hidden]):has(#form-recap) .champ[data-nom="email"],
+  .etape:not([hidden]):has(#form-recap) .champ[data-nom="company"],
+  .etape:not([hidden]):has(#form-recap) .champ[data-nom="telephone"],
+  .etape:not([hidden]):has(#form-recap) .champ[data-nom="contact"] {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .curseur-valeur {

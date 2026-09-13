@@ -292,7 +292,15 @@ sinon Netlify ne l'enregistrera jamais.
 3. **Combien de temps, au juste** — fréquence et durée
 4. **Quand ça passe à travers** — ce qu'un oubli coûte
 5. **Vos outils d'aujourd'hui** — ce qui décide de la faisabilité
-6. **Comment vous joindre** — récapitulatif, puis coordonnées
+6. **Comment vous joindre** — le récapitulatif à gauche, les coordonnées à droite
+
+La dernière étape se compose en deux colonnes sur grand écran. Empilés, le
+récapitulatif et les coordonnées formaient un ruban de 440 px qui débordait de
+la carte et faisait apparaître une barre de défilement ; côte à côte, on voit
+ce qu'on a répondu pendant qu'on saisit son adresse. Sur téléphone la page
+défile, donc une seule colonne — mais l'annulation doit viser exactement les
+mêmes sélecteurs que les placements, sinon la seconde colonne renaît en
+colonne implicite.
 
 ### Le calcul, en direct
 
