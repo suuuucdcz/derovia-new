@@ -795,17 +795,22 @@ body.menu-ouvert .deck-dots {
   animation: fade-in-up 1s var(--ease-apple) 0.2s backwards;
 }
 
+/* Quatre liens et une mention : sur un téléphone, la ligne se replie plutôt
+   que de dépasser du bord. */
 .site-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   font-size: 0.85rem;
   color: var(--text-tertiary);
 }
 
 .footer-links {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 6px 20px;
 }
 
 .footer-links a {
@@ -2048,22 +2053,25 @@ body.menu-ouvert .deck-dots {
 
 /* La dernière étape porte le récapitulatif ET les coordonnées : c'est la plus
    haute. Les deux champs facultatifs, qui sont courts, partagent une ligne. */
-.etape:has(#form-recap) {
+/* `:not([hidden])` est indispensable : `:has()` emprunte la spécificité de son
+   argument, et un identifiant l'emporte sur `.etape[hidden]`. Sans lui, la
+   dernière étape reste affichée en permanence, sous la première. */
+.etape:not([hidden]):has(#form-recap) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
   gap: 15px 14px;
 }
 
-.etape:has(#form-recap) > * {
+.etape:not([hidden]):has(#form-recap) > * {
   grid-column: 1 / -1;
 }
 
-.etape:has(#form-recap) .champ[data-nom="company"] {
+.etape:not([hidden]):has(#form-recap) .champ[data-nom="company"] {
   grid-column: 1;
 }
 
-.etape:has(#form-recap) .champ[data-nom="telephone"] {
+.etape:not([hidden]):has(#form-recap) .champ[data-nom="telephone"] {
   grid-column: 2;
 }
 
@@ -3043,7 +3051,7 @@ body.menu-ouvert .deck-dots {
   }
 
   /* Deux colonnes seraient trop étroites ici, et la page défile de toute façon. */
-  .etape:has(#form-recap) {
+  .etape:not([hidden]):has(#form-recap) {
     grid-template-columns: 1fr;
   }
 
