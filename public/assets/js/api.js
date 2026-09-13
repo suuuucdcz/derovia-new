@@ -14,6 +14,7 @@ import {
   MODEL,
   MODEL_RETRIES,
   MODEL_RETRY_DELAY,
+  MODEL_RETRY_MAX_DELAY,
   SUMMARY_FIELDS,
 } from './config.js';
 
@@ -29,7 +30,7 @@ export async function askModel(messages) {
   let lastError;
 
   for (let attempt = 0; attempt <= MODEL_RETRIES; attempt += 1) {
-    if (attempt > 0) await wait(MODEL_RETRY_DELAY);
+    if (attempt > 0) await wait(lastError?.attenteMs ?? MODEL_RETRY_DELAY);
 
     try {
       return await requestReply(messages);
@@ -57,7 +58,11 @@ async function requestReply(messages) {
     }),
   });
 
-  if (!response.ok) throw new Error(`Réponse ${response.status} du proxy Groq`);
+  if (!response.ok) {
+    const erreur = new Error(`Réponse ${response.status} du proxy Groq`);
+    erreur.attenteMs = attenteApres(response.status, await response.text().catch(() => ''));
+    throw erreur;
+  }
 
   const data = await response.json();
   const raw = data?.choices?.[0]?.message?.content;
@@ -134,6 +139,22 @@ function propos(entree) {
   } catch {
     return entree.content;
   }
+}
+
+/**
+ * Combien attendre avant de reprendre. Le palier gratuit de Groq compte les
+ * jetons par minute ; quand il est dépassé, il dit précisément dans combien de
+ * temps réessayer. Autant le croire plutôt que de deviner : 700 ms n'ont
+ * jamais suffi à franchir une fenêtre qui se libère au bout de sept secondes.
+ */
+function attenteApres(statut, corps) {
+  if (statut !== 429) return MODEL_RETRY_DELAY;
+
+  const secondes = Number(corps.match(/try again in ([\d.]+)s/i)?.[1]);
+  if (!Number.isFinite(secondes)) return MODEL_RETRY_DELAY;
+
+  // La marge absorbe l'imprécision entre le moment du refus et celui de la reprise.
+  return Math.min(Math.ceil(secondes * 1000) + 400, MODEL_RETRY_MAX_DELAY);
 }
 
 /**

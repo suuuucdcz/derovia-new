@@ -189,7 +189,11 @@ export function createSurvey() {
 
     try {
       const reply = dernier ? await conclure() : await askModel(conversation);
-      conversation.push({ role: 'assistant', content: JSON.stringify(reply) });
+      // Seul le message repart dans l'historique. Y renvoyer l'objet JSON
+      // complet rejouait ses propres suggestions à chaque tour, pour rien : le
+      // palier gratuit de Groq compte les jetons par minute, et l'historique
+      // est réexpédié à chaque question.
+      conversation.push({ role: 'assistant', content: reply.message });
 
       appendMessage(reply.message, 'assistant');
 
