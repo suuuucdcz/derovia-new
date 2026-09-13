@@ -184,9 +184,11 @@ export function createSurvey() {
 
       appendMessage(reply.message, 'assistant');
 
-      // Au dernier tour on passe à la synthèse quoi qu'il arrive : mieux vaut
-      // une synthèse incomplète qu'un prospect coincé dans l'échange.
-      if (reply.done || dernier) {
+      // C'est le site qui décide de la fin, jamais le modèle : laissé juge, il
+      // concluait dès qu'il s'estimait renseigné et sautait la question de
+      // l'enjeu. Au dernier tour on passe à la synthèse quoi qu'il arrive,
+      // mieux valant une synthèse incomplète qu'un prospect coincé.
+      if (dernier) {
         summary = reply.summary;
         renderSummary(summary);
         turn = MAX_TURNS;

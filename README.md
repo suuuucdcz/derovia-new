@@ -287,17 +287,39 @@ la mise en page dans deux modes différents.
 Quatre phases, portées par `data-phase` sur le conteneur `#survey` :
 
 1. **intro** — la question d'accroche et huit métiers proposés en un clic.
-2. **chat** — au plus quatre échanges. Le modèle répond en JSON
-   (`message`, `suggestions`, `done`, `summary`), ce qui permet de proposer à
-   chaque tour des réponses cliquables et de suivre la progression.
+2. **chat** — cinq échanges : métier, la corvée, le volume, la durée, puis
+   l'enjeu. Le modèle répond en JSON (`message`, `suggestions`, `done`,
+   `summary`), ce qui permet de proposer à chaque tour des réponses cliquables
+   et de suivre la progression.
 3. **summary** — la synthèse structurée, relue par le visiteur, puis ses
    coordonnées.
 4. **sent** — la confirmation.
 
 Ce modèle raisonne avant de répondre et consomme couramment 900 jetons : le
-budget est fixé à 2000 pour que la sortie JSON ne soit jamais tronquée, ce que
+budget est fixé à 2600 pour que la sortie JSON ne soit jamais tronquée, ce que
 l'API rejetterait (`json_validate_failed`). Une seconde tentative, après une
 courte pause, absorbe un échec ponctuel ou une limite de débit.
+
+### Le cinquième échange
+
+Les quatre premiers mesurent la corvée ; le cinquième demande **ce qui se passe
+quand elle passe à travers**. C'est presque toujours le poste le plus lourd, et
+celui que personne ne calcule : un devis oublié, ce n'est pas vingt minutes
+perdues, c'est un chantier parti chez le concurrent. La réponse remplit le champ
+`risque` de la synthèse et revient dans la conclusion, avec les mots du
+prospect.
+
+Deux garde-fous, tous deux appris en testant :
+
+- **Le modèle n'invente jamais d'incident.** Si le prospect répond que tout va
+  bien, la conclusion omet purement et simplement ce point. Le prompt décrit le
+  mouvement au lieu de donner une phrase d'exemple : donné en toutes lettres,
+  l'exemple se faisait recopier mot pour mot, y compris à qui n'avait rien
+  raconté.
+- **C'est le site qui décide de la fin, jamais le modèle.** Laissé juge, il
+  concluait dès qu'il s'estimait renseigné et sautait la question de l'enjeu.
+  `survey.js` ignore donc `done` tant que le dernier tour n'est pas atteint, et
+  le prompt lui interdit de conclure de sa propre initiative.
 
 ## La démonstration
 
