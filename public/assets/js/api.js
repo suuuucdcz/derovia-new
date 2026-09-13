@@ -121,24 +121,14 @@ function sujet(lead) {
 const INTERLOCUTEURS = { user: 'Prospect', assistant: 'Derovia' };
 
 /**
- * Rend l'échange sous forme de dialogue. Les réponses du modèle sont conservées
- * en JSON dans la conversation, car il faut les lui renvoyer telles quelles :
- * on n'en garde ici que le message adressé au prospect.
+ * Rend l'échange sous forme de dialogue, lisible dans un courriel. La
+ * conversation ne contient plus que du texte : le modèle n'y reçoit que ses
+ * propres messages, plus les objets JSON qu'il avait produits.
  */
 function transcrire(conversation) {
   return conversation
-    .map((entree) => `${INTERLOCUTEURS[entree.role] ?? entree.role} : ${propos(entree)}`)
+    .map((entree) => `${INTERLOCUTEURS[entree.role] ?? entree.role} : ${entree.content}`)
     .join('\n\n');
-}
-
-function propos(entree) {
-  if (entree.role !== 'assistant') return entree.content;
-
-  try {
-    return JSON.parse(entree.content).message ?? entree.content;
-  } catch {
-    return entree.content;
-  }
 }
 
 /**
