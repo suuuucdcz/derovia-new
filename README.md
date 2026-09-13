@@ -239,6 +239,12 @@ Ce que le mode change :
   masque emporterait aussi la marque et les boutons.
 - Le parcours de qualification ne se remet plus à zéro quand on le quitte : on
   ne le quitte pas volontairement, on le dépasse du pouce.
+- La conversation cesse d'être une boîte défilante. Enfermée dans 46 vh, elle
+  coupait la question en cours au milieu d'une phrase, sur une page qui défile
+  déjà. Elle prend sa taille naturelle, et `survey.js` fait suivre la page à
+  chaque nouveau message — le test porte sur l'élément (est-il encore
+  défilable ?) plutôt que sur une largeur de fenêtre, pour rester juste quel
+  que soit le seuil choisi ailleurs.
 
 La bascule est vivante : redimensionner la fenêtre au-delà du seuil rebranche
 l'autre mode sans rechargement.

@@ -85,6 +85,15 @@ export function createSurvey() {
     message.append(bubble);
     el.history.insertBefore(message, loader);
     el.history.scrollTop = el.history.scrollHeight;
+
+    // Quand la conversation cesse d'être une boîte défilante — sur petit écran,
+    // où elle s'étire à sa taille naturelle — c'est la page qui doit suivre,
+    // sinon la nouvelle question naît sous le bord de l'écran. Le test porte
+    // sur l'élément lui-même plutôt que sur une largeur de fenêtre : il reste
+    // juste quel que soit le seuil choisi ailleurs.
+    if (el.history.scrollHeight <= el.history.clientHeight + 1) {
+      el.input.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    }
   };
 
   const renderSuggestions = (items) => {

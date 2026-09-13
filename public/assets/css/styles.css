@@ -3067,6 +3067,19 @@ body.menu-ouvert .deck-dots {
     margin-top: 7px;
   }
 
+  /* --- La conversation ---
+     Enfermée dans 46 vh qui défilent, elle coupait la question en cours au
+     milieu d'une phrase, sur une page qui défile déjà. Elle prend désormais
+     sa taille naturelle : un seul geste, et rien de tronqué. Le dégradé
+     d'estompe suivait la boîte ; sans boîte, il ne ferait qu'effacer le début
+     de l'échange. */
+  .chat-history {
+    max-height: none;
+    overflow-y: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
   /* --- Téléchargement ---
      Un téléphone n'installe pas une application Windows. Tout ce qui décrit
      l'installation s'efface donc : l'avertissement SmartScreen, sa marche à
