@@ -1,15 +1,16 @@
 # Derovia
 
-Site vitrine de Derovia (IA & automatisation), construit comme un deck de quatre
-diapositives plein écran. La dernière est un parcours conversationnel qui
-qualifie le besoin du visiteur, puis transmet une synthèse structurée.
+Site vitrine de Derovia (IA & automatisation), construit comme un deck de huit
+diapositives plein écran — qui redevient une page défilante sur téléphone. La
+dernière est un questionnaire en six étapes qui chiffre le temps perdu, puis
+transmet le besoin qualifié.
 
-Aucune dépendance, aucune étape de compilation : `public/` est publié tel quel.
+Aucune dépendance, aucune étape de compilation, aucun appel à un service
+extérieur : `public/` est publié tel quel.
 
 ## Développement local
 
 ```bash
-cp .env.example .env      # puis renseignez GROQ_API_KEY
 python server.py
 ```
 
@@ -21,22 +22,10 @@ suffit — `server.py` n'utilise que la bibliothèque standard.
 1. **Relier le dépôt** — sur Netlify, *Add new site → Import an existing
    project*, puis choisir ce dépôt GitHub. `netlify.toml` fournit déjà toute la
    configuration : rien à saisir dans l'assistant.
-2. **Déclarer la clé d'API** — *Site configuration → Environment variables →
-   Add a variable* :
-
-   | Clé            | Valeur                    | Portée         |
-   | -------------- | ------------------------- | -------------- |
-   | `GROQ_API_KEY` | votre clé Groq            | Functions      |
-
-   La clé ne vit que là. Elle n'apparaît jamais dans le dépôt, ni dans le code
-   servi au navigateur : celui-ci n'appelle que `/api/groq`, et c'est la
-   fonction Netlify qui ajoute l'en-tête d'autorisation.
-3. **Déployer** — le premier déploiement part automatiquement, puis à chaque
-   `git push` sur la branche principale.
-4. **Brancher la boîte mail** — voir la section suivante.
-
-> Ne jamais committer `.env`, ni coller la clé dans `netlify.toml` : ces deux
-> fichiers partent sur GitHub. `.gitignore` exclut déjà `.env`.
+2. **Déployer** — le premier déploiement part automatiquement, puis à chaque
+   `git push` sur la branche principale. Aucune variable d'environnement à
+   déclarer : le site ne parle à aucun service extérieur.
+3. **Brancher la boîte mail** — voir la section suivante.
 
 ## Recevoir les besoins par courriel
 
@@ -95,7 +84,7 @@ pré-remplies : vérifiez-les avant publication.
 
 **`public/confidentialite.html`** — responsable du traitement, adresse, DPO le
 cas échéant (sinon supprimer la ligne), mécanisme de transfert hors UE retenu
-pour Groq et Netlify, date de publication.
+pour Netlify, date de publication.
 
 **Ailleurs** — le domaine définitif dans `public/robots.txt` et dans les balises
 `og:` de `public/index.html`, plus une image de partage 1200×630.
@@ -106,7 +95,7 @@ pour Groq et Netlify, date de publication.
 | --- | --- |
 | Mentions légales (LCEN art. 6 III-1) | `/mentions-legales.html` |
 | Information RGPD (art. 13) | `/confidentialite.html` |
-| Information « vous parlez à une IA » (AI Act art. 50) | mention affichée dans le parcours, avant le premier échange |
+| Information « vous parlez à une IA » (AI Act art. 50) | **sans objet** — le questionnaire ne fait plus appel à un modèle de langage |
 | Bandeau cookies | **sans objet** — aucun cookie, aucun traceur, aucune ressource tierce |
 
 Le site ne dépose aucun cookie, n'utilise ni `localStorage` ni mesure d'audience
@@ -114,17 +103,17 @@ et ne charge aucune ressource depuis un domaine tiers : aucun consentement n'est
 requis à ce titre. Cela reste vrai tant qu'aucun outil d'analyse n'est ajouté —
 le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoire.
 
-> L'AI Act n'impose pas d'indiquer qu'une IA a servi à *développer* le site. Il
-> impose d'informer le visiteur qu'il *dialogue* avec une IA, ce que fait la
-> mention du parcours. Une phrase sur l'assistance par IA lors de la conception
-> figure malgré tout dans les mentions légales, par transparence.
+> L'AI Act n'impose pas d'indiquer qu'une IA a servi à *développer* le site : il
+> impose d'informer le visiteur qu'il *dialogue* avec une IA. Le questionnaire
+> ayant cessé d'en être une, l'obligation tombe. Une phrase sur l'assistance par
+> IA lors de la conception figure malgré tout dans les mentions légales, par
+> transparence.
 
 ## Structure
 
 ```
 .
 ├── netlify.toml                    Publication, en-têtes de sécurité
-├── netlify/functions/groq.mjs      Proxy vers l'API Groq (production)
 ├── server.py                       Serveur de développement local
 ├── .env.example                    Modèle de configuration (copier en .env)
 └── public/                         Racine web
@@ -288,44 +277,56 @@ de 8 000 px. Trois corrections l'ont ramené à 6 200 sans qu'un mot disparaisse
 doivent rester identiques : modifier l'une sans l'autre laisserait le script et
 la mise en page dans deux modes différents.
 
-## Le parcours de qualification
+## Le questionnaire
 
-Quatre phases, portées par `data-phase` sur le conteneur `#survey` :
+Six étapes courtes, décrites en données dans `FORM_STEPS`
+([config.js](public/assets/js/config.js)) :
+[formulaire.js](public/assets/js/formulaire.js) ne fait que les mettre en page,
+les valider et les transmettre. Ajouter une question, c'est ajouter une entrée —
+mais il faut aussi déclarer son nom dans le formulaire caché d'index.html,
+sinon Netlify ne l'enregistrera jamais.
 
-1. **intro** — la question d'accroche et huit métiers proposés en un clic.
-2. **chat** — cinq échanges : métier, la corvée, le volume, la durée, puis
-   l'enjeu. Le modèle répond en JSON (`message`, `suggestions`, `done`,
-   `summary`), ce qui permet de proposer à chaque tour des réponses cliquables
-   et de suivre la progression.
-3. **summary** — la synthèse structurée, relue par le visiteur, puis ses
-   coordonnées.
-4. **sent** — la confirmation.
+1. **Votre activité** — métier, taille
+2. **Ce qui vous prend du temps** — les corvées, puis la principale
+3. **Combien de temps, au juste** — fréquence et durée
+4. **Quand ça passe à travers** — ce qu'un oubli coûte
+5. **Vos outils d'aujourd'hui** — ce qui décide de la faisabilité
+6. **Comment vous joindre** — récapitulatif, puis coordonnées
 
-Ce modèle raisonne avant de répondre et consomme couramment 900 jetons : le
-budget est fixé à 2600 pour que la sortie JSON ne soit jamais tronquée, ce que
-l'API rejetterait (`json_validate_failed`). Une seconde tentative, après une
-courte pause, absorbe un échec ponctuel ou une limite de débit.
+### Le calcul, en direct
 
-### Le cinquième échange
+L'étape 3 affiche le temps rendu et sa valeur annuelle pendant qu'on déplace les
+curseurs, au même coût horaire chargé que la page Rentabilité. C'est le moment
+qui décide, et il n'a jamais demandé autre chose qu'une multiplication —
+`fréquence × durée × 12 × coût horaire`.
 
-Les quatre premiers mesurent la corvée ; le cinquième demande **ce qui se passe
-quand elle passe à travers**. C'est presque toujours le poste le plus lourd, et
-celui que personne ne calcule : un devis oublié, ce n'est pas vingt minutes
-perdues, c'est un chantier parti chez le concurrent. La réponse remplit le champ
-`risque` de la synthèse et revient dans la conclusion, avec les mots du
-prospect.
+Le site a d'abord confié cet échange à un modèle de langage. Il produisait le
+même chiffre, mais après trois secondes d'attente, contre une clé d'API, une
+fonction serveur et une limite de huit mille jetons par minute que le palier
+gratuit de Groq atteignait dès le troisième tour — le visiteur lisait alors
+« une erreur est survenue » au milieu du questionnaire. Le calcul est revenu
+dans le navigateur ; il ne peut plus échouer.
 
-Deux garde-fous, tous deux appris en testant :
+En repartant, l'intelligence artificielle a emporté avec elle la fonction
+Netlify, la variable d'environnement, la mention obligatoire au titre de
+l'article 50 du règlement (UE) 2024/1689, et Groq comme sous-traitant dans la
+politique de confidentialité.
 
-- **Le modèle n'invente jamais d'incident.** Si le prospect répond que tout va
-  bien, la conclusion omet purement et simplement ce point. Le prompt décrit le
-  mouvement au lieu de donner une phrase d'exemple : donné en toutes lettres,
-  l'exemple se faisait recopier mot pour mot, y compris à qui n'avait rien
-  raconté.
-- **C'est le site qui décide de la fin, jamais le modèle.** Laissé juge, il
-  concluait dès qu'il s'estimait renseigné et sautait la question de l'enjeu.
-  `survey.js` ignore donc `done` tant que le dernier tour n'est pas atteint, et
-  le prompt lui interdit de conclure de sa propre initiative.
+### Types de champ
+
+`choix` (une réponse), `multi` (plusieurs), `curseur`, `texte`, `email`, `tel`.
+Les pastilles sont de vrais boutons radio et cases à cocher, seulement
+habillés : le clavier, le lecteur d'écran et l'état coché fonctionnent sans
+qu'on ait à les réécrire.
+
+Un champ peut tirer ses réponses d'un autre (`optionsDe`) : « celle qui vous
+coûte le plus » ne propose que les corvées cochées juste avant, et se met à jour
+à la coche, pas à l'étape suivante.
+
+⚠ Trois fois dans ce projet, `display: flex` a discrètement annulé l'attribut
+`hidden` — sur le panneau de navigation, sur les étapes, sur les boutons. Une
+règle `[hidden] { display: none }` accompagne donc chaque composant que le
+script masque.
 
 ## La démonstration
 
@@ -371,22 +372,20 @@ un rendu Canvas 2D. Deux uniformes le pilotent :
 - `u_calm` — sur le parcours, le fond ralentit et se rapproche de sa teinte de
   base pour ne pas concurrencer la lecture.
 
-## Les deux routes
+## La seule route
 
-| Route            | En local (`server.py`)          | En production (Netlify)          |
-| ---------------- | ------------------------------- | -------------------------------- |
-| `POST /api/groq` | proxy avec la clé du `.env`     | `netlify/functions/groq.mjs`     |
-| `POST /`         | ajoute une ligne à `leads.jsonl`| Netlify Forms (formulaire `besoin`) |
+| Route      | En local (`server.py`)           | En production (Netlify)             |
+| ---------- | -------------------------------- | ----------------------------------- |
+| `POST /`   | ajoute une ligne à `leads.jsonl` | Netlify Forms (formulaire `besoin`) |
 
 Le navigateur envoie exactement la même requête dans les deux cas ; seule
-l'implémentation côté serveur diffère.
+l'implémentation côté serveur diffère. C'est le seul appel réseau du site.
 
 ## Configuration
 
-| Variable       | Rôle                                       | Défaut |
-| -------------- | ------------------------------------------ | ------ |
-| `GROQ_API_KEY` | Clé d'API Groq (obligatoire)               | —      |
-| `PORT`         | Port du serveur local, ignoré sur Netlify  | `8001` |
+| Variable | Rôle                                      | Défaut |
+| -------- | ----------------------------------------- | ------ |
+| `PORT`   | Port du serveur local, ignoré sur Netlify | `8001` |
 
-Le modèle, les consignes qui lui sont données, le nombre d'échanges et les
-métiers proposés se règlent dans [config.js](public/assets/js/config.js).
+Les questions, les métiers proposés et le coût horaire de référence se règlent
+dans [config.js](public/assets/js/config.js).

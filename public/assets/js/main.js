@@ -11,11 +11,11 @@ import { createDemo } from './demo.js';
 import { createFilm } from './film.js';
 import { createMenu } from './menu.js';
 import { createRentabilite } from './rentabilite.js';
-import { createSurvey } from './survey.js';
+import { createFormulaire } from './formulaire.js';
 import { DEMO_SLIDE, SLIDES, SURVEY_SLIDE, TIMING, VIDEO_SLIDE } from './config.js';
 
 const background = new OrganicBackground('bg-canvas');
-const survey = createSurvey();
+const formulaire = createFormulaire();
 const demo = createDemo();
 const film = createFilm();
 createRentabilite();
@@ -29,18 +29,16 @@ const deck = createDeck({
     background.setPalette(index / Math.max(SLIDES.length - 1, 1));
 
     const isSurvey = id === SURVEY_SLIDE;
-    // Sur le parcours on lit : le fond se met en retrait.
+    // Sur le parcours on lit et on écrit : le fond se met en retrait.
     background.setCalm(isSurvey ? 1 : 0);
 
     clearTimeout(leaveTimer);
-    if (isSurvey) {
-      survey?.start();
-    } else if (!deck?.enDefilement) {
+    // En mode défilement on ne remet rien à zéro : le questionnaire ne se
+    // quitte pas volontairement, on le dépasse du pouce — et des réponses déjà
+    // saisies ne doivent pas s'effacer pour autant.
+    if (!isSurvey && !deck?.enDefilement) {
       // On attend la fin du glissement pour que la remise à zéro reste invisible.
-      // En mode défilement, on ne remet rien à zéro : le parcours ne se quitte
-      // pas volontairement, on le dépasse du pouce — et une conversation en
-      // cours ne doit pas s'effacer pour autant.
-      leaveTimer = setTimeout(() => survey?.reset(), TIMING.slideTransition);
+      leaveTimer = setTimeout(() => formulaire?.reset(), TIMING.slideTransition);
     }
 
     // Le film ne joue que sur sa propre section : jamais de son en arrière-plan.

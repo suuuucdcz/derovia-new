@@ -1,10 +1,7 @@
 [build]
-  # Site statique : rien à compiler, `public/` est publié tel quel.
+  # Site statique : rien à compiler, rien à exécuter côté serveur.
+  # `public/` est publié tel quel.
   publish = "public"
-  functions = "netlify/functions"
-
-[functions]
-  node_bundler = "esbuild"
 
 [[headers]]
   for = "/*"

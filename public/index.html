@@ -30,7 +30,7 @@
       .deck-track { transform: none; }
       .slide-section { flex-basis: auto; min-height: 100vh; }
       .site-header { position: absolute; }
-      .deck-dots, .btn-nav, .btn-back, #survey { display: none; }
+      .deck-dots, .btn-nav, .btn-back, #parcours { display: none; }
     </style>
   </noscript>
 
@@ -119,20 +119,29 @@
        n'est jamais affiché, il sert uniquement à la détection au déploiement.
        Netlify n'enregistre que les champs déclarés ici, et les restitue dans
        cet ordre dans le courriel de notification.
-       Les envois réels partent de survey.js, via api.js. -->
+       Les envois réels partent de formulaire.js, via api.js. -->
   <form name="besoin" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
     <input type="text" name="bot-field">
     <!-- Netlify reprend « subject » comme objet du courriel. -->
     <input type="text" name="subject">
     <input type="email" name="email">
     <input type="text" name="company">
+    <input type="text" name="telephone">
+    <input type="text" name="contact">
     <input type="text" name="metier">
-    <input type="text" name="besoins">
+    <input type="text" name="metierAutre">
+    <input type="text" name="taille">
+    <input type="text" name="taches">
+    <input type="text" name="priorite">
     <input type="text" name="volume">
-    <input type="text" name="risque">
+    <input type="text" name="frequence">
+    <input type="text" name="duree">
+    <input type="text" name="consequence">
+    <textarea name="precision"></textarea>
+    <input type="text" name="outils">
+    <input type="text" name="logiciel">
     <input type="text" name="gainTemps">
     <input type="text" name="gainArgent">
-    <textarea name="echange"></textarea>
   </form>
 
   <!-- Fond organique animé (WebGL, repli Canvas 2D) -->
@@ -632,101 +641,61 @@
       <section class="slide-section" id="slide-parcours" aria-label="Parcours">
         <div class="slide-inner slide-content">
 
-          <div class="survey" id="survey" data-phase="intro">
+          <div class="parcours" id="parcours" data-phase="questions">
 
             <div class="survey-progress">
               <div class="survey-progress-track">
-                <span class="survey-progress-fill" id="survey-progress-fill"></span>
+                <span class="survey-progress-fill" id="form-progress-fill"></span>
               </div>
-              <p class="survey-step" id="survey-step">Étape 1 sur 4</p>
+              <p class="survey-step" id="form-step">Étape 1 sur 6</p>
             </div>
 
-            <div class="survey-intro">
-              <h2 id="typewriter-text" class="survey-question"></h2><span
-                class="survey-caret" id="survey-caret" aria-hidden="true">|</span>
-            </div>
+            <!-- Les étapes et leurs champs sont générés depuis FORM_STEPS. -->
+            <form class="form-besoin" id="form-besoin" novalidate>
+              <div class="etapes" id="etapes"></div>
 
-            <!-- Les messages sont insérés avant l'indicateur d'attente. -->
-            <div id="chat-history" class="chat-history" aria-live="polite">
-              <p class="chat-loading"><span class="pulse-dot" aria-hidden="true"></span>Analyse en cours…</p>
-            </div>
+              <!-- Déplacé dans la dernière étape par formulaire.js : il n'a de
+                   sens qu'une fois toutes les réponses données. -->
+              <div class="form-recap" id="form-recap"></div>
 
-            <div class="suggestions" id="suggestions"></div>
+              <p class="form-error" id="form-error" hidden></p>
 
-            <div class="chat-input">
-              <textarea id="needs-input" class="chat-textarea" rows="1"
-                        placeholder="Ou répondez librement…"
-                        aria-label="Votre réponse"></textarea>
-
-              <div class="chat-actions">
-                <button id="btn-analyze" class="btn-submit" type="button" disabled>
-                  <span>Envoyer</span>
-                  <svg aria-hidden="true"><use href="#icon-send"></use></svg>
+              <div class="form-actions">
+                <button type="button" class="btn-secondary btn-compact" id="btn-precedent" hidden>
+                  Retour
+                </button>
+                <button type="button" class="btn-primary btn-compact" id="btn-suivant">
+                  <span>Continuer</span>
+                  <span class="btn-icon" aria-hidden="true">
+                    <svg><use href="#icon-arrow-right"></use></svg>
+                  </span>
+                </button>
+                <button type="submit" class="btn-primary btn-compact" id="btn-envoyer" hidden>
+                  <span>Envoyer ma demande</span>
+                  <span class="btn-icon" aria-hidden="true">
+                    <svg><use href="#icon-arrow-right"></use></svg>
+                  </span>
                 </button>
               </div>
-            </div>
-
-            <p class="survey-ai-notice">
-              Cet échange est mené par une intelligence artificielle. Vos réponses lui
-              sont transmises pour qualifier votre besoin.
-              <a href="/confidentialite.html" target="_blank" rel="noopener">En savoir plus</a>
-            </p>
-
-            <form class="summary-card" id="summary-form" novalidate>
-              <h3 class="summary-title">Synthèse de votre besoin</h3>
-              <dl class="summary-fields" id="summary-fields"></dl>
-
-              <!-- Le taux est celui de la page Rentabilité : un visiteur qui
-                   vérifie doit retomber sur le même calcul. -->
-              <p class="summary-methode">
-                Estimation calculée sur un coût horaire chargé de 28 €, le même que
-                <button type="button" class="lien-texte" data-goto="rentabilite">la page Rentabilité</button>.
-              </p>
-
-              <div class="summary-form-row">
-                <label class="field">
-                  <span>Adresse professionnelle</span>
-                  <input type="email" id="lead-email" name="email"
-                         autocomplete="email" placeholder="prenom@entreprise.com" required>
-                </label>
-                <label class="field">
-                  <span>Société <em>(facultatif)</em></span>
-                  <input type="text" id="lead-company" name="company"
-                         autocomplete="organization" placeholder="Nom de votre société">
-                </label>
-              </div>
-
-              <p class="form-error" id="lead-error" hidden></p>
-
-              <button type="submit" class="btn-primary btn-block" id="btn-send-lead">
-                <span>Transmettre à nos ingénieurs</span>
-                <span class="btn-icon" aria-hidden="true">
-                  <svg><use href="#icon-arrow-right"></use></svg>
-                </span>
-              </button>
-
-              <p class="summary-legal">
-                Vos informations servent uniquement à préparer notre échange et ne
-                sont jamais cédées à des tiers.
-                <a href="/confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a>.
-              </p>
             </form>
+
+            <p class="summary-legal form-legal">
+              Vos informations servent uniquement à préparer notre échange et ne sont jamais
+              cédées à des tiers. <a href="/confidentialite.html">Politique de confidentialité</a>
+            </p>
 
             <noscript>
               <p class="survey-noscript">
-                Le parcours de qualification nécessite JavaScript. Écrivez-nous à
+                Le questionnaire nécessite JavaScript. Écrivez-nous à
                 <a href="mailto:contact@derovia.com">contact@derovia.com</a> et
                 décrivez votre métier : nous vous répondons sous 48&nbsp;heures ouvrées.
               </p>
             </noscript>
 
             <div class="survey-done">
-              <span class="done-badge" aria-hidden="true">
-                <svg><use href="#icon-check"></use></svg>
-              </span>
-              <h3>Besoin transmis</h3>
-              <p>Un ingénieur Derovia revient vers vous sous 48&nbsp;heures ouvrées avec une première lecture de votre cas.</p>
-              <button type="button" class="btn-secondary" data-goto="hero">Retour à l’accueil</button>
+              <span class="done-badge" aria-hidden="true"><svg><use href="#icon-check"></use></svg></span>
+              <h3>C’est transmis</h3>
+              <p>Un ingénieur Derovia revient vers vous sous 48&nbsp;heures ouvrées.</p>
             </div>
 
           </div>

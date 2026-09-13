@@ -129,8 +129,6 @@ export const ROI_REPERES = [
    Questionnaire
    -------------------------------------------------------------------------- */
 
-export const API_ENDPOINT = '/api/groq';
-
 /**
  * Netlify intercepte les envois de formulaire postés à la racine du site ;
  * `server.py` fait de même en local. Un seul chemin pour les deux environnements.
@@ -138,112 +136,204 @@ export const API_ENDPOINT = '/api/groq';
 export const LEADS_ENDPOINT = '/';
 export const LEADS_FORM_NAME = 'besoin';
 
-export const MODEL = {
-  name: 'openai/gpt-oss-20b',
-  temperature: 0.4,
-  /**
-   * Large marge volontaire : ce modèle raisonne avant de répondre et consomme
-   * couramment 900 jetons — davantage au dernier tour, où il pose un calcul
-   * avant de conclure. Trop juste, la sortie JSON est tronquée et l'API
-   * rejette la requête (`json_validate_failed`).
-   */
-  maxTokens: 2600,
-};
+/**
+ * Le questionnaire, écrit en données. Chaque étape porte son titre, une phrase
+ * qui dit pourquoi on demande, et ses champs ; `formulaire.js` ne fait que les
+ * mettre en page.
+ *
+ * Types de champ : `choix` (une réponse), `multi` (plusieurs), `curseur`
+ * (une valeur chiffrée), `texte`, `email`, `tel`.
+ *
+ * ⚠ Ajouter un champ ici ne suffit pas : il faut aussi le déclarer dans le
+ *   formulaire caché d'index.html, sinon Netlify ne l'enregistrera jamais.
+ */
+export const FORM_STEPS = [
+  {
+    titre: 'Votre activité',
+    aide: 'Pour savoir à qui on parle, et avec quels usages.',
+    champs: [
+      {
+        nom: 'metier',
+        label: 'Votre métier',
+        type: 'choix',
+        requis: true,
+        autre: 'Précisez votre métier',
+        options: [
+          'Bâtiment & travaux',
+          'Plomberie & chauffage',
+          'Garage & mécanique',
+          'Restauration',
+          'Coiffure & esthétique',
+          'Commerce de proximité',
+          'Cabinet comptable',
+          'Agence immobilière',
+        ],
+      },
+      {
+        nom: 'taille',
+        label: 'Combien êtes-vous ?',
+        type: 'choix',
+        options: ['Je suis seul', '2 à 5', '6 à 20', 'Plus de 20'],
+      },
+    ],
+  },
 
-/** Deux reprises : l'une pour un échec de génération, l'autre pour une limite
- *  de débit, qui demande une attente bien plus longue. */
-export const MODEL_RETRIES = 2;
+  {
+    titre: 'Ce qui vous prend du temps',
+    aide: 'Cochez tout ce qui vous mange des heures, même un peu.',
+    champs: [
+      {
+        nom: 'taches',
+        label: 'Les tâches qui reviennent sans cesse',
+        type: 'multi',
+        requis: true,
+        options: [
+          'Rédiger les devis',
+          'Facturer et relancer',
+          'Prendre les rendez-vous',
+          'Répondre aux appels et messages',
+          'Organiser le planning et les tournées',
+          'Préparer les papiers du comptable',
+          'Commander chez les fournisseurs',
+          'Suivre les chantiers ou les dossiers',
+        ],
+      },
+      {
+        nom: 'priorite',
+        label: 'Et celle qui vous coûte le plus ?',
+        type: 'choix',
+        requis: true,
+        // Les réponses reprennent ce qui vient d'être coché à l'étape d'avant :
+        // on ne fait jamais choisir entre des options qu'on a déjà écartées.
+        optionsDe: 'taches',
+      },
+    ],
+  },
 
-/** Pause par défaut avant une reprise, quand l'API ne dit rien de plus. */
-export const MODEL_RETRY_DELAY = 700;
+  {
+    titre: 'Combien de temps, au juste',
+    aide: 'Une estimation suffit. Le calcul se fait sous vos yeux.',
+    calcul: true,
+    champs: [
+      {
+        nom: 'frequence',
+        label: 'Combien de fois par mois ?',
+        type: 'curseur',
+        min: 1,
+        max: 100,
+        pas: 1,
+        defaut: 20,
+        unite: 'fois par mois',
+      },
+      {
+        nom: 'duree',
+        label: 'Combien de temps à chaque fois ?',
+        type: 'curseur',
+        min: 5,
+        max: 120,
+        pas: 5,
+        defaut: 20,
+        unite: 'minutes',
+      },
+    ],
+  },
 
-/** Plafond de l'attente demandée par l'API : au-delà, mieux vaut rendre la
- *  main au visiteur que le laisser devant un curseur qui tourne. */
-export const MODEL_RETRY_MAX_DELAY = 12000;
+  {
+    titre: 'Quand ça passe à travers',
+    aide: 'C’est souvent ce qui coûte le plus cher, et ça ne se compte jamais.',
+    champs: [
+      {
+        nom: 'consequence',
+        label: 'Qu’est-ce qui arrive quand la tâche traîne ?',
+        type: 'choix',
+        options: [
+          'Il m’arrive d’oublier',
+          'J’envoie souvent en retard',
+          'J’ai déjà perdu un client comme ça',
+          'Je suis payé plus tard',
+          'Rien de grave, ça se passe bien',
+        ],
+      },
+      {
+        nom: 'precision',
+        label: 'Un exemple concret ? (facultatif)',
+        type: 'texte',
+        lignes: 2,
+        placeholder: 'Un devis parti trois jours trop tard, un rendez-vous manqué…',
+      },
+    ],
+  },
 
-/** Nombre d'échanges avant la synthèse. Sert aussi de jauge de progression. */
-export const MAX_TURNS = 5;
+  {
+    titre: 'Vos outils d’aujourd’hui',
+    aide: 'Ce que vous avez déjà décide de ce qu’on peut brancher dessus.',
+    champs: [
+      {
+        nom: 'outils',
+        label: 'Avec quoi travaillez-vous ?',
+        type: 'multi',
+        options: [
+          'Papier et carnet',
+          'Excel ou Google Sheets',
+          'Un logiciel métier',
+          'Ma boîte mail',
+          'WhatsApp ou SMS',
+          'Rien de particulier',
+        ],
+      },
+      {
+        nom: 'logiciel',
+        label: 'Lequel ? (facultatif)',
+        type: 'texte',
+        placeholder: 'EBP, Batappli, Sage, Zelty…',
+      },
+    ],
+  },
 
-/** Première question, écrite en machine à écrire à l'ouverture du parcours. */
-export const OPENING_QUESTION = 'Quel est votre métier ?';
-
-/** Réponses proposées d'emblée : un clic suffit pour démarrer. */
-export const TRADE_SUGGESTIONS = [
-  'Bâtiment & travaux',
-  'Plomberie & chauffage',
-  'Garage & mécanique',
-  'Restauration',
-  'Coiffure & esthétique',
-  'Commerce de proximité',
-  'Cabinet comptable',
-  'Agence immobilière',
+  {
+    titre: 'Comment vous joindre',
+    aide: 'On vous répond sous 48 heures ouvrées, sans relance automatique.',
+    recapitulatif: true,
+    champs: [
+      {
+        nom: 'email',
+        label: 'Adresse professionnelle',
+        type: 'email',
+        requis: true,
+        placeholder: 'prenom@entreprise.com',
+        autocomplete: 'email',
+      },
+      {
+        nom: 'company',
+        label: 'Société (facultatif)',
+        type: 'texte',
+        placeholder: 'Nom de votre société',
+        autocomplete: 'organization',
+      },
+      {
+        nom: 'telephone',
+        label: 'Téléphone (facultatif)',
+        type: 'tel',
+        placeholder: '06 12 34 56 78',
+        autocomplete: 'tel',
+      },
+      {
+        nom: 'contact',
+        label: 'Vous préférez qu’on vous',
+        type: 'choix',
+        options: ['rappelle', 'écrive par mail'],
+        defaut: 'rappelle',
+      },
+    ],
+  },
 ];
 
-/**
- * Consigne système. Le modèle répond en JSON : c'est le site qui met en forme,
- * ce qui permet les réponses cliquables, la jauge et la synthèse finale.
- */
-export const SYSTEM_PROMPT = `Tu es consultant en automatisation chez Derovia. Tes interlocuteurs dirigent de petites entreprises : artisans du bâtiment, garagistes, restaurateurs, coiffeurs, commerçants, mais aussi cabinets comptables et agences immobilières. Ils manquent de temps, pas d'idées.
-
-TA MISSION : repartir avec DEUX CHIFFRES — combien de fois par mois il fait la tâche, et combien de temps elle lui prend à chaque fois — ET avec ce que ça lui coûte quand ça passe à travers. Un devis oublié, ce n'est pas vingt minutes perdues : c'est un chantier parti chez le concurrent.
-
-DÉROULÉ, une seule question à la fois :
-1. Il donne son métier. Cite 2 ou 3 tâches concrètes de SON métier qu'on peut lui enlever, puis demande laquelle lui coûte le plus.
-2. Demande le VOLUME — combien de fois par semaine ou par mois.
-3. Demande la DURÉE — combien de temps à chaque fois.
-4. Demande L'ENJEU — ce qui se passe quand la tâche passe à la trappe. Cherche le fait concret : un client perdu, une facture payée trois semaines plus tard, un rendez-vous manqué.
-5. On te demandera alors de conclure, avec des consignes précises.
-
-TU NE CONCLUS JAMAIS DE TA PROPRE INITIATIVE : "done" vaut false tant qu'on ne te l'a pas demandé, même si tu estimes en savoir assez, et tu ne sautes aucune question.
-
-FAIS MONTER LE COMPTEUR : dès qu'il donne un CHIFFRE, ouvre ta réponse en disant ce qu'il représente — ramène le volume à un temps parlant — puis enchaîne sur ta question. Il doit voir ce qu'il perd grandir à chaque réponse. Tant qu'il n'a rien chiffré, tu n'avances aucun volume ni aucune durée qu'il n'a pas prononcés. Ne réutilise jamais deux fois la même tournure.
-
-S'il refuse de chiffrer ou répond à côté, prends un ordre de grandeur courant de son métier, annonce-le comme tel et avance. N'insiste jamais deux fois sur la même question.
-
-TON : parle comme à un chef d'entreprise pressé, pas à un directeur informatique. Phrases courtes, mots de tous les jours. Jamais de jargon : ni « flux », ni « processus », ni « solution », ni « optimisation ». Tu dis « devis », « factures », « rendez-vous », « appels », « planning ». Vouvoiement, zéro emoji, une espace avant « ? » et « : ».
-
-FORMAT : réponds UNIQUEMENT en JSON valide, sans texte ni balise autour.
-{"message": "...", "suggestions": ["...", "..."], "done": false, "summary": null}
-"message" : 2 à 3 phrases maximum.
-"suggestions" : 3 ou 4 RÉPONSES que le prospect pourrait cliquer, à la première personne, 6 mots maximum, répondant à la question que tu viens de poser. JAMAIS de questions. Valide : ["Les devis", "Une trentaine par mois"].`;
-
-/**
- * Injecté au dernier tour pour garantir une conclusion. Le mot « json » y figure
- * volontairement : l'API refuse une sortie structurée si aucun message ne le
- * mentionne, et cette consigne doit rester valable même isolée.
- */
-export const CLOSING_INSTRUCTION = `C'est le dernier échange. Quoi qu'il vienne de répondre — un chiffre, un refus, un hors-sujet — tu conclus MAINTENANT. Tu ne poses plus aucune question.
-
-Le json de "message" fait ces cinq choses, dans cet ordre, en 5 à 7 phrases, écrites d'un trait : n'annonce jamais ce plan, ne recopie aucun exemple de cette consigne.
-1. Une phrase entière qui dit ce que Derovia lui retire : LA corvée qu'il a citée, une seule, jamais une liste et jamais un fragment. C'est nous qui la retirons — il continue d'avoir des devis, il cesse seulement de les écrire à la main.
-2. LE TEMPS, calcul posé en toutes lettres à partir de SES chiffres : « 30 devis par mois à 20 minutes, c'est environ 10 heures par mois. » S'il n'a rien chiffré, pars d'un ordre de grandeur courant de son métier et annonce-le comme tel.
-3. L'ARGENT : heures par mois × 12 × ${ROI.coutHoraire}, arrondi à la centaine, en précisant qu'il s'agit d'un coût horaire chargé de ${ROI.coutHoraire} €. Ce montant est ce que ce temps lui RAPPORTE : ne l'appelle jamais un « coût » ni un « prix », il ne doit à aucun moment pouvoir se lire comme le tarif de Derovia.
-4. L'ENJEU, uniquement s'il a raconté un incident : renvoie-lui le sien, avec SES mots intégrés dans TA phrase, et dis que c'est ça qu'on supprime en premier. S'il n'a rien raconté, omets ce point — n'invente jamais un incident.
-5. Une phrase : la synthèse part à l'équipe Derovia, qui revient vers lui.
-
-Les chiffres sont des estimations et tu le dis (« environ », « de l'ordre de »). Ne cite jamais le prix d'une installation, ne t'engage sur aucun délai.
-
-"done" vaut true, "suggestions" vaut [], et "summary" est rempli :
-{"metier": "...", "besoins": ["3 maximum, uniquement ce qu'il a cité"], "volume": "...", "risque": "...", "gainTemps": "...", "gainArgent": "..."}
-"risque" : ce qu'un oubli lui coûte, dans SES termes, en une ligne. "Non précisé" s'il n'a rien raconté.
-"gainTemps" (« environ 10 h par mois ») et "gainArgent" (« de l'ordre de 3 400 € ») portent TOUJOURS un chiffre.
-Chaque champ est une chaîne courte ; "Non précisé" si l'information manque.`;
-
-/**
- * Relance quand le modèle repose une question au lieu de conclure — ce qui
- * arrive lorsque la dernière réponse est un refus de chiffrer. Sans elle, le
- * prospect resterait indéfiniment dans l'échange.
- */
-export const CLOSING_FALLBACK = `Tu viens de reposer une question alors que l'échange est terminé. C'est fini : plus AUCUNE question.
-
-Réponds en json avec "done": true, "suggestions": [], et un "summary" complet. S'il n'a pas voulu chiffrer, pars d'un ordre de grandeur courant de son métier et annonce-le comme tel — mais "gainTemps" et "gainArgent" portent un chiffre.`;
-
-/** Intitulés des champs de la synthèse, dans l'ordre d'affichage. */
-export const SUMMARY_FIELDS = [
+/** Intitulés du récapitulatif, dans l'ordre d'affichage. */
+export const RECAP_FIELDS = [
   { key: 'metier', label: 'Métier' },
-  { key: 'besoins', label: 'Ce qu’on vous enlève' },
+  { key: 'priorite', label: 'Ce qu’on vous enlève' },
   { key: 'volume', label: 'Volume' },
-  { key: 'risque', label: 'Ce qu’un oubli coûte' },
+  { key: 'consequence', label: 'Ce qu’un oubli coûte' },
   { key: 'gainTemps', label: 'Temps rendu' },
   { key: 'gainArgent', label: 'Ce que ça vaut sur un an' },
 ];
@@ -256,11 +346,5 @@ export const SUMMARY_FIELDS = [
 export const TIMING = {
   /** Doit rester aligné sur la transition `.deck-track` de styles.css. */
   slideTransition: 850,
-  typewriterStart: 400,
-  typewriterMinDelay: 30,
-  typewriterMaxDelay: 80,
-  inputFocus: 1400,
 };
 
-/** Hauteur maximale du champ de saisie auto-extensible, en pixels. */
-export const TEXTAREA_MAX_HEIGHT = 140;
