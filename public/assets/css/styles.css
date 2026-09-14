@@ -947,8 +947,9 @@ body.menu-ouvert .deck-dots {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--text-tertiary);
   background: var(--surface-muted);
 }

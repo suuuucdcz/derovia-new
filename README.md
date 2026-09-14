@@ -87,8 +87,8 @@ cas échéant (sinon supprimer la ligne), mécanisme de transfert hors UE retenu
 pour Netlify, date de publication.
 
 **Partout, signalé en jaune** — le **numéro de téléphone** (en-tête, pied de page,
-mentions légales), les **prénoms, portraits et zones d'intervention** des deux
-fondateurs, et l'**adresse de l'agenda en ligne** derrière le bouton de
+mentions légales), les **zones d'intervention** de Mathis et Maxence, et
+l'**adresse de l'agenda en ligne** derrière le bouton de réservation qui suit
 réservation qui suit l'envoi du questionnaire. Les portraits se déposent dans
 `public/assets/fondateurs/` ; le commentaire à côté de chaque cercle vide
 montre la balise à mettre à la place.
@@ -153,14 +153,14 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
 
 | # | Section       | Rôle                                                        |
 | - | ------------- | ----------------------------------------------------------- |
-| 1 | Accueil       | Accroche et double appel à l'action                         |
-| 2 | Expertises    | Quatre familles d'automatisation                            |
-| 3 | En vidéo      | La présentation animée, en une minute                       |
-| 4 | Méthode       | Le déroulé d'un engagement, en quatre temps                 |
-| 5 | Démonstration | La même corvée déclinée d'un métier à l'autre               |
-| 6 | Rentabilité   | Ce que le temps rendu rapporte, curseur à l'appui           |
-| 7 | Qui nous sommes | Les deux fondateurs : prénom, photo, zone d'intervention  |
-| 8 | Parcours      | Le questionnaire en six étapes, et sa transmission          |
+| 1 | Accueil         | Accroche et double appel à l'action                       |
+| 2 | Qui nous sommes | Mathis et Maxence : portrait, prénom, zone d'intervention |
+| 3 | Expertises      | Quatre familles d'automatisation                          |
+| 4 | En vidéo        | La présentation animée, en une minute                     |
+| 5 | Méthode         | Le déroulé d'un engagement, en quatre temps               |
+| 6 | Démonstration   | La même corvée déclinée d'un métier à l'autre             |
+| 7 | Rentabilité     | Ce que le temps rendu rapporte, curseur à l'appui         |
+| 8 | Parcours        | Le questionnaire en six étapes, et sa transmission        |
 
 L'ordre et les intitulés viennent de `SLIDES` dans
 [config.js](public/assets/js/config.js) : ajouter une entrée et la section

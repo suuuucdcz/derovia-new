@@ -13,12 +13,12 @@
  */
 export const SLIDES = [
   { id: 'hero', label: 'Accueil', resume: 'Ce que fait Derovia, en deux lignes' },
+  { id: 'fondateurs', label: 'Qui nous sommes', resume: 'Les deux personnes qui répondront' },
   { id: 'expertises', label: 'Expertises', resume: 'Les quatre corvées qu’on vous enlève' },
   { id: 'video', label: 'En vidéo', resume: 'La présentation animée, en une minute' },
   { id: 'methode', label: 'Méthode', resume: 'Le déroulé d’un engagement, en quatre temps' },
   { id: 'demo', label: 'Démonstration', resume: 'La même corvée, d’un métier à l’autre' },
   { id: 'rentabilite', label: 'Rentabilité', resume: 'Ce que le temps rendu vous rapporte' },
-  { id: 'fondateurs', label: 'Qui nous sommes', resume: 'Les deux personnes qui répondront' },
   { id: 'parcours', label: 'Parcours', resume: 'Décrivez votre besoin, on le chiffre' },
 ];
 
