@@ -86,8 +86,8 @@ pré-remplies : vérifiez-les avant publication.
 cas échéant (sinon supprimer la ligne), mécanisme de transfert hors UE retenu
 pour Netlify, date de publication.
 
-**Partout, signalé en jaune** — le **numéro de téléphone** (en-tête, pied de page,
-mentions légales), les **zones d'intervention** de Mathis et Maxence, et
+**Partout, signalé en jaune** — les **zones d'intervention** de Mathis et
+Maxence, et l'**adresse de l'agenda en ligne** derrière le bouton de
 l'**adresse de l'agenda en ligne** derrière le bouton de réservation qui suit
 réservation qui suit l'envoi du questionnaire. Les portraits se déposent dans
 `public/assets/fondateurs/` ; le commentaire à côté de chaque cercle vide
