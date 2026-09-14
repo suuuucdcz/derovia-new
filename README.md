@@ -379,7 +379,10 @@ le défilement ne démarre pas.
 Elle a d'abord été la septième diapositive du deck. Elle en est sortie parce
 qu'elle chargeait la page d'accueil d'une information que peu de visiteurs
 viennent y chercher. Elle vit maintenant dans `public/logiciel.html`,
-atteignable par le panneau de navigation — sous les sections, séparée d'un
+atteignable par un bouton dédié dans l'en-tête et par le panneau de navigation,
+sous les sections et séparée d'un filet. Le lien discret qu'elle avait en pied
+de page a disparu : une page qu'on veut faire visiter ne se range pas avec les
+mentions légales.
 filet — et par le pied de page.
 
 Les pages autonomes se déclarent dans `PAGES`

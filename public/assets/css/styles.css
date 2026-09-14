@@ -414,12 +414,13 @@ body.menu-ouvert .btn-menu-barres i:last-child {
   transform: translateY(-4.75px) rotate(-45deg);
 }
 
-/* --- Le numéro de téléphone ---
-   Discret à côté de l'appel à l'action : celui qui préfère appeler ne doit
-   pas avoir à chercher, mais l'en-tête ne doit pas redevenir une barre
-   d'outils. Sur téléphone il ne reste que le combiné — l'appel est à un
-   doigt, le numéro n'a plus à être lu. --- */
-.btn-tel {
+/* --- Les deux pastilles de l'en-tête : le logiciel et le téléphone ---
+   Discrètes à côté de l'appel à l'action : qui vient pour le logiciel ou
+   préfère appeler ne doit pas avoir à chercher, mais l'en-tête ne doit pas
+   redevenir une barre d'outils. Sur petit écran il ne reste que le combiné :
+   l'appel est à un doigt, et le logiciel se retrouve dans le panneau. --- */
+.btn-tel,
+.btn-logiciel {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -443,7 +444,8 @@ body.menu-ouvert .btn-menu-barres i:last-child {
   color: var(--accent);
 }
 
-.btn-tel:hover {
+.btn-tel:hover,
+.btn-logiciel:hover {
   background: var(--surface-solid);
   border-color: var(--line-strong);
   transform: translateY(-2px);
@@ -3334,6 +3336,10 @@ body.menu-ouvert .deck-dots {
    la ligne. Le monogramme ramène toujours à l'accueil, et le nom reste écrit
    dans le titre comme dans le pied de page. */
 @media (max-width: 480px) {
+  .btn-logiciel {
+    display: none;
+  }
+
   .btn-tel-numero {
     display: none;
   }
