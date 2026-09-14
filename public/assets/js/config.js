@@ -18,6 +18,7 @@ export const SLIDES = [
   { id: 'methode', label: 'Méthode', resume: 'Le déroulé d’un engagement, en quatre temps' },
   { id: 'demo', label: 'Démonstration', resume: 'La même corvée, d’un métier à l’autre' },
   { id: 'rentabilite', label: 'Rentabilité', resume: 'Ce que le temps rendu vous rapporte' },
+  { id: 'fondateurs', label: 'Qui nous sommes', resume: 'Les deux personnes qui répondront' },
   { id: 'parcours', label: 'Parcours', resume: 'Décrivez votre besoin, on le chiffre' },
 ];
 
@@ -147,6 +148,16 @@ export const ROI_REPERES = [
  */
 export const LEADS_ENDPOINT = '/';
 export const LEADS_FORM_NAME = 'besoin';
+
+/** Second formulaire : les adresses laissées avant un téléchargement. */
+export const DOWNLOAD_FORM_NAME = 'telechargement';
+
+/**
+ * Adresse du fichier. Elle pointe sur « latest » : elle ne change jamais d'une
+ * version à l'autre, seul le numéro affiché dans logiciel.html est à reprendre.
+ */
+export const DOWNLOAD_URL =
+  'https://github.com/suuuucdcz/derovia-suite/releases/latest/download/Derovia-setup.exe';
 
 /**
  * Le questionnaire, écrit en données. Chaque étape porte son titre, une phrase
@@ -304,7 +315,7 @@ export const FORM_STEPS = [
 
   {
     titre: 'Comment vous joindre',
-    aide: 'On vous répond sous 48 heures ouvrées, sans relance automatique.',
+    aide: 'On vous répond sous 2 jours ouvrés, sans relance automatique.',
     recapitulatif: true,
     champs: [
       {

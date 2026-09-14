@@ -8,7 +8,7 @@
  * notification devient une fiche qu'on lit d'un coup d'œil sur un téléphone.
  */
 
-import { LEADS_ENDPOINT, LEADS_FORM_NAME } from './config.js';
+import { DOWNLOAD_FORM_NAME, LEADS_ENDPOINT, LEADS_FORM_NAME } from './config.js';
 
 /**
  * @param {Record<string, string|number|string[]>} reponses Le questionnaire
@@ -28,6 +28,26 @@ export async function submitLead(reponses) {
     body.set(cle, lisible(valeur));
   }
 
+  await transmettre(body);
+}
+
+/**
+ * L'adresse laissée avant un téléchargement. Elle part dans un formulaire
+ * distinct : ce n'est pas un besoin qualifié, et les deux ne se rangent pas
+ * dans la même boîte.
+ */
+export async function submitDownload(email) {
+  const body = new URLSearchParams({
+    'form-name': DOWNLOAD_FORM_NAME,
+    subject: `Derovia — téléchargement — ${email}`,
+    email,
+  });
+
+  await transmettre(body);
+}
+
+/** Netlify intercepte les envois postés à la racine ; `server.py` aussi. */
+async function transmettre(body) {
   const response = await fetch(LEADS_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -62,6 +62,12 @@
       <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
+    <symbol id="icon-telephone" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 6.2 2 2 0 0 1 6 4z"/>
+    </symbol>
+
     <symbol id="icon-chevron-up" viewBox="0 0 24 24">
       <path d="M18 15l-6-6-6 6" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round"/>
@@ -168,6 +174,12 @@
         <span class="btn-menu-barres" aria-hidden="true"><i></i><i></i></span>
         <span class="btn-menu-libelle">Menu</span>
       </button>
+      <!-- ⚠ À COMPLÉTER : le numéro apparaît ici, dans le pied de page et
+           dans les mentions légales. Remplacez les trois. -->
+      <a class="btn-tel" href="tel:+33600000000" aria-label="Appeler Derovia">
+        <svg aria-hidden="true"><use href="#icon-telephone"></use></svg>
+        <span class="btn-tel-numero todo">06 00 00 00 00</span>
+      </a>
       <button type="button" class="btn-nav" data-goto="parcours">Définir vos besoins</button>
     </nav>
   </header>
@@ -221,8 +233,9 @@
           <footer class="site-footer">
             <p>© 2026 Derovia. Tous droits réservés.</p>
             <nav class="footer-links">
+              <a href="tel:+33600000000" class="todo">06 00 00 00 00</a>
               <a href="/logiciel.html">Le logiciel</a>
-              <a href="mailto:contact@derovia.com">contact@derovia.com</a>
+              <a href="mailto:contact@derovia.fr">contact@derovia.fr</a>
               <a href="/mentions-legales.html">Mentions légales</a>
               <a href="/confidentialite.html">Confidentialité</a>
             </nav>
@@ -527,6 +540,58 @@
       </section>
 
       <!-- ============================================================
+           7 — Qui nous sommes
+           ============================================================ -->
+      <section class="slide-section" id="slide-fondateurs" aria-label="Qui nous sommes">
+        <div class="slide-inner slide-content">
+         <div class="section-card">
+
+          <header class="section-head">
+            <p class="section-eyebrow">Qui nous sommes</p>
+            <h2 class="section-title">Vous saurez à qui vous parlez</h2>
+            <p class="section-lead">
+              Nous sommes deux. C’est l’un de nous deux qui lit votre demande, qui
+              vous rappelle, et qui installe. Personne d’autre entre les deux.
+            </p>
+          </header>
+
+          <ul class="fondateurs">
+            <li class="fondateur">
+              <!-- ⚠ À COMPLÉTER : remplacez ce cercle par la photo —
+                   <img class="fondateur-photo" src="assets/fondateurs/prenom1.jpg"
+                        alt="Portrait de Prénom" width="96" height="96"> -->
+              <span class="fondateur-photo fondateur-photo-vide" aria-hidden="true">?</span>
+              <h3 class="fondateur-prenom"><span class="todo">Prénom 1</span></h3>
+              <p class="fondateur-zone">
+                <span class="todo">zone d’intervention</span>
+              </p>
+            </li>
+            <li class="fondateur">
+              <!-- ⚠ À COMPLÉTER : remplacez ce cercle par la photo —
+                   <img class="fondateur-photo" src="assets/fondateurs/prenom2.jpg"
+                        alt="Portrait de Prénom" width="96" height="96"> -->
+              <span class="fondateur-photo fondateur-photo-vide" aria-hidden="true">?</span>
+              <h3 class="fondateur-prenom"><span class="todo">Prénom 2</span></h3>
+              <p class="fondateur-zone">
+                <span class="todo">zone d’intervention</span>
+              </p>
+            </li>
+          </ul>
+
+          <div class="section-cta">
+            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
+              <span>Décrire votre besoin</span>
+              <span class="btn-icon" aria-hidden="true">
+                <svg><use href="#icon-arrow-right"></use></svg>
+              </span>
+            </button>
+          </div>
+
+         </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
            7 — Parcours de qualification
            ============================================================ -->
       <section class="slide-section" id="slide-parcours" aria-label="Parcours">
@@ -578,15 +643,23 @@
             <noscript>
               <p class="survey-noscript">
                 Le questionnaire nécessite JavaScript. Écrivez-nous à
-                <a href="mailto:contact@derovia.com">contact@derovia.com</a> et
-                décrivez votre métier : nous vous répondons sous 48&nbsp;heures ouvrées.
+                <a href="mailto:contact@derovia.fr">contact@derovia.fr</a> et
+                décrivez votre métier : nous vous répondons sous 2&nbsp;jours ouvrés.
               </p>
             </noscript>
 
             <div class="survey-done">
               <span class="done-badge" aria-hidden="true"><svg><use href="#icon-check"></use></svg></span>
               <h3>C’est transmis</h3>
-              <p>Un ingénieur Derovia revient vers vous sous 48&nbsp;heures ouvrées.</p>
+              <p>Un ingénieur Derovia revient vers vous sous 2&nbsp;jours ouvrés.</p>
+              <!-- ⚠ À COMPLÉTER : l’adresse de votre agenda en ligne
+                   (Cal.com, Calendly…). Sans elle, laissez le bouton de côté. -->
+              <a class="btn-primary btn-compact todo" href="https://cal.com/derovia">
+                <span>Réserver un créneau maintenant</span>
+                <span class="btn-icon" aria-hidden="true">
+                  <svg><use href="#icon-arrow-right"></use></svg>
+                </span>
+              </a>
             </div>
 
           </div>

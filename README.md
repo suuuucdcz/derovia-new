@@ -86,6 +86,13 @@ pré-remplies : vérifiez-les avant publication.
 cas échéant (sinon supprimer la ligne), mécanisme de transfert hors UE retenu
 pour Netlify, date de publication.
 
+**Partout, signalé en jaune** — le **numéro de téléphone** (en-tête, pied de page,
+mentions légales), les **prénoms, portraits et zones d'intervention** des deux
+fondateurs, et l'**adresse de l'agenda en ligne** derrière le bouton de
+réservation qui suit l'envoi du questionnaire. Les portraits se déposent dans
+`public/assets/fondateurs/` ; le commentaire à côté de chaque cercle vide
+montre la balise à mettre à la place.
+
 **Ailleurs** — le domaine définitif dans `public/robots.txt` et dans les balises
 `og:` de `public/index.html`, plus une image de partage 1200×630.
 
@@ -142,7 +149,7 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
             └── shaders.js      Shaders GLSL du fond
 ```
 
-## Les sept diapositives
+## Les huit diapositives
 
 | # | Section       | Rôle                                                        |
 | - | ------------- | ----------------------------------------------------------- |
@@ -152,7 +159,8 @@ le jour où vous en ajouterez un, un bandeau de consentement deviendra obligatoi
 | 4 | Méthode       | Le déroulé d'un engagement, en quatre temps                 |
 | 5 | Démonstration | La même corvée déclinée d'un métier à l'autre               |
 | 6 | Rentabilité   | Ce que le temps rendu rapporte, curseur à l'appui           |
-| 7 | Parcours      | Le questionnaire en six étapes, et sa transmission          |
+| 7 | Qui nous sommes | Les deux fondateurs : prénom, photo, zone d'intervention  |
+| 8 | Parcours      | Le questionnaire en six étapes, et sa transmission          |
 
 L'ordre et les intitulés viennent de `SLIDES` dans
 [config.js](public/assets/js/config.js) : ajouter une entrée et la section
@@ -360,6 +368,17 @@ Les pages autonomes se déclarent dans `PAGES`
 liens, avec une flèche au lieu d'un numéro d'ordre qu'elles n'ont pas. Elles
 partagent l'en-tête `.page-header` et le module `page-fond.js` avec la page
 vidéo.
+
+Seul **l'arbitrage** est en vitrine. Le convertisseur et le compresseur restent
+dans l'application mais n'y sont plus annoncés : ils ne disent rien du métier
+de Derovia, et diluaient une page dont le rôle est de faire installer un outil.
+
+**L'adresse est demandée avant le lien**, jamais imposée : un lien discret
+permet de passer outre, parce qu'un mur strict ferait surtout fuir et qu'une
+adresse arrachée ne vaut rien. Elle part dans un formulaire Netlify distinct
+(`telechargement`) — ce n'est pas un besoin qualifié, et les deux ne se rangent
+pas dans la même boîte. Si la transmission échoue, le fichier part quand même :
+le visiteur est venu chercher un fichier, pas nous rendre service.
 
 L'adresse pointe sur `releases/latest/download/` : elle ne change jamais d'une
 version à l'autre, et il n'y a donc pas d'historique des versions à tenir.
