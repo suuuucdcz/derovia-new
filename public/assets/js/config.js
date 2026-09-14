@@ -30,12 +30,15 @@ export const SLIDES = [
  * un seul doigt.
  *
  * La hauteur compte autant que la largeur : un téléphone couché fait 375 px de
- * haut, où aucune section ne tiendrait.
+ * haut, où aucune section ne tiendrait. Le seuil est passé de 560 à 680 px
+ * après avoir constaté que quatre sections débordaient à 620 px de haut :
+ * rogner les marges une par une ne tenait pas, le mode défilement si — il rend
+ * le débordement impossible par construction.
  *
  * ⚠ Cette requête est répétée telle quelle dans styles.css (« Mode défilement »).
  *   Les deux doivent rester identiques.
  */
-export const REQUETE_DEFILEMENT = '(max-width: 820px), (max-height: 560px)';
+export const REQUETE_DEFILEMENT = '(max-width: 820px), (max-height: 680px)';
 
 /**
  * Pages autonomes, listées sous les sections dans le panneau de navigation.

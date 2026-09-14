@@ -210,7 +210,7 @@ masqués, il n'y avait aucun menu.
 ### Le mode défilement
 
 En dessous de `REQUETE_DEFILEMENT` ([config.js](public/assets/js/config.js)) —
-820 px de large **ou** 560 px de haut — le deck cesse d'être un deck : les
+820 px de large **ou** 680 px de haut — le deck cesse d'être un deck : les
 sections s'empilent et la page défile normalement.
 
 La raison est un conflit de gestes. Une diapositive plein écran sur un téléphone
@@ -243,6 +243,25 @@ Ce que le mode change :
 - Aucun panneau ne défile dans son coin. Une zone défilante à l'intérieur
   d'une page qui défile déjà, c'est deux gestes pour un pouce : le
   questionnaire comme les sections prennent leur taille naturelle.
+
+### Pourquoi 680 et pas 560
+
+Le seuil valait 560 px au départ. À 620 px de haut, quatre sections
+débordaient de leur carte et faisaient apparaître une barre de défilement —
+un défaut revenu cinq fois, corrigé cinq fois en rognant des marges, et revenu
+quand même dès qu'une section était ajoutée.
+
+Rogner ne tient pas : chaque contenu ajouté remet le compte à zéro. Le mode
+défilement, lui, rend le débordement **impossible par construction** — une
+section y prend la hauteur qu'elle veut. Remonter le seuil à 680 px déplace
+donc le problème là où il n'existe pas, au lieu de le repousser d'un cran.
+
+Au-dessus de 680 px, le deck tient : vérifié à 690, 720, 850, 900 et 1080,
+questionnaire poussé à sa dernière étape — son état le plus haut.
+
+`outils/verifier-debordements.js` se colle dans la console et mesure toutes
+les sections d'un coup. À lancer à quelques hauteurs après chaque ajout : l'œil
+ne voit que la taille de sa propre fenêtre, la mesure voit les autres.
 
 La bascule est vivante : redimensionner la fenêtre au-delà du seuil rebranche
 l'autre mode sans rechargement.
