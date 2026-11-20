@@ -14,5 +14,8 @@ desktop.ini
 # Netlify local CLI cache
 .netlify/
 
+# Local social / brand exports (kept local, not deployed)
+brand/
+
 # Logs
 *.log

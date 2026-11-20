@@ -675,9 +675,9 @@ img, svg {
   position: relative;
   width: 100%;
   max-width: 1320px;
-  margin: clamp(36px, 6vh, 72px) auto 0;
-  padding-top: 28px;
-  padding-bottom: clamp(40px, 5.5vh, 64px);
+  margin: clamp(32px, 5.4vh, 66px) auto 0;
+  padding-top: 12px;
+  padding-bottom: clamp(22px, 3vh, 38px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -713,16 +713,16 @@ img, svg {
 .riso-pillar--5 { animation: pillar-rise 1.05s var(--ease-out) 0.14s both; }
 .riso-pillar--6 { animation: pillar-rise 1.05s var(--ease-out) 0.28s both; }
 
-/* Interactive Stacked Card Deck */
+/* Interactive Stacked Card Deck (Symmetry Deal-In + Downward Peeking Stack) */
 .deck-wrapper {
+  --deck-step: 22px;
+  --deck-drop: -110px;
+  --deck-fx-scale: 1;
   position: relative;
   z-index: 3;
   width: min(680px, calc(100% - 32px));
   height: 274px;
-  margin-top: 12px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fade-up-in 0.8s var(--ease-out) 0.34s forwards;
+  margin-top: 6px;
 }
 
 .deck-card {
@@ -731,43 +731,59 @@ img, svg {
   background: var(--white);
   border-radius: 26px;
   padding: 20px 24px 16px;
-  border: 1px solid rgba(31, 29, 27, 0.08);
+  border: 1px solid rgba(31, 29, 27, 0.12);
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transform-origin: 50% 100%;
   will-change: transform, opacity;
   transition:
-    transform 0.52s var(--ease-card),
-    opacity 0.44s var(--ease-out),
+    transform 0.55s var(--ease-card),
+    opacity 0.14s linear,
     box-shadow 0.32s ease,
     border-color 0.32s ease;
   user-select: none;
 }
 
-/* Depth Stack Positions */
+/* Alternating deal-in entry offsets (left/right swing + tilt like Symmetry) */
+.deck-card[data-card-index="3"] { --fx: -68px; --fr: -5deg; }
+.deck-card[data-card-index="2"] { --fx: 76px; --fr: 6deg; }
+.deck-card[data-card-index="1"] { --fx: -62px; --fr: -4deg; }
+.deck-card[data-card-index="0"] { --fx: 70px; --fr: 5deg; }
+
+/* Downward-Peeking Depth Stack (bottom-center anchor: cards step DOWN & narrow) */
 .deck-card[data-pos="0"] {
-  z-index: 4;
+  z-index: 10;
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
   box-shadow: var(--shadow-card-front);
 }
 .deck-card[data-pos="1"] {
-  z-index: 3;
-  opacity: 0.94;
-  transform: translate3d(0, -14px, 0) scale(0.958) rotate(-0.7deg);
+  z-index: 9;
+  opacity: 1;
+  transform: translate3d(0, var(--deck-step), 0) scale(0.905);
   pointer-events: none;
 }
 .deck-card[data-pos="2"] {
-  z-index: 2;
-  opacity: 0.72;
-  transform: translate3d(0, -27px, 0) scale(0.916) rotate(0.8deg);
+  z-index: 8;
+  opacity: 1;
+  transform: translate3d(0, calc(var(--deck-step) * 1.9), 0) scale(0.815);
   pointer-events: none;
 }
 .deck-card[data-pos="3"] {
-  z-index: 1;
+  z-index: 7;
   opacity: 0;
-  transform: translate3d(0, -38px, 0) scale(0.875);
+  transform: translate3d(0, calc(var(--deck-step) * 2.6), 0) scale(0.73);
+  pointer-events: none;
+}
+
+/* Pre-deal resting state above deck (teleports cleanly, animates on deal) */
+.deck-card[data-state="incoming"] {
+  z-index: 12;
+  opacity: 0;
+  transform: translate3d(calc(var(--fx, -68px) * var(--deck-fx-scale)), var(--deck-drop), 0) rotate(var(--fr, -5deg)) scale(1.03);
+  transition: none;
   pointer-events: none;
 }
 
@@ -782,23 +798,22 @@ img, svg {
 }
 
 /* Directional Dismiss Physics (Symmetry Deck Signature) */
-.deck-card[data-exit="accept"] {
-  z-index: 6;
+.deck-card[data-exit] {
+  z-index: 20;
   opacity: 0;
-  transform: translate3d(340px, -64px, 0) rotate(8.5deg) scale(0.92);
   pointer-events: none;
+  transition:
+    transform 0.48s var(--ease-card),
+    opacity 0.3s ease-in 0.05s;
+}
+.deck-card[data-exit="accept"] {
+  transform: translate3d(420px, -60px, 0) rotate(8deg);
 }
 .deck-card[data-exit="remind"] {
-  z-index: 6;
-  opacity: 0;
-  transform: translate3d(0, 210px, 0) rotate(-2deg) scale(0.92);
-  pointer-events: none;
+  transform: translate3d(0, 260px, 0) scale(0.95);
 }
 .deck-card[data-exit="auto"] {
-  z-index: 6;
-  opacity: 0;
-  transform: translate3d(210px, -170px, 0) rotate(5deg) scale(0.84);
-  pointer-events: none;
+  transform: translate3d(380px, -170px, 0) rotate(6deg) scale(0.86);
 }
 
 .deck-card__top {
@@ -981,7 +996,7 @@ img, svg {
 .deck-controls {
   position: relative;
   z-index: 4;
-  margin-top: 14px;
+  margin-top: 54px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -993,6 +1008,12 @@ img, svg {
   color: var(--white);
   font-size: 12px;
   font-weight: 500;
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+}
+.deck-controls[data-ready="false"] {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
 }
 
 .deck-toggle {
@@ -2908,7 +2929,7 @@ img, svg {
   /* 2. Mobile Hero & Interactive Stacked Deck */
   .hero {
     min-height: 100svh;
-    padding-top: calc(var(--nav-h) + 34px);
+    padding-top: calc(var(--nav-h) + 22px);
     padding-bottom: 0;
   }
   .display-h1 {
@@ -2933,9 +2954,9 @@ img, svg {
     font-size: 14.5px;
   }
   .hero-stage {
-    margin-top: 24px;
-    padding-top: 20px;
-    padding-bottom: 28px;
+    margin-top: 16px;
+    padding-top: 12px;
+    padding-bottom: 18px;
   }
   .riso-backdrop {
     width: 150vw;
@@ -2943,6 +2964,9 @@ img, svg {
     bottom: 0;
   }
   .deck-wrapper {
+    --deck-step: 15px;
+    --deck-drop: -86px;
+    --deck-fx-scale: 0.62;
     width: calc(100% - 28px);
     height: 272px;
     margin-top: 6px;
@@ -2950,12 +2974,6 @@ img, svg {
   .deck-card {
     padding: 18px 18px 15px;
     border-radius: 24px;
-  }
-  .deck-card[data-pos="1"] {
-    transform: translate3d(0, 12px, 0) scale(0.945) rotate(0deg);
-  }
-  .deck-card[data-pos="2"] {
-    transform: translate3d(0, 22px, 0) scale(0.89) rotate(0deg);
   }
   .deck-source__icon {
     width: 34px;
@@ -3024,7 +3042,7 @@ img, svg {
     display: none;
   }
   .deck-controls {
-    margin-top: 26px;
+    margin-top: 40px;
     height: 32px;
     padding: 0 12px 0 10px;
     font-size: 11.5px;
@@ -3384,7 +3402,7 @@ img, svg {
   .reveal-line > span,
   .hero-subtitle,
   .hero-ctas,
-  .deck-wrapper,
+  .deck-controls[data-ready="false"],
   [data-reveal],
   .frieze-piece {
     opacity: 1 !important;

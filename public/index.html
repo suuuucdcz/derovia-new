@@ -257,7 +257,7 @@
         <!-- Interactive Auto-Playing Task Deck -->
         <div class="deck-wrapper" id="hero-deck" role="region" aria-label="Démonstration interactive d'automatisations Derovia">
           <!-- Card 0: Devis Plomberie -->
-          <article class="deck-card" data-card-index="0" data-pos="0" data-default-action="accept">
+          <article class="deck-card" data-card-index="0" data-pos="0" data-state="incoming" data-default-action="accept">
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -299,7 +299,7 @@
           </article>
 
           <!-- Card 1: Appel manqué Garage -->
-          <article class="deck-card" data-card-index="1" data-pos="1" data-default-action="auto">
+          <article class="deck-card" data-card-index="1" data-pos="1" data-state="incoming" data-default-action="auto">
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -341,7 +341,7 @@
           </article>
 
           <!-- Card 2: Classement Comptable -->
-          <article class="deck-card" data-card-index="2" data-pos="2" data-default-action="accept">
+          <article class="deck-card" data-card-index="2" data-pos="2" data-state="incoming" data-default-action="accept">
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -383,7 +383,7 @@
           </article>
 
           <!-- Card 3: Rendez-vous & Rappels -->
-          <article class="deck-card" data-card-index="3" data-pos="3" data-default-action="auto">
+          <article class="deck-card" data-card-index="3" data-pos="3" data-state="incoming" data-default-action="auto">
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -426,7 +426,7 @@
         </div>
 
         <!-- Deck Playback Controls -->
-        <div class="deck-controls" aria-label="Contrôles de la démonstration">
+        <div class="deck-controls" id="deck-controls" data-ready="false" aria-label="Contrôles de la démonstration">
           <button class="deck-toggle" id="deck-toggle" type="button" aria-pressed="false">
             <svg id="deck-icon-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2.5" width="3.5" height="11" rx="1"/><rect x="9.5" y="2.5" width="3.5" height="11" rx="1"/></svg>
             <svg id="deck-icon-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" hidden><path d="M4 2.8v10.4L13 8 4 2.8Z"/></svg>

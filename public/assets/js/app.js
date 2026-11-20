@@ -150,12 +150,14 @@ function initStackCards() {
 
 /* --------------------------------------------------------------------------
    4. Hero Interactive Auto-Playing Automation Card Deck
+      Symmetry-style sequential deal-in + downward-peeking stack choreography
    -------------------------------------------------------------------------- */
 function initHeroDeck() {
   const deckEl = document.getElementById('hero-deck');
   if (!deckEl) return;
 
   const cards = Array.from(deckEl.querySelectorAll('.deck-card'));
+  const controlsEl = document.getElementById('deck-controls');
   const dots = Array.from(document.querySelectorAll('[data-deck-goto]'));
   const toggleBtn = document.getElementById('deck-toggle');
   const toggleLabel = document.getElementById('deck-toggle-label');
@@ -164,10 +166,16 @@ function initHeroDeck() {
   const progressBar = document.getElementById('deck-progress-bar');
 
   const total = cards.length;
-  const CYCLE_MS = 2700;
+  const CYCLE_MS = 2800;
+  const DEAL_START_MS = 520;
+  const DEAL_STAGGER_MS = 420;
+  const DEAL_SETTLE_MS = 950;
+
   let current = 0;
   let paused = REDUCED_MOTION;
   let busy = false;
+  let dealing = !REDUCED_MOTION;
+  let hasStartedDeal = false;
   let cycleTimer = null;
   let stepTimers = [];
 
@@ -191,6 +199,15 @@ function initHeroDeck() {
     });
   };
 
+  const finishDealImmediately = () => {
+    if (!dealing) return;
+    clearStepTimers();
+    dealing = false;
+    hasStartedDeal = true;
+    if (controlsEl) controlsEl.dataset.ready = 'true';
+    renderPositions();
+  };
+
   const resetProgress = (animate) => {
     if (!progressBar) return;
     progressBar.style.transition = 'none';
@@ -204,7 +221,7 @@ function initHeroDeck() {
 
   const scheduleNext = () => {
     clearStepTimers();
-    if (paused) {
+    if (paused || dealing) {
       resetProgress(false);
       return;
     }
@@ -216,7 +233,7 @@ function initHeroDeck() {
     // 1. Highlight working state + press pill visually
     stepTimers.push(
       setTimeout(() => {
-        if (paused || busy) return;
+        if (paused || busy || dealing) return;
         activeCard.dataset.state = 'working';
         const btn = activeCard.querySelector(`[data-deck-action="${defaultAction}"]`);
         if (btn) btn.dataset.active = 'true';
@@ -225,12 +242,63 @@ function initHeroDeck() {
 
     // 2. Confirm done state + dismiss with physics
     cycleTimer = setTimeout(() => {
-      if (paused || busy) return;
+      if (paused || busy || dealing) return;
       dismissCurrent(defaultAction);
     }, CYCLE_MS);
   };
 
+  const startDealIn = () => {
+    if (hasStartedDeal || REDUCED_MOTION) return;
+    hasStartedDeal = true;
+    dealing = true;
+    clearStepTimers();
+
+    // Ensure every card starts cleanly in its pre-deal offset above the deck
+    cards.forEach((card) => {
+      card.dataset.state = 'incoming';
+      card.removeAttribute('data-exit');
+    });
+
+    // Deal cards back-to-front so Card 0 ("Devis automatique") lands last on top
+    const dealOrder = Array.from({ length: total }, (_, i) => total - 1 - i);
+    const dealtStack = [];
+
+    dealOrder.forEach((cardIdx, step) => {
+      stepTimers.push(
+        setTimeout(() => {
+          dealtStack.unshift(cardIdx);
+          current = cardIdx;
+
+          // Promote newly dealt card to d=0 and step earlier cards down d=1, d=2, d=3
+          requestAnimationFrame(() => {
+            dealtStack.forEach((idx, depth) => {
+              const card = cards[idx];
+              card.dataset.pos = String(depth);
+              card.removeAttribute('data-state');
+            });
+          });
+
+          dots.forEach((dot, idx) => {
+            dot.setAttribute('aria-selected', String(idx === current));
+          });
+
+          if (step === dealOrder.length - 1) {
+            if (controlsEl) controlsEl.dataset.ready = 'true';
+            stepTimers.push(
+              setTimeout(() => {
+                dealing = false;
+                current = 0;
+                if (!paused) scheduleNext();
+              }, DEAL_SETTLE_MS)
+            );
+          }
+        }, DEAL_START_MS + step * DEAL_STAGGER_MS)
+      );
+    });
+  };
+
   const dismissCurrent = (action = 'accept', targetIndex = null) => {
+    if (dealing) finishDealImmediately();
     if (busy) return;
     busy = true;
     clearStepTimers();
@@ -246,7 +314,7 @@ function initHeroDeck() {
     requestAnimationFrame(() => {
       exitingCard.dataset.exit = action;
 
-      // Bring remaining cards forward immediately
+      // Promote remaining cards forward simultaneously
       cards.forEach((card, idx) => {
         if (idx === current) return;
         const pos = (idx - nextIdx + total) % total;
@@ -260,7 +328,7 @@ function initHeroDeck() {
 
     stepTimers.push(
       setTimeout(() => {
-        // Snap exiting card cleanly to back of stack without backward animation
+        // Snap exiting card cleanly to back of stack without reverse transition
         exitingCard.style.transition = 'none';
         exitingCard.removeAttribute('data-exit');
         exitingCard.removeAttribute('data-state');
@@ -273,7 +341,7 @@ function initHeroDeck() {
         exitingCard.style.transition = '';
         busy = false;
         scheduleNext();
-      }, 480)
+      }, 500)
     );
   };
 
@@ -289,6 +357,7 @@ function initHeroDeck() {
   // Dot controls
   dots.forEach((dot) => {
     dot.addEventListener('click', () => {
+      if (dealing) finishDealImmediately();
       const target = Number(dot.dataset.deckGoto);
       if (target === current || busy) return;
       dismissCurrent('auto', target);
@@ -307,6 +376,7 @@ function initHeroDeck() {
   if (toggleBtn) {
     syncToggleUI();
     toggleBtn.addEventListener('click', () => {
+      if (dealing) finishDealImmediately();
       paused = !paused;
       syncToggleUI();
       if (paused) {
@@ -334,18 +404,29 @@ function initHeroDeck() {
     else if (key === 'a') dismissCurrent('auto');
   });
 
-  // Pause cleanly when page is hidden
+  // Pause cleanly when page is hidden; start deal-in on first view if opened in background
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      clearStepTimers();
-      resetProgress(false);
-    } else if (!paused) {
+      if (dealing) {
+        clearStepTimers();
+        hasStartedDeal = false;
+      } else {
+        clearStepTimers();
+        resetProgress(false);
+      }
+    } else if (!hasStartedDeal && !REDUCED_MOTION) {
+      startDealIn();
+    } else if (!paused && !dealing) {
       scheduleNext();
     }
   });
 
-  renderPositions();
-  if (!paused) scheduleNext();
+  if (REDUCED_MOTION) {
+    if (controlsEl) controlsEl.dataset.ready = 'true';
+    renderPositions();
+  } else if (!document.hidden) {
+    startDealIn();
+  }
 }
 
 /* --------------------------------------------------------------------------
