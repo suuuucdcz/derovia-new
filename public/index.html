@@ -26,19 +26,6 @@
 <body id="top">
   <a class="skip-link" href="#services">Aller au contenu principal</a>
 
-  <!-- Hidden Netlify Form for static deployment detection -->
-  <form name="besoin" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="text" name="bot-field">
-    <input type="text" name="subject">
-    <input type="text" name="nom">
-    <input type="email" name="email">
-    <input type="tel" name="telephone">
-    <input type="text" name="metier">
-    <input type="text" name="formule">
-    <input type="text" name="taches">
-    <textarea name="message"></textarea>
-  </form>
-
   <!-- Reusable SVG Symbols -->
   <svg class="sr-only" aria-hidden="true">
     <defs>
@@ -1526,6 +1513,7 @@
 
       <form class="form-grid" id="lead-form" name="besoin" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="besoin">
+        <input type="hidden" name="subject" value="">
         <input type="hidden" name="formule" id="form-formule" value="Diagnostic gratuit">
         <input type="hidden" name="taches" id="form-taches" value="">
         <p class="sr-only" aria-hidden="true">
