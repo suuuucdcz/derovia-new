@@ -1,5 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#1d1d1f"/>
-  <path fill="#ffffff" fill-rule="evenodd" clip-rule="evenodd"
-        d="M10 7h6c5 0 8.5 3.5 8.5 9s-3.5 9-8.5 9h-6V7zm3 3v12h3c3.3 0 5.5-2.2 5.5-6s-2.2-6-5.5-6h-3z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <path fill="#1f1d1b" d="M8.2 3H15.5C22.7 3 28.5 8.8 28.5 16C28.5 23.2 22.7 29 15.5 29H8.2C6.43 29 5 27.57 5 25.8V16C5 14.23 6.43 12.8 8.2 12.8H14.6C16.37 12.8 17.8 14.23 17.8 16C17.8 17.77 16.37 19.2 14.6 19.2H11.4V22.6H15.4C19.1 22.6 22 19.7 22 16C22 12.3 19.1 9.4 15.4 9.4H8.2C6.43 9.4 5 7.97 5 6.2C5 4.43 6.43 3 8.2 3Z"/>
 </svg>

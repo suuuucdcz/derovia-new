@@ -1,0 +1,592 @@
+/* ==========================================================================
+   Derovia — Interactive Transitions & UI Engine
+   Zero dependencies · 60fps CSS-driven choreography · Reduced-motion safe
+   ========================================================================== */
+
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* --------------------------------------------------------------------------
+   1. Sticky Frosted Navbar & Mobile Drawer
+   -------------------------------------------------------------------------- */
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileScrim = document.getElementById('mobile-scrim');
+
+  if (navbar) {
+    const updateNav = () => {
+      navbar.dataset.stuck = window.scrollY > 24 ? 'true' : 'false';
+    };
+    updateNav();
+    window.addEventListener('scroll', updateNav, { passive: true });
+  }
+
+  if (burger && mobileMenu) {
+    const setMenu = (open) => {
+      burger.setAttribute('aria-expanded', String(open));
+      mobileMenu.dataset.open = String(open);
+      mobileMenu.setAttribute('aria-hidden', String(!open));
+      if (mobileScrim) {
+        mobileScrim.dataset.open = String(open);
+        mobileScrim.setAttribute('aria-hidden', String(!open));
+      }
+      if (navbar) navbar.dataset.menuOpen = String(open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    burger.addEventListener('click', () => {
+      const isOpen = mobileMenu.dataset.open === 'true';
+      setMenu(!isOpen);
+    });
+
+    if (mobileScrim) {
+      mobileScrim.addEventListener('click', () => setMenu(false));
+    }
+
+    mobileMenu.querySelectorAll('[data-close-menu], [data-open-modal]').forEach((el) => {
+      el.addEventListener('click', () => setMenu(false));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.dataset.open === 'true') {
+        setMenu(false);
+      }
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Scroll-Triggered Reveals (IntersectionObserver)
+   -------------------------------------------------------------------------- */
+function initScrollReveal() {
+  const items = document.querySelectorAll('[data-reveal]');
+  const finalCta = document.getElementById('final-cta');
+
+  if (REDUCED_MOTION || !('IntersectionObserver' in window)) {
+    items.forEach((el) => (el.dataset.reveal = 'visible'));
+    if (finalCta) finalCta.dataset.inview = 'true';
+    return;
+  }
+
+  if (items.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.dataset.reveal = 'visible';
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
+    );
+
+    items.forEach((el) => observer.observe(el));
+  }
+
+  // Progressive rising animation for unified Final CTA amphitheater frieze
+  if (finalCta) {
+    const friezeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            finalCta.dataset.inview = 'true';
+            friezeObserver.unobserve(finalCta);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    friezeObserver.observe(finalCta);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Sticky Stacking Method Cards (Physical Depth Scaling)
+   -------------------------------------------------------------------------- */
+function initStackCards() {
+  if (REDUCED_MOTION) return;
+  const cards = Array.from(document.querySelectorAll('.stack-card'));
+  if (cards.length < 2) return;
+
+  let rafId = null;
+
+  const updateStack = () => {
+    rafId = null;
+    const isCompact = window.innerWidth <= 820;
+
+    cards.forEach((card, i) => {
+      const next = cards[i + 1];
+      if (!next) {
+        card.style.transform = '';
+        card.style.filter = '';
+        return;
+      }
+
+      const rect = card.getBoundingClientRect();
+      const nextRect = next.getBoundingClientRect();
+      const overlapStart = rect.top + (isCompact ? 240 : 280);
+      const overlapEnd = rect.top + (isCompact ? 14 : 18);
+      const progress = Math.min(1, Math.max(0, (overlapStart - nextRect.top) / (overlapStart - overlapEnd)));
+
+      const scale = 1 - progress * (isCompact ? 0.055 : 0.042);
+      const dim = 1 - progress * 0.045;
+      card.style.transform = `scale(${scale.toFixed(4)})`;
+      card.style.filter = `brightness(${dim.toFixed(3)})`;
+    });
+  };
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!rafId) rafId = requestAnimationFrame(updateStack);
+    },
+    { passive: true }
+  );
+  window.addEventListener('resize', updateStack, { passive: true });
+  updateStack();
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero Interactive Auto-Playing Automation Card Deck
+   -------------------------------------------------------------------------- */
+function initHeroDeck() {
+  const deckEl = document.getElementById('hero-deck');
+  if (!deckEl) return;
+
+  const cards = Array.from(deckEl.querySelectorAll('.deck-card'));
+  const dots = Array.from(document.querySelectorAll('[data-deck-goto]'));
+  const toggleBtn = document.getElementById('deck-toggle');
+  const toggleLabel = document.getElementById('deck-toggle-label');
+  const iconPause = document.getElementById('deck-icon-pause');
+  const iconPlay = document.getElementById('deck-icon-play');
+  const progressBar = document.getElementById('deck-progress-bar');
+
+  const total = cards.length;
+  const CYCLE_MS = 2700;
+  let current = 0;
+  let paused = REDUCED_MOTION;
+  let busy = false;
+  let cycleTimer = null;
+  let stepTimers = [];
+
+  const clearStepTimers = () => {
+    clearTimeout(cycleTimer);
+    stepTimers.forEach((t) => clearTimeout(t));
+    stepTimers = [];
+  };
+
+  const renderPositions = () => {
+    cards.forEach((card, idx) => {
+      const pos = (idx - current + total) % total;
+      card.dataset.pos = String(pos);
+      card.removeAttribute('data-state');
+      card.removeAttribute('data-exit');
+      card.querySelectorAll('[data-deck-action]').forEach((b) => b.removeAttribute('data-active'));
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.setAttribute('aria-selected', String(idx === current));
+    });
+  };
+
+  const resetProgress = (animate) => {
+    if (!progressBar) return;
+    progressBar.style.transition = 'none';
+    progressBar.style.transform = 'scaleX(0)';
+    if (animate && !paused) {
+      void progressBar.offsetWidth;
+      progressBar.style.transition = `transform ${CYCLE_MS}ms linear`;
+      progressBar.style.transform = 'scaleX(1)';
+    }
+  };
+
+  const scheduleNext = () => {
+    clearStepTimers();
+    if (paused) {
+      resetProgress(false);
+      return;
+    }
+
+    resetProgress(true);
+    const activeCard = cards[current];
+    const defaultAction = activeCard.dataset.defaultAction || 'accept';
+
+    // 1. Highlight working state + press pill visually
+    stepTimers.push(
+      setTimeout(() => {
+        if (paused || busy) return;
+        activeCard.dataset.state = 'working';
+        const btn = activeCard.querySelector(`[data-deck-action="${defaultAction}"]`);
+        if (btn) btn.dataset.active = 'true';
+      }, CYCLE_MS - 720)
+    );
+
+    // 2. Confirm done state + dismiss with physics
+    cycleTimer = setTimeout(() => {
+      if (paused || busy) return;
+      dismissCurrent(defaultAction);
+    }, CYCLE_MS);
+  };
+
+  const dismissCurrent = (action = 'accept', targetIndex = null) => {
+    if (busy) return;
+    busy = true;
+    clearStepTimers();
+
+    const exitingCard = cards[current];
+    const btn = exitingCard.querySelector(`[data-deck-action="${action}"]`);
+    if (btn) btn.dataset.active = 'true';
+    exitingCard.dataset.state = 'done';
+
+    const nextIdx = targetIndex !== null ? targetIndex : (current + 1) % total;
+
+    // Trigger exit fly-out
+    requestAnimationFrame(() => {
+      exitingCard.dataset.exit = action;
+
+      // Bring remaining cards forward immediately
+      cards.forEach((card, idx) => {
+        if (idx === current) return;
+        const pos = (idx - nextIdx + total) % total;
+        card.dataset.pos = String(pos);
+      });
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.setAttribute('aria-selected', String(idx === nextIdx));
+    });
+
+    stepTimers.push(
+      setTimeout(() => {
+        // Snap exiting card cleanly to back of stack without backward animation
+        exitingCard.style.transition = 'none';
+        exitingCard.removeAttribute('data-exit');
+        exitingCard.removeAttribute('data-state');
+        exitingCard.querySelectorAll('[data-deck-action]').forEach((b) => b.removeAttribute('data-active'));
+        current = nextIdx;
+        const backPos = (Number(exitingCard.dataset.cardIndex) - current + total) % total;
+        exitingCard.dataset.pos = String(backPos);
+
+        void exitingCard.offsetWidth;
+        exitingCard.style.transition = '';
+        busy = false;
+        scheduleNext();
+      }, 480)
+    );
+  };
+
+  // Interactive button clicks inside cards
+  deckEl.addEventListener('click', (e) => {
+    const actionBtn = e.target.closest('[data-deck-action]');
+    if (!actionBtn) return;
+    const card = actionBtn.closest('.deck-card');
+    if (!card || card.dataset.pos !== '0') return;
+    dismissCurrent(actionBtn.dataset.deckAction);
+  });
+
+  // Dot controls
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const target = Number(dot.dataset.deckGoto);
+      if (target === current || busy) return;
+      dismissCurrent('auto', target);
+    });
+  });
+
+  // Pause / Play toggle
+  const syncToggleUI = () => {
+    if (!toggleBtn) return;
+    toggleBtn.setAttribute('aria-pressed', String(paused));
+    toggleLabel.textContent = paused ? 'Reprendre' : 'Pause';
+    iconPause.toggleAttribute('hidden', paused);
+    iconPlay.toggleAttribute('hidden', !paused);
+  };
+
+  if (toggleBtn) {
+    syncToggleUI();
+    toggleBtn.addEventListener('click', () => {
+      paused = !paused;
+      syncToggleUI();
+      if (paused) {
+        clearStepTimers();
+        resetProgress(false);
+      } else {
+        scheduleNext();
+      }
+    });
+  }
+
+  // Keyboard shortcuts V / R / A when hero is visible and no modal/input active
+  document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const tag = document.activeElement?.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    const modal = document.getElementById('contact-modal');
+    if (modal && modal.dataset.open === 'true') return;
+    const rect = deckEl.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+    const key = e.key.toLowerCase();
+    if (key === 'v') dismissCurrent('accept');
+    else if (key === 'r') dismissCurrent('remind');
+    else if (key === 'a') dismissCurrent('auto');
+  });
+
+  // Pause cleanly when page is hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      clearStepTimers();
+      resetProgress(false);
+    } else if (!paused) {
+      scheduleNext();
+    }
+  });
+
+  renderPositions();
+  if (!paused) scheduleNext();
+}
+
+/* --------------------------------------------------------------------------
+   5. Interactive Trade Accordion + Color-Morphing Isometric Stage
+   -------------------------------------------------------------------------- */
+function initTradesAccordion() {
+  const widget = document.getElementById('trades-widget');
+  const stage = document.getElementById('trade-stage');
+  if (!widget || !stage) return;
+
+  const items = Array.from(widget.querySelectorAll('.acc-item'));
+  const scenes = Array.from(stage.querySelectorAll('.trade-scene'));
+  const mobileMQ = window.matchMedia('(max-width: 820px)');
+  const DWELL_MS = 6200;
+
+  let activeIndex = 0;
+  let timer = null;
+  let inView = false;
+  let userPaused = REDUCED_MOTION;
+
+  const dockStage = (index) => {
+    if (mobileMQ.matches) {
+      const targetInner = items[index]?.querySelector('.acc-panel__inner');
+      if (targetInner && stage.parentElement !== targetInner) {
+        targetInner.appendChild(stage);
+      }
+    } else if (stage.parentElement !== widget) {
+      widget.appendChild(stage);
+    }
+  };
+
+  mobileMQ.addEventListener('change', () => dockStage(activeIndex));
+
+  const activate = (index, restartAuto = true) => {
+    activeIndex = index;
+
+    items.forEach((item, i) => {
+      const open = i === index;
+      item.dataset.open = String(open);
+      item.classList.remove('is-playing');
+      const trigger = item.querySelector('.acc-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', String(open));
+    });
+
+    const activeItem = items[index];
+    dockStage(index);
+    stage.dataset.tint = activeItem.dataset.tint || 'blue';
+
+    scenes.forEach((scene, i) => {
+      scene.dataset.active = String(i === index);
+    });
+
+    clearTimeout(timer);
+    if (restartAuto && inView && !userPaused) {
+      // Reflow dwell bar cleanly so CSS animation restarts
+      void activeItem.offsetWidth;
+      activeItem.classList.add('is-playing');
+      timer = setTimeout(() => {
+        activate((activeIndex + 1) % items.length, true);
+      }, DWELL_MS);
+    }
+  };
+
+  dockStage(0);
+
+  items.forEach((item, i) => {
+    const trigger = item.querySelector('.acc-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', () => {
+      userPaused = false;
+      activate(i, true);
+    });
+  });
+
+  // Pause auto-advance while hovering the widget so user can read comfortably
+  widget.addEventListener('mouseenter', () => {
+    userPaused = true;
+    clearTimeout(timer);
+    items.forEach((item) => item.classList.remove('is-playing'));
+  });
+  widget.addEventListener('mouseleave', () => {
+    if (REDUCED_MOTION) return;
+    userPaused = false;
+    activate(activeIndex, true);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        inView = entries[0].isIntersecting;
+        if (inView && !userPaused) {
+          activate(activeIndex, true);
+        } else {
+          clearTimeout(timer);
+          items.forEach((item) => item.classList.remove('is-playing'));
+        }
+      },
+      { threshold: 0.25 }
+    );
+    obs.observe(widget);
+  } else {
+    inView = true;
+    activate(0, !REDUCED_MOTION);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Quick Project Request Modal (Netlify Forms Ready)
+   -------------------------------------------------------------------------- */
+function initModal() {
+  const modal = document.getElementById('contact-modal');
+  const closeBtn = document.getElementById('modal-close');
+  const form = document.getElementById('lead-form');
+  const success = document.getElementById('modal-success');
+  const errorEl = document.getElementById('lead-error');
+  const formuleInput = document.getElementById('form-formule');
+  const tachesInput = document.getElementById('form-taches');
+  const taskChips = Array.from(document.querySelectorAll('#task-chips .choice-chip'));
+  const submitBtn = document.getElementById('lead-submit');
+
+  if (!modal || !form) return;
+
+  const showSuccess = () => {
+    form.hidden = true;
+    if (errorEl) errorEl.hidden = true;
+    if (success) success.dataset.visible = 'true';
+    form.reset();
+    taskChips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+    if (tachesInput) tachesInput.value = '';
+  };
+
+  const setOpen = (open, formule = '') => {
+    modal.dataset.open = String(open);
+    modal.setAttribute('aria-hidden', String(!open));
+    document.body.style.overflow = open ? 'hidden' : '';
+
+    if (open) {
+      if (formule && formuleInput) formuleInput.value = formule;
+      form.hidden = false;
+      if (errorEl) errorEl.hidden = true;
+      if (success) success.dataset.visible = 'false';
+      setTimeout(() => {
+        const firstInput = document.getElementById('f-metier');
+        if (firstInput) firstInput.focus();
+      }, 120);
+    }
+  };
+
+  document.querySelectorAll('[data-open-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      setOpen(true, btn.dataset.openModal || 'Demande de contact');
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.dataset.open === 'true') setOpen(false);
+  });
+
+  // Multi-select task chips
+  taskChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const active = chip.getAttribute('aria-pressed') === 'true';
+      chip.setAttribute('aria-pressed', String(!active));
+      const selected = taskChips
+        .filter((c) => c.getAttribute('aria-pressed') === 'true')
+        .map((c) => c.textContent.trim());
+      if (tachesInput) tachesInput.value = selected.join(' · ');
+    });
+  });
+
+  // Form submission (Netlify Forms in prod + safe honeypot + honest error reporting)
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (errorEl) errorEl.hidden = true;
+
+    const data = new FormData(form);
+    const botField = String(data.get('bot-field') || '').trim();
+    if (botField) {
+      showSuccess();
+      return;
+    }
+
+    const metier = String(data.get('metier') || '').trim().slice(0, 100);
+    const nom = String(data.get('nom') || '').trim().slice(0, 100);
+    const email = String(data.get('email') || '').trim().slice(0, 160);
+    const telephone = String(data.get('telephone') || '').trim().slice(0, 30);
+    const message = String(data.get('message') || '').trim().slice(0, 1200);
+    if (!metier || !email) {
+      form.reportValidity();
+      return;
+    }
+
+    data.set('metier', metier);
+    data.set('nom', nom);
+    data.set('email', email);
+    data.set('telephone', telephone);
+    data.set('message', message);
+    data.set('subject', `Derovia — ${metier} — ${email}`);
+
+    const body = new URLSearchParams();
+    data.forEach((val, key) => body.append(key, String(val)));
+
+    const isLocalPreview =
+      window.location.protocol === 'file:' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === 'localhost';
+
+    if (isLocalPreview) {
+      showSuccess();
+      return;
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      showSuccess();
+    } catch {
+      if (errorEl) errorEl.hidden = false;
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Bootstrap
+   -------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  initNavbar();
+  initScrollReveal();
+  initStackCards();
+  initHeroDeck();
+  initTradesAccordion();
+  initModal();
+});

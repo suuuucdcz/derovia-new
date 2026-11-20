@@ -1,672 +1,1604 @@
 <!DOCTYPE html>
-<html lang="fr" class="deck">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Derovia — Intelligence Artificielle &amp; Automatisation sur-mesure</title>
+  <meta name="description" content="Derovia conçoit et déploie des automatisations et solutions d'intelligence artificielle sur-mesure pour les petites entreprises et artisans : devis, relances, appels, rendez-vous et suivi administratif.">
 
-  <title>Derovia — Intelligence Artificielle & Automatisation</title>
-  <meta name="description" content="Derovia conçoit et déploie des solutions d'intelligence artificielle et des automatisations sur-mesure pour les entreprises.">
-
-  <!-- Partage sur les réseaux et messageries.
-       À compléter après la mise en ligne : remplacer par le domaine définitif
-       et ajouter une image d'aperçu (1200×630) dans assets/. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Derovia">
+  <meta property="og:url" content="https://derovia.fr/">
   <meta property="og:locale" content="fr_FR">
-  <meta property="og:title" content="Derovia — Intelligence Artificielle & Automatisation">
-  <meta property="og:description" content="Décrivez votre métier : nous identifions les automatisations qui vous font gagner du temps.">
+  <meta property="og:title" content="Derovia — L'administratif tourne tout seul. Vous gardez votre métier.">
+  <meta property="og:description" content="Automatisations sur-mesure pour artisans et petites entreprises. Services clairs et tarifs transparents.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f6f4f0">
+  <link rel="canonical" href="https://derovia.fr/">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
-  <meta name="theme-color" content="#fbfbfd">
-
-  <!-- Sans JavaScript, le deck ne peut pas naviguer : il redevient une page
-       ordinaire qui défile, et le parcours cède la place à une adresse. -->
-  <noscript>
-    <style>
-      html.deck, html.deck body { height: auto; overflow: auto; }
-      .deck-viewport { height: auto; overflow: visible; }
-      .deck-track { transform: none; }
-      .slide-section { flex-basis: auto; min-height: 100vh; }
-      .site-header { position: absolute; }
-      .deck-dots, .btn-nav, .btn-back, #parcours { display: none; }
-    </style>
-  </noscript>
-
-  <script>
-    // La page reste masquée le temps que le deck et le fond soient prêts, pour
-    // ne jamais laisser voir un état intermédiaire. Sans JS, rien n'est masqué.
-    document.documentElement.classList.add('js');
-    // Filet de sécurité si le module ne se charge pas.
-    setTimeout(() => document.body?.classList.add('is-ready'), 1500);
-  </script>
-  <script type="module" src="assets/js/main.js"></script>
 </head>
 
-<body data-slide="hero">
+<body id="top">
+  <a class="skip-link" href="#services">Aller au contenu principal</a>
 
-  <a class="skip-link" href="#slide-parcours">Aller au parcours de qualification</a>
-
-  <!-- Symboles SVG réutilisables, référencés plus bas via <use>. -->
-  <svg class="svg-sprite" aria-hidden="true">
-    <symbol id="icon-monogram" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
-            d="M7 4.5H12C16.142 4.5 19 7.858 19 12C19 16.142 16.142 19.5 12 19.5H7V4.5ZM9.6 7.2V16.8H11.8C14.5 16.8 16.3 14.8 16.3 12C16.3 9.2 14.5 7.2 11.8 7.2H9.6Z"/>
-    </symbol>
-    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
-      <path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="icon-send" viewBox="0 0 24 24">
-      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="icon-telephone" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 6.2 2 2 0 0 1 6 4z"/>
-    </symbol>
-
-    <symbol id="icon-chevron-up" viewBox="0 0 24 24">
-      <path d="M18 15l-6-6-6 6" fill="none" stroke="currentColor" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="icon-check" viewBox="0 0 24 24">
-      <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="icon-document" viewBox="0 0 24 24">
-      <path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5zM14 3v5h5M9 13h6M9 17h4"
-            fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="icon-dialog" viewBox="0 0 24 24">
-      <path d="M21 12a8 8 0 01-8 8H7l-4 3v-6a8 8 0 018-8h2a8 8 0 018 3z"
-            fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M9 12h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="icon-flow" viewBox="0 0 24 24">
-      <circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <circle cx="18" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <circle cx="6" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M6 8.5v7M8.5 18h7M8 7h6a4 4 0 014 4v4.5"
-            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
-    </symbol>
-
-    <symbol id="icon-balance" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" d="M12 4v16M7 20h10M4.5 8h15M12 5.5 5 8l-2 5a3.2 3.2 0 0 0 4 0zM12 5.5 19 8l2 5a3.2 3.2 0 0 1-4 0z"/>
-    </symbol>
-
-    <symbol id="icon-convert" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" d="M4 8h13m0 0-3.5-3.5M17 8l-3.5 3.5M20 16H7m0 0 3.5-3.5M7 16l3.5 3.5"/>
-    </symbol>
-
-    <symbol id="icon-compress" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" d="M12 3v6m0 0 3-3m-3 3L9 6m3 15v-6m0 0 3 3m-3-3-3 3M4 12h16"/>
-    </symbol>
-
-    <symbol id="icon-chart" viewBox="0 0 24 24">
-      <path d="M4 20V4M4 20h16M8 16v-5M12.5 16V7M17 16v-3"
-            fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-  </svg>
-
-  <!-- Déclaration des champs du parcours pour Netlify Forms : ce formulaire
-       n'est jamais affiché, il sert uniquement à la détection au déploiement.
-       Netlify n'enregistre que les champs déclarés ici, et les restitue dans
-       cet ordre dans le courriel de notification.
-       Les envois réels partent de formulaire.js, via api.js. -->
-  <form name="besoin" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <!-- Hidden Netlify Form for static deployment detection -->
+  <form name="besoin" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
     <input type="text" name="bot-field">
-    <!-- Netlify reprend « subject » comme objet du courriel. -->
     <input type="text" name="subject">
+    <input type="text" name="nom">
     <input type="email" name="email">
-    <input type="text" name="company">
-    <input type="text" name="telephone">
-    <input type="text" name="contact">
+    <input type="tel" name="telephone">
     <input type="text" name="metier">
-    <input type="text" name="metierAutre">
-    <input type="text" name="taille">
+    <input type="text" name="formule">
     <input type="text" name="taches">
-    <input type="text" name="priorite">
-    <input type="text" name="volume">
-    <input type="text" name="frequence">
-    <input type="text" name="duree">
-    <input type="text" name="consequence">
-    <textarea name="precision"></textarea>
-    <input type="text" name="outils">
-    <input type="text" name="logiciel">
-    <input type="text" name="gainTemps">
-    <input type="text" name="gainArgent">
+    <textarea name="message"></textarea>
   </form>
 
-  <!-- Fond organique animé (WebGL, repli Canvas 2D) -->
-  <canvas id="bg-canvas"></canvas>
-  <div class="noise-overlay" aria-hidden="true"></div>
+  <!-- Reusable SVG Symbols -->
+  <svg class="sr-only" aria-hidden="true">
+    <defs>
+      <symbol id="derovia-mark" viewBox="0 0 32 32">
+        <path fill="currentColor" d="M8.2 3H15.5C22.7 3 28.5 8.8 28.5 16C28.5 23.2 22.7 29 15.5 29H8.2C6.43 29 5 27.57 5 25.8V16C5 14.23 6.43 12.8 8.2 12.8H14.6C16.37 12.8 17.8 14.23 17.8 16C17.8 17.77 16.37 19.2 14.6 19.2H11.4V22.6H15.4C19.1 22.6 22 19.7 22 16C22 12.3 19.1 9.4 15.4 9.4H8.2C6.43 9.4 5 7.97 5 6.2C5 4.43 6.43 3 8.2 3Z"/>
+      </symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-phone" viewBox="0 0 24 24">
+        <path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 6.2 2 2 0 0 1 6 4z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
 
-  <!-- En-tête hors du deck : la marque garde exactement la même place
-       d'une diapositive à l'autre, y compris pendant la transition. -->
-  <header class="site-header">
-    <a href="#" class="brand-mark" data-goto="hero" aria-label="Derovia, accueil">
-      <span class="brand-symbol">
-        <svg class="brand-glyph" aria-hidden="true"><use href="#icon-monogram"></use></svg>
-      </span>
-      <span class="brand-name">Derovia</span>
-    </a>
+      <!-- Minimalist Flat Geometric Editorial App Icons (Derovia DA) -->
+      <!-- 1. Devis (Cobalt mist tile + flat folded sheet) -->
+      <symbol id="app-devis" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="11" fill="#e7eeff"/>
+        <path d="M12.5 10C12.5 9.17 13.17 8.5 14 8.5H22.5L28.5 14.5V29.5C28.5 30.33 27.83 31 27 31H14C13.17 31 12.5 30.33 12.5 29.5V10Z" fill="#4f7df7"/>
+        <path d="M22.5 8.5L28.5 14.5H24C23.17 14.5 22.5 13.83 22.5 13V8.5Z" fill="#b8ccfc"/>
+        <rect x="16" y="18.5" width="9" height="2.6" rx="1.3" fill="#ffffff"/>
+        <rect x="16" y="23.5" width="5.8" height="2.6" rx="1.3" fill="#c3d4fd"/>
+      </symbol>
 
-    <nav class="site-nav" aria-label="Navigation principale">
-      <button type="button" class="btn-back" data-goto="prev" aria-label="Section précédente">
-        <svg aria-hidden="true"><use href="#icon-chevron-up"></use></svg>
-        <span>Retour</span>
-      </button>
-      <button type="button" class="btn-menu" id="btn-menu"
-              aria-expanded="false" aria-controls="menu-panneau">
-        <span class="btn-menu-barres" aria-hidden="true"><i></i><i></i></span>
-        <span class="btn-menu-libelle">Menu</span>
-      </button>
-      <a class="btn-logiciel" href="/logiciel.html">Logiciel</a>
-      <a class="btn-tel" href="tel:+33766830091" aria-label="Appeler Derovia">
-        <svg aria-hidden="true"><use href="#icon-telephone"></use></svg>
-        <span class="btn-tel-numero">07 66 83 00 91</span>
-      </a>
-      <button type="button" class="btn-nav" data-goto="parcours">Définir vos besoins</button>
-    </nav>
+      <!-- 2. Appel & SMS (Sage mist tile + flat geometric message arch) -->
+      <symbol id="app-appel" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="11" fill="#e3f5ee"/>
+        <path d="M10.5 15C10.5 11.69 13.19 9 16.5 9H23.5C26.81 9 29.5 11.69 29.5 15V22C29.5 25.31 26.81 28 23.5 28H15.5L10.5 31.5V15Z" fill="#2d9d78"/>
+        <circle cx="16.8" cy="18.5" r="2" fill="#ffffff"/>
+        <circle cx="23.2" cy="18.5" r="2" fill="#b7e5d5"/>
+      </symbol>
+
+      <!-- 3. Dossier comptable (Warm sand tile + flat architectural stacked folder) -->
+      <symbol id="app-dossier" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="11" fill="#faf1dc"/>
+        <path d="M9.5 13.5C9.5 11.84 10.84 10.5 12.5 10.5H17.8L20.3 13H27.5C29.16 13 30.5 14.34 30.5 16V18H9.5V13.5Z" fill="#d99726"/>
+        <rect x="9.5" y="15.5" width="21" height="14" rx="3.5" fill="#e6a83c"/>
+        <rect x="14.5" y="21.2" width="11" height="2.6" rx="1.3" fill="#fffaf0"/>
+      </symbol>
+
+      <!-- 4. Rendez-vous (Terracotta blush tile + flat calendar slab) -->
+      <symbol id="app-rdv" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="11" fill="#fcece7"/>
+        <rect x="10" y="11" width="20" height="19" rx="4.5" fill="#ffffff"/>
+        <path d="M10 15.5C10 13.01 12.01 11 14.5 11H25.5C27.99 11 30 13.01 30 15.5V17.5H10V15.5Z" fill="#e56b4e"/>
+        <rect x="14" y="21" width="6.5" height="5" rx="1.8" fill="#e56b4e"/>
+        <rect x="22" y="21" width="4" height="5" rx="1.8" fill="#f6c5b7"/>
+      </symbol>
+
+      <!-- 5. Suivi continu (Option On reste — matte obsidian geometric loop) -->
+      <symbol id="app-suivi" viewBox="0 0 40 40">
+        <rect width="40" height="40" rx="11" fill="#1f1d1b"/>
+        <path d="M13 20A7 7 0 0 1 26.2 16.8" fill="none" stroke="#e6a83c" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M27 20A7 7 0 0 1 13.8 23.2" fill="none" stroke="#2d9d78" stroke-width="3.2" stroke-linecap="round"/>
+      </symbol>
+      <!-- Velvety Stipple Risograph Paper-Grain Filter (subtle, balanced, strictly clipped to shapes) -->
+      <filter id="riso-ink" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="3" seed="7" result="rawNoise"/>
+        <feColorMatrix type="matrix" in="rawNoise" result="monoNoise"
+          values="0.33 0.33 0.33 0 0
+                  0.33 0.33 0.33 0 0
+                  0.33 0.33 0.33 0 0
+                  0    0    0    0 0.34"/>
+        <feComponentTransfer in="monoNoise" result="crispStipple">
+          <feFuncR type="linear" slope="2.0" intercept="-0.5"/>
+          <feFuncG type="linear" slope="2.0" intercept="-0.5"/>
+          <feFuncB type="linear" slope="2.0" intercept="-0.5"/>
+        </feComponentTransfer>
+        <feComposite in="crispStipple" in2="SourceAlpha" operator="in" result="clippedGrain"/>
+        <feBlend mode="overlay" in="clippedGrain" in2="SourceGraphic"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ======================================================================
+       Sticky Frosted Glass Navbar
+       ====================================================================== -->
+  <header class="nav-wrap" id="navbar" data-stuck="false">
+    <div class="nav-sheet" aria-hidden="true"></div>
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <a href="#top" class="brand" aria-label="Derovia — Accueil">
+          <svg class="brand-mark" aria-hidden="true"><use href="#derovia-mark"/></svg>
+          <span>Derovia</span>
+        </a>
+        <nav class="nav-links" aria-label="Navigation principale">
+          <a class="nav-link" href="#services">Services</a>
+          <a class="nav-link" href="#methode">Méthode</a>
+          <a class="nav-link" href="#metiers">Métiers</a>
+          <a class="nav-link" href="#tarifs">Tarifs</a>
+        </nav>
+      </div>
+
+      <div class="nav-actions">
+        <a class="nav-phone" href="tel:+33766830091">
+          <svg width="14" height="14" aria-hidden="true"><use href="#icon-phone"/></svg>
+          <span>07 66 83 00 91</span>
+        </a>
+        <a class="btn btn--sm btn--beige" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+          Réserver un appel
+        </a>
+        <button class="btn btn--sm btn--white" type="button" data-open-modal="Diagnostic gratuit">
+          Estimer mon projet
+        </button>
+      </div>
+
+      <div class="nav-mobile-right">
+        <button class="btn btn--sm btn--white nav-mobile-cta" type="button" data-open-modal="Diagnostic gratuit">
+          Estimer un projet
+        </button>
+        <button class="nav-burger" id="nav-burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <!-- Panneau de navigation. Il passe SOUS l'en-tête : la marque et le bouton
-       qui l'a ouvert restent en place, et ce même bouton le referme. Les
-       entrées sont générées depuis SLIDES. -->
-  <div class="menu-panneau" id="menu-panneau" role="dialog" aria-modal="true"
-       aria-label="Sections du site">
-    <ol class="menu-liste" id="menu-liste"></ol>
-  </div>
-
-  <!-- Repères de section, générés depuis config.js -->
-  <nav class="deck-dots" id="deck-dots" aria-label="Sections"></nav>
-
-  <div class="deck-viewport" id="deck-viewport" style="--slide-index: 0">
-    <div class="deck-track">
-
-      <!-- ============================================================
-           1 — Accueil
-           ============================================================ -->
-      <section class="slide-section" id="slide-hero" aria-label="Accueil">
-        <div class="slide-inner">
-
-          <main class="hero">
-            <h1 class="hero-title">
-              Besoin d’un service IA<br>
-              <span class="text-gradient">ou d’une automatisation&nbsp;?</span>
-            </h1>
-
-            <p class="hero-lead">
-              Vous dirigez une petite entreprise et vous manquez de temps. Nous vous
-              enlevons des mains ce qui se répète&nbsp;: devis, relances, rendez-vous,
-              paperasse. Dites-nous votre métier.
-            </p>
-
-            <div class="hero-actions">
-              <button type="button" class="btn-primary" data-goto="parcours">
-                <span>Définir vos besoins</span>
-                <span class="btn-icon" aria-hidden="true">
-                  <svg><use href="#icon-arrow-right"></use></svg>
-                </span>
-              </button>
-
-              <button type="button" class="btn-secondary" data-goto="expertises">
-                Découvrir nos expertises
-              </button>
-            </div>
-          </main>
-
-          <footer class="site-footer">
-            <p>© 2026 Derovia. Tous droits réservés.</p>
-            <nav class="footer-links">
-              <a href="tel:+33766830091">07 66 83 00 91</a>
-              <a href="mailto:contact@derovia.fr">contact@derovia.fr</a>
-              <a href="/mentions-legales.html">Mentions légales</a>
-              <a href="/confidentialite.html">Confidentialité</a>
-            </nav>
-          </footer>
-
-        </div>
-      </section>
-
-      <!-- ============================================================
-           2 — Qui nous sommes
-           ============================================================ -->
-      <section class="slide-section" id="slide-fondateurs" aria-label="Qui nous sommes">
-        <div class="slide-inner slide-content">
-         <div class="section-card">
-
-          <header class="section-head">
-            <p class="section-eyebrow">Qui nous sommes</p>
-            <h2 class="section-title">Vous saurez à qui vous parlez</h2>
-            <p class="section-lead">
-              Nous sommes deux. C’est l’un de nous deux qui lit votre demande, qui
-              vous rappelle, et qui installe. Personne d’autre entre les deux.
-            </p>
-          </header>
-
-          <ul class="fondateurs">
-            <li class="fondateur">
-              <!-- ⚠ À COMPLÉTER : remplacez ce cercle par la photo —
-                   <img class="fondateur-photo" src="assets/fondateurs/mathis.jpg"
-                        alt="Portrait de Mathis Derory" width="96" height="96"> -->
-              <span class="fondateur-photo fondateur-photo-vide" aria-hidden="true">MD</span>
-              <h3 class="fondateur-prenom">Mathis Derory</h3>
-              <p class="fondateur-zone">
-                <span class="todo">zone d’intervention</span>
-              </p>
-            </li>
-            <li class="fondateur">
-              <!-- ⚠ À COMPLÉTER : remplacez ce cercle par la photo —
-                   <img class="fondateur-photo" src="assets/fondateurs/maxence.jpg"
-                        alt="Portrait de Maxence Catesson" width="96" height="96"> -->
-              <span class="fondateur-photo fondateur-photo-vide" aria-hidden="true">MC</span>
-              <h3 class="fondateur-prenom">Maxence Catesson</h3>
-              <p class="fondateur-zone">
-                <span class="todo">zone d’intervention</span>
-              </p>
-            </li>
-          </ul>
-
-          <div class="section-cta">
-            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
-              <span>Décrire votre besoin</span>
-              <span class="btn-icon" aria-hidden="true">
-                <svg><use href="#icon-arrow-right"></use></svg>
-              </span>
-            </button>
-          </div>
-
-         </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           3 — Expertises
-           ============================================================ -->
-      <section class="slide-section" id="slide-expertises" aria-label="Expertises">
-        <div class="slide-inner slide-content">
-         <div class="section-card">
-
-          <header class="section-head">
-            <p class="section-eyebrow">Expertises</p>
-            <h2 class="section-title">Ce qu’on vous enlève des mains</h2>
-            <p class="section-lead">
-              Presque toujours les mêmes quatre corvées, quel que soit le métier.
-              Celles qui grignotent les soirées et les fins de semaine.
-            </p>
-          </header>
-
-          <ul class="card-grid">
-            <li class="card">
-              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-document"></use></svg></span>
-              <h3>Devis et factures</h3>
-              <p>Rédigés, envoyés, relancés au bon moment. Vous validez, le reste se fait sans vous.</p>
-            </li>
-            <li class="card">
-              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-dialog"></use></svg></span>
-              <h3>Appels et messages</h3>
-              <p>Une réponse à chaque demande, même quand vous êtes sur un chantier ou en clientèle.</p>
-            </li>
-            <li class="card">
-              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-flow"></use></svg></span>
-              <h3>Rendez-vous et tournées</h3>
-              <p>Les créneaux se calent, les rappels partent, les trajets s’organisent d’eux-mêmes.</p>
-            </li>
-            <li class="card">
-              <span class="card-icon" aria-hidden="true"><svg><use href="#icon-chart"></use></svg></span>
-              <h3>Papiers et suivi</h3>
-              <p>Photos de chantier, bons, factures fournisseurs&nbsp;: classés et prêts pour le comptable.</p>
-            </li>
-          </ul>
-
-          <div class="section-cta">
-            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
-              <span>Voir ce qu’on peut vous enlever</span>
-              <span class="btn-icon" aria-hidden="true">
-                <svg><use href="#icon-arrow-right"></use></svg>
-              </span>
-            </button>
-          </div>
-
-         </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           4 — En vidéo
-           ============================================================ -->
-      <section class="slide-section" id="slide-video" aria-label="En vidéo">
-        <div class="slide-inner slide-content video-slide">
-
-          <header class="section-head video-slide-head">
-            <p class="section-eyebrow">En vidéo</p>
-            <h2 class="section-title">Derovia en dix secondes</h2>
-          </header>
-
-          <!-- Le film est servi depuis ce site : aucun lecteur tiers, donc
-               aucun traceur, conformément à ce qu'annoncent les mentions légales. -->
-          <div class="video-stage">
-            <video
-              id="film"
-              class="video-player"
-              controls
-              loop
-              muted
-              playsinline
-              preload="none"
-              poster="assets/video/affiche.jpg"
-              width="1920"
-              height="1080">
-              <source src="assets/video/derovia.mp4" type="video/mp4">
-              Votre navigateur ne peut pas lire cette vidéo.
-              <a href="assets/video/derovia.mp4">Téléchargez-la</a> pour la voir.
-            </video>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ============================================================
-           5 — Méthode
-           ============================================================ -->
-      <section class="slide-section" id="slide-methode" aria-label="Méthode">
-        <div class="slide-inner slide-content">
-         <div class="section-card">
-
-          <header class="section-head">
-            <p class="section-eyebrow">Méthode</p>
-            <h2 class="section-title">Comment ça se passe</h2>
-            <p class="section-lead">
-              Quatre étapes, et vous validez à chacune avant qu’on passe à la
-              suivante. Pas de projet qui s’éternise.
-            </p>
-          </header>
-
-          <ol class="steps">
-            <li class="step">
-              <span class="step-index" aria-hidden="true">01</span>
-              <div>
-                <h3>On regarde</h3>
-                <p>Une heure ensemble pour repérer ce qui vous mange le plus de temps.</p>
-                <span class="step-meta">Une semaine</span>
-              </div>
-            </li>
-            <li class="step">
-              <span class="step-index" aria-hidden="true">02</span>
-              <div>
-                <h3>On essaie</h3>
-                <p>Une première version qui tourne sur vos vrais devis, vos vrais clients.</p>
-                <span class="step-meta">2 à 3 semaines</span>
-              </div>
-            </li>
-            <li class="step">
-              <span class="step-index" aria-hidden="true">03</span>
-              <div>
-                <h3>On installe</h3>
-                <p>Mise en service, branchement à vos outils, et on vous montre comment faire.</p>
-                <span class="step-meta">4 à 6 semaines</span>
-              </div>
-            </li>
-            <li class="step">
-              <span class="step-index" aria-hidden="true">04</span>
-              <div>
-                <h3>On reste</h3>
-                <p>On surveille, on ajuste, et on étend à d’autres corvées quand vous voulez.</p>
-                <span class="step-meta">En continu</span>
-              </div>
-            </li>
-          </ol>
-
-          <div class="section-cta">
-            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
-              <span>Commencer par regarder ensemble</span>
-              <span class="btn-icon" aria-hidden="true">
-                <svg><use href="#icon-arrow-right"></use></svg>
-              </span>
-            </button>
-          </div>
-
-         </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           6 — Démonstration
-           ============================================================ -->
-      <section class="slide-section" id="slide-demo" aria-label="Démonstration">
-        <div class="slide-inner slide-content">
-         <div class="section-card">
-
-          <header class="section-head">
-            <p class="section-eyebrow">Démonstration</p>
-            <h2 class="section-title">Chaque métier, sa corvée</h2>
-            <p class="section-lead">
-              Ce qui vous prend du temps n’a rien à voir avec ce qui en prend à
-              l’entreprise d’à côté. On taille l’outil sur votre cas, pas l’inverse.
-            </p>
-          </header>
-
-          <div class="demo" id="demo">
-
-            <!-- Les onglets sont construits depuis DEMO_CASES : un métier ajouté
-                 dans la configuration apparaît ici sans toucher au balisage. -->
-            <div class="demo-trades" role="tablist" aria-label="Métiers"></div>
-
-            <div class="demo-flow">
-              <div class="demo-panel">
-                <p class="demo-panel-title">Ce qui prend du temps</p>
-                <p class="demo-panel-text" data-role="charge"></p>
-              </div>
-
-              <span class="demo-arrow" aria-hidden="true">
-                <svg><use href="#icon-arrow-right"></use></svg>
-              </span>
-
-              <div class="demo-panel demo-panel-reponse">
-                <p class="demo-panel-title">Ce que nous mettons en place</p>
-                <p class="demo-panel-text" data-role="reponse"></p>
-              </div>
-            </div>
-
-            <p class="demo-gain">
-              <span class="demo-gain-mark" aria-hidden="true">
-                <svg><use href="#icon-check"></use></svg>
-              </span>
-              <span data-role="gain"></span>
-            </p>
-
-          </div>
-
-          <p class="demo-meta">
-            <span>Exemples illustratifs. Le vôtre sera différent — c’est le principe.</span>
-            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
-              <span>Décrire mon cas</span>
-              <span class="btn-icon" aria-hidden="true">
-                <svg><use href="#icon-arrow-right"></use></svg>
-              </span>
-            </button>
-          </p>
-
-         </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           7 — Rentabilité
-           ============================================================ -->
-      <section class="slide-section" id="slide-rentabilite" aria-label="Rentabilité">
-        <div class="slide-inner slide-content">
-         <div class="section-card">
-
-          <header class="section-head">
-            <p class="section-eyebrow">Rentabilité</p>
-            <h2 class="section-title">Le temps rendu, c’est de l’argent gagné</h2>
-            <p class="section-lead">
-              Une heure que vous ne passez plus à ressaisir est une heure payée
-              qui repart en production. Déplacez le curseur sur votre situation.
-            </p>
-          </header>
-
-          <div class="roi" id="rentabilite">
-            <div class="roi-grid">
-
-              <!-- Colonne gauche : Simulateur & Visualisation -->
-              <div class="roi-cockpit">
-                <div class="roi-controle">
-                  <div class="roi-controle-head">
-                    <label class="roi-label" for="roi-heures">Heures gagnées par semaine</label>
-                    <output class="roi-valeur" data-roi="heures">6 h</output>
-                  </div>
-                  <input class="roi-curseur" id="roi-heures" type="range" value="6" aria-label="Nombre d'heures gagnées par semaine">
-                  <div class="roi-reperes" role="group" aria-label="Raccourcis d'heures"></div>
-                </div>
-
-                <div class="roi-visual">
-                  <svg class="roi-graphe" role="img"
-                       aria-label="Économie cumulée comparée au prix de l’installation"></svg>
-                </div>
-
-                <div class="roi-calcul-wrap">
-                  <p class="roi-calcul" data-roi="calcul">—</p>
-                </div>
-              </div>
-
-              <!-- Colonne droite : Synthèse & Impact financier -->
-              <div class="roi-dashboard">
-
-                <!-- Carte héroïque : Gain net première année -->
-                <div class="roi-hero-card">
-                  <div class="roi-hero-badge-row">
-                    <span class="roi-hero-tag">Gain net 1ʳᵉ année</span>
-                    <span class="roi-hero-amorti">Remboursée en <strong data-roi="seuil">—</strong></span>
-                  </div>
-                  <div class="roi-hero-amount" data-roi="gain">—</div>
-                  <p class="roi-hero-caption">Bénéfice net direct dans votre trésorerie après amortissement intégral de l’installation.</p>
-                </div>
-
-                <!-- 2 micro-cartes d'appui -->
-                <div class="roi-subcards">
-                  <div class="roi-subcard">
-                    <span class="roi-subcard-label">Valeur annuelle créée</span>
-                    <span class="roi-subcard-value" data-roi="annuel">—</span>
-                  </div>
-                  <div class="roi-subcard">
-                    <span class="roi-subcard-label">Coût d'installation</span>
-                    <span class="roi-subcard-value" data-roi="prix">—</span>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-
-          <p class="demo-meta">
-            <span>Base&nbsp;: 47 semaines travaillées, 28&nbsp;€ de coût horaire chargé. À ajuster sur votre cas.</span>
-            <button type="button" class="btn-primary btn-compact" data-goto="parcours">
-              <span>Chiffrer mon cas</span>
-              <span class="btn-icon" aria-hidden="true">
-                <svg><use href="#icon-arrow-right"></use></svg>
-              </span>
-            </button>
-          </p>
-
-         </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           8 — Parcours de qualification
-           ============================================================ -->
-      <section class="slide-section" id="slide-parcours" aria-label="Parcours">
-        <div class="slide-inner slide-content">
-
-          <div class="parcours" id="parcours" data-phase="questions">
-
-            <div class="survey-progress">
-              <div class="survey-progress-track">
-                <span class="survey-progress-fill" id="form-progress-fill"></span>
-              </div>
-              <p class="survey-step" id="form-step">Étape 1 sur 6</p>
-            </div>
-
-            <!-- Les étapes et leurs champs sont générés depuis FORM_STEPS. -->
-            <form class="form-besoin" id="form-besoin" novalidate>
-              <div class="etapes" id="etapes"></div>
-
-              <!-- Déplacé dans la dernière étape par formulaire.js : il n'a de
-                   sens qu'une fois toutes les réponses données. -->
-              <div class="form-recap" id="form-recap"></div>
-
-              <p class="form-error" id="form-error" hidden></p>
-
-              <div class="form-actions">
-                <button type="button" class="btn-secondary btn-compact" id="btn-precedent" hidden>
-                  Retour
-                </button>
-                <button type="button" class="btn-primary btn-compact" id="btn-suivant">
-                  <span>Continuer</span>
-                  <span class="btn-icon" aria-hidden="true">
-                    <svg><use href="#icon-arrow-right"></use></svg>
-                  </span>
-                </button>
-                <button type="submit" class="btn-primary btn-compact" id="btn-envoyer" hidden>
-                  <span>Envoyer ma demande</span>
-                  <span class="btn-icon" aria-hidden="true">
-                    <svg><use href="#icon-arrow-right"></use></svg>
-                  </span>
-                </button>
-              </div>
-            </form>
-
-            <p class="summary-legal form-legal">
-              Vos informations servent uniquement à préparer notre échange et ne sont jamais
-              cédées à des tiers. <a href="/confidentialite.html">Politique de confidentialité</a>
-            </p>
-
-            <noscript>
-              <p class="survey-noscript">
-                Le questionnaire nécessite JavaScript. Écrivez-nous à
-                <a href="mailto:contact@derovia.fr">contact@derovia.fr</a> et
-                décrivez votre métier : nous vous répondons sous 2&nbsp;jours ouvrés.
-              </p>
-            </noscript>
-
-            <div class="survey-done">
-              <span class="done-badge" aria-hidden="true"><svg><use href="#icon-check"></use></svg></span>
-              <h3>C’est transmis</h3>
-              <p>Un ingénieur Derovia revient vers vous sous 2&nbsp;jours ouvrés.</p>
-              <!-- ⚠ À COMPLÉTER : l’adresse de votre agenda en ligne
-                   (Cal.com, Calendly…). Sans elle, laissez le bouton de côté. -->
-              <a class="btn-primary btn-compact todo" href="https://cal.com/derovia">
-                <span>Réserver un créneau maintenant</span>
-                <span class="btn-icon" aria-hidden="true">
-                  <svg><use href="#icon-arrow-right"></use></svg>
-                </span>
-              </a>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
+  <!-- Mobile Navigation Scrim + Compact Drop-down Sheet -->
+  <div class="mobile-scrim" id="mobile-scrim" data-open="false" aria-hidden="true"></div>
+  <div class="mobile-menu" id="mobile-menu" data-open="false" aria-hidden="true">
+    <nav class="mobile-menu__links" aria-label="Navigation mobile">
+      <a href="#services" data-close-menu>Services</a>
+      <a href="#methode" data-close-menu>Méthode</a>
+      <a href="#metiers" data-close-menu>Métiers</a>
+      <a href="#tarifs" data-close-menu>Tarifs</a>
+      <a href="#securite" data-close-menu>Confiance</a>
+    </nav>
+    <div class="mobile-menu__actions">
+      <a class="btn btn--md btn--beige" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+        Réserver un appel gratuit
+      </a>
+      <a class="mobile-menu__phone" href="tel:+33766830091">
+        <svg width="14" height="14" aria-hidden="true"><use href="#icon-phone"/></svg>
+        <span>07 66 83 00 91</span>
+      </a>
     </div>
   </div>
 
+  <main>
+    <!-- ====================================================================
+         Band 0 — Hero & Interactive Live Automation Card Deck
+         ==================================================================== -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-header">
+        <h1 class="display-h1 hero-title" id="hero-heading">
+          <span class="reveal-line"><span>L’administratif tourne seul.</span></span>
+          <span class="reveal-line"><span>Vous gardez votre métier.</span></span>
+        </h1>
+        <p class="lead hero-subtitle">
+          Des automatisations et outils d’IA sur-mesure pour les artisans et PME :<br>
+          devis, relances, appels, rendez-vous et paperasse gérés sans vous.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn--lg btn--dark" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+            <span>Réserver un échange gratuit</span>
+            <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+          </a>
+          <a class="btn btn--lg btn--white" href="#tarifs">
+            Voir les tarifs
+          </a>
+        </div>
+      </div>
+
+      <!-- Sculpted Architectural Flow Ribbons + Raised Interactive Deck -->
+      <div class="hero-stage">
+        <div class="riso-backdrop" aria-hidden="true">
+          <svg viewBox="0 0 1320 440" preserveAspectRatio="xMidYMax slice" fill="none">
+            <g filter="url(#riso-ink)">
+              <!-- Far-Left Tall Cobalt Sweeping Arch (rises to flank CTA) -->
+              <g class="riso-pillar riso-pillar--1">
+                <path d="M54 440 V142 C54 64 116 14 202 14 H322 V98 H212 C164 98 134 126 134 170 V440 Z" fill="#4f7df7"/>
+                <path d="M134 440 V170 C134 126 164 98 212 98 H322 V176 H224 C198 176 184 192 184 218 V440 Z" fill="#c3d4fd"/>
+              </g>
+
+              <!-- Left-Mid Sage Secondary Arch -->
+              <g class="riso-pillar riso-pillar--2">
+                <path d="M214 440 V214 C214 148 266 102 336 102 H430 V440 Z" fill="#2d9d78"/>
+                <path d="M286 440 V236 C286 202 312 178 346 178 H430 V440 Z" fill="#b7e5d5"/>
+              </g>
+
+              <!-- Left-Front Warm Terracotta Stepped Slab -->
+              <g class="riso-pillar riso-pillar--3">
+                <path d="M158 440 V306 C158 270 186 242 222 242 H376 V440 Z" fill="#e56b4e"/>
+                <path d="M218 440 V328 C218 308 234 292 254 292 H376 V440 Z" fill="#f6c5b7"/>
+              </g>
+
+              <!-- Center Warm Sand Horizon Bridge (low valley behind deck, flush to bottom) -->
+              <g class="riso-pillar riso-pillar--4">
+                <path d="M444 440 V256 C444 230 464 210 490 210 H830 C856 210 876 230 876 256 V440 Z" fill="#efe2c4"/>
+                <path d="M444 256 C444 230 464 210 490 210 H830 C856 210 876 230 876 256 V274 H444 V256 Z" fill="#e6a83c" opacity="0.72"/>
+              </g>
+
+              <!-- Right Tall Sage Architectural Viaduct Arch -->
+              <g class="riso-pillar riso-pillar--5">
+                <path d="M900 440 V152 C900 72 964 20 1054 20 H1172 V104 H1064 C1014 104 982 134 982 180 V440 Z" fill="#2d9d78"/>
+                <path d="M982 440 V180 C982 134 1014 104 1064 104 H1172 V184 H1076 C1048 184 1032 200 1032 228 V440 Z" fill="#b7e5d5"/>
+              </g>
+
+              <!-- Far-Right Cobalt & Terracotta Foreground Arches -->
+              <g class="riso-pillar riso-pillar--6">
+                <path d="M1044 440 V222 C1044 164 1090 120 1150 120 H1266 V440 Z" fill="#4f7df7"/>
+                <path d="M1112 440 V248 C1112 216 1136 194 1168 194 H1266 V440 Z" fill="#c3d4fd"/>
+                <path d="M924 314 C924 276 954 246 992 246 H1126 C1164 246 1194 276 1194 314 V440 H924 V314 Z" fill="#f6c5b7"/>
+                <path d="M966 330 C966 306 984 288 1008 288 H1110 C1134 288 1152 306 1152 330 V440 H966 V330 Z" fill="#e56b4e"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Interactive Auto-Playing Task Deck -->
+        <div class="deck-wrapper" id="hero-deck" role="region" aria-label="Démonstration interactive d'automatisations Derovia">
+          <!-- Card 0: Devis Plomberie -->
+          <article class="deck-card" data-card-index="0" data-pos="0" data-default-action="accept">
+            <div class="deck-card__top">
+              <div class="deck-source">
+                <div class="deck-source__icon">
+                  <svg width="40" height="40" aria-hidden="true"><use href="#app-devis"/></svg>
+                </div>
+                <div>
+                  <div class="deck-source__name">Devis automatique</div>
+                  <div class="deck-source__meta">Plomberie &amp; chauffage · il y a 2 min</div>
+                </div>
+              </div>
+              <span class="deck-badge deck-badge--ready">Prêt à envoyer</span>
+            </div>
+            <div class="deck-card__body">
+              <h2 class="deck-card__title">Remplacement chauffe-eau 200L — M. Laurent</h2>
+              <p class="deck-card__desc">Votre note vocale de 35 s a été chiffrée selon vos tarifs habituels : PDF mis en page (1 480 € TTC) avec relance programmée à J+4.</p>
+              <div class="deck-card__tags">
+                <span class="deck-tag"><span class="deck-tag-dot" style="background: var(--blue);"></span>Note vocale → PDF</span>
+                <span class="deck-tag">Chantier Lyon 6ᵉ</span>
+              </div>
+            </div>
+            <div class="deck-card__actions">
+              <div class="deck-actions-left">
+                <button class="deck-pill deck-pill--accept" type="button" data-deck-action="accept">
+                  <svg width="14" height="14" aria-hidden="true"><use href="#icon-check"/></svg>
+                  <span>Valider &amp; envoyer</span>
+                  <span class="kbd">V</span>
+                </button>
+                <button class="deck-pill" type="button" data-deck-action="remind">
+                  <span>Relance J+4</span>
+                  <span class="kbd">R</span>
+                </button>
+              </div>
+              <button class="deck-pill deck-pill--auto" type="button" data-deck-action="auto">
+                <svg width="13" height="13" aria-hidden="true"><use href="#derovia-mark"/></svg>
+                <span>Géré par Derovia</span>
+                <span class="kbd">A</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 1: Appel manqué Garage -->
+          <article class="deck-card" data-card-index="1" data-pos="1" data-default-action="auto">
+            <div class="deck-card__top">
+              <div class="deck-source">
+                <div class="deck-source__icon">
+                  <svg width="40" height="40" aria-hidden="true"><use href="#app-appel"/></svg>
+                </div>
+                <div>
+                  <div class="deck-source__name">Appel manqué traité</div>
+                  <div class="deck-source__meta">Garage &amp; mécanique · 11h14</div>
+                </div>
+              </div>
+              <span class="deck-badge deck-badge--urgent">Client rappelé par SMS</span>
+            </div>
+            <div class="deck-card__body">
+              <h2 class="deck-card__title">Demande révision 60 000 km — Clio V</h2>
+              <p class="deck-card__desc">Pendant que vous étiez à l’atelier, un SMS est parti instantanément. Le client a confirmé le créneau de jeudi à 9h30 dans votre agenda.</p>
+              <div class="deck-card__tags">
+                <span class="deck-tag"><span class="deck-tag-dot" style="background: var(--green);"></span>SMS instantané</span>
+                <span class="deck-tag">Agenda synchronisé</span>
+              </div>
+            </div>
+            <div class="deck-card__actions">
+              <div class="deck-actions-left">
+                <button class="deck-pill deck-pill--accept" type="button" data-deck-action="accept">
+                  <svg width="14" height="14" aria-hidden="true"><use href="#icon-check"/></svg>
+                  <span>Confirmer RDV</span>
+                  <span class="kbd">V</span>
+                </button>
+                <button class="deck-pill" type="button" data-deck-action="remind">
+                  <span>Rappel veille</span>
+                  <span class="kbd">R</span>
+                </button>
+              </div>
+              <button class="deck-pill deck-pill--auto" type="button" data-deck-action="auto">
+                <svg width="13" height="13" aria-hidden="true"><use href="#derovia-mark"/></svg>
+                <span>Zéro client perdu</span>
+                <span class="kbd">A</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Classement Comptable -->
+          <article class="deck-card" data-card-index="2" data-pos="2" data-default-action="accept">
+            <div class="deck-card__top">
+              <div class="deck-source">
+                <div class="deck-source__icon">
+                  <svg width="40" height="40" aria-hidden="true"><use href="#app-dossier"/></svg>
+                </div>
+                <div>
+                  <div class="deck-source__name">Dossier comptable</div>
+                  <div class="deck-source__meta">Papiers &amp; suivi · 17h42</div>
+                </div>
+              </div>
+              <span class="deck-badge deck-badge--blue">Classé automatiquement</span>
+            </div>
+            <div class="deck-card__body">
+              <h2 class="deck-card__title">Facture Rexel + 4 photos fin de chantier</h2>
+              <p class="deck-card__desc">Reçues par mail et WhatsApp, renommées par date et chantier, montants extraits dans votre tableau et dossier partagé au comptable.</p>
+              <div class="deck-card__tags">
+                <span class="deck-tag"><span class="deck-tag-dot" style="background: var(--yellow);"></span>TVA &amp; HT extraits</span>
+                <span class="deck-tag">Prêt pour bilan</span>
+              </div>
+            </div>
+            <div class="deck-card__actions">
+              <div class="deck-actions-left">
+                <button class="deck-pill deck-pill--accept" type="button" data-deck-action="accept">
+                  <svg width="14" height="14" aria-hidden="true"><use href="#icon-check"/></svg>
+                  <span>Archivé</span>
+                  <span class="kbd">V</span>
+                </button>
+                <button class="deck-pill" type="button" data-deck-action="remind">
+                  <span>Exporter</span>
+                  <span class="kbd">R</span>
+                </button>
+              </div>
+              <button class="deck-pill deck-pill--auto" type="button" data-deck-action="auto">
+                <svg width="13" height="13" aria-hidden="true"><use href="#derovia-mark"/></svg>
+                <span>Suivi auto</span>
+                <span class="kbd">A</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 3: Rendez-vous & Rappels -->
+          <article class="deck-card" data-card-index="3" data-pos="3" data-default-action="auto">
+            <div class="deck-card__top">
+              <div class="deck-source">
+                <div class="deck-source__icon">
+                  <svg width="40" height="40" aria-hidden="true"><use href="#app-rdv"/></svg>
+                </div>
+                <div>
+                  <div class="deck-source__name">Rendez-vous &amp; rappels</div>
+                  <div class="deck-source__meta">Planning · demain</div>
+                </div>
+              </div>
+              <span class="deck-badge deck-badge--ready">Créneau rempli</span>
+            </div>
+            <div class="deck-card__body">
+              <h2 class="deck-card__title">Annulation de 14h30 remplacée en 6 minutes</h2>
+              <p class="deck-card__desc">Mme Moreau a décalé son créneau via le SMS de rappel. Le créneau libéré a aussitôt été proposé à la liste d’attente et réservé.</p>
+              <div class="deck-card__tags">
+                <span class="deck-tag"><span class="deck-tag-dot" style="background: var(--terra);"></span>Zéro trou planning</span>
+                <span class="deck-tag">Rappel automatique</span>
+              </div>
+            </div>
+            <div class="deck-card__actions">
+              <div class="deck-actions-left">
+                <button class="deck-pill deck-pill--accept" type="button" data-deck-action="accept">
+                  <svg width="14" height="14" aria-hidden="true"><use href="#icon-check"/></svg>
+                  <span>Planning à jour</span>
+                  <span class="kbd">V</span>
+                </button>
+                <button class="deck-pill" type="button" data-deck-action="remind">
+                  <span>Tournée</span>
+                  <span class="kbd">R</span>
+                </button>
+              </div>
+              <button class="deck-pill deck-pill--auto" type="button" data-deck-action="auto">
+                <svg width="13" height="13" aria-hidden="true"><use href="#derovia-mark"/></svg>
+                <span>Géré par Derovia</span>
+                <span class="kbd">A</span>
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Deck Playback Controls -->
+        <div class="deck-controls" aria-label="Contrôles de la démonstration">
+          <button class="deck-toggle" id="deck-toggle" type="button" aria-pressed="false">
+            <svg id="deck-icon-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2.5" width="3.5" height="11" rx="1"/><rect x="9.5" y="2.5" width="3.5" height="11" rx="1"/></svg>
+            <svg id="deck-icon-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" hidden><path d="M4 2.8v10.4L13 8 4 2.8Z"/></svg>
+            <span id="deck-toggle-label">Pause</span>
+          </button>
+          <div class="deck-progress" aria-hidden="true">
+            <div class="deck-progress__bar" id="deck-progress-bar"></div>
+          </div>
+          <div class="deck-dots" role="tablist" aria-label="Choisir un exemple">
+            <button class="deck-dot" type="button" role="tab" aria-selected="true" aria-label="Exemple 1 : Devis" data-deck-goto="0"></button>
+            <button class="deck-dot" type="button" role="tab" aria-selected="false" aria-label="Exemple 2 : Appel manqué" data-deck-goto="1"></button>
+            <button class="deck-dot" type="button" role="tab" aria-selected="false" aria-label="Exemple 3 : Comptabilité" data-deck-goto="2"></button>
+            <button class="deck-dot" type="button" role="tab" aria-selected="false" aria-label="Exemple 4 : Rendez-vous" data-deck-goto="3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 1 — Duo Founders Asymmetric Intro Card (« Qui nous sommes »)
+         ==================================================================== -->
+    <section class="band" aria-labelledby="founders-heading">
+      <div class="container">
+        <div class="duo-card" data-reveal>
+          <div>
+            <h2 class="duo-title" id="founders-heading">
+              Chez
+              <span class="inline-brand-pill">
+                <svg width="20" height="20" aria-hidden="true"><use href="#derovia-mark"/></svg>
+                Derovia
+              </span>
+              <span class="duo-title__sub">vous savez exactement à qui vous parlez.</span>
+            </h2>
+            <p class="lead duo-copy">
+              Nous sommes deux. C’est l’un de nous deux qui lit votre demande, qui vous rappelle, qui conçoit l’automatisation et qui l’installe chez vous. Personne d’autre entre les deux.
+            </p>
+            <div class="founders-grid">
+              <div class="founder-card">
+                <div class="founder-card__top">
+                  <span class="founder-card__name">Mathis Derory</span>
+                  <span class="founder-card__tag">Co-fondateur</span>
+                </div>
+                <p class="founder-card__bio">Écoute votre métier, imagine la solution sur-mesure et conçoit vos automatisations.</p>
+              </div>
+              <div class="founder-card">
+                <div class="founder-card__top">
+                  <span class="founder-card__name">Maxence Catesson</span>
+                  <span class="founder-card__tag">Co-fondateur</span>
+                </div>
+                <p class="founder-card__bio">Branche vos outils, teste sur vos vrais dossiers et reste votre ligne directe.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="duo-art" aria-hidden="true">
+            <svg class="duo-sculpture" viewBox="0 0 260 220" fill="none">
+              <g filter="url(#riso-ink)">
+                <!-- Single unified monumental Derovia D-monolith with crisp stipple risograph grain -->
+                <g class="duo-arch-a">
+                  <!-- Soft stepped shadow face behind the single monolith -->
+                  <path fill="#b8ccfc" d="M74 28H126C174 28 212 66 212 114C212 162 174 200 126 200H74C62.4 200 53 190.6 53 179V114C53 102.4 62.4 93 74 93H118C129.6 93 139 102.4 139 114C139 125.6 129.6 135 118 135H95V157H125C149.4 157 169 137.4 169 114C169 90.6 149.4 71 125 71H74C62.4 71 53 61.6 53 50C53 38.4 62.4 28 74 28Z" transform="translate(12, 10)"/>
+                  <!-- Unified solid sculptural Derovia mark -->
+                  <path fill="#4f7df7" d="M74 24H126C174 24 212 62 212 110C212 158 174 196 126 196H74C62.4 196 53 186.6 53 175V110C53 98.4 62.4 89 74 89H118C129.6 89 139 98.4 139 110C139 121.6 129.6 131 118 131H95V153H125C149.4 153 169 133.4 169 110C169 86.6 149.4 67 125 67H74C62.4 67 53 57.6 53 46C53 34.4 62.4 24 74 24Z"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 2 — 2x2 Pastel Bento Grid (« Ce qu'on vous enlève des mains »)
+         ==================================================================== -->
+    <section class="band" id="services" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-split" data-reveal>
+          <div>
+            <span class="section-eyebrow">
+              <span class="beacon-dot" aria-hidden="true"></span>
+              Nos 4 expertises
+            </span>
+            <h2 class="display-h2" id="services-heading">Ce qu’on vous enlève <br>des mains.</h2>
+          </div>
+          <p class="lead">
+            Quel que soit votre métier, ce sont presque toujours les mêmes quatre corvées qui grignotent vos soirées et vos fins de semaine. Nous les automatisons sur-mesure, sans jargon.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Bento 1: Devis et factures -->
+          <article class="bento-card bento-card--blue" data-reveal style="--reveal-delay: 0ms;">
+            <div class="bento-card__text">
+              <h3 class="bento-card__title">Devis et factures</h3>
+              <p class="bento-card__desc">Rédigés à partir d’une note vocale ou d’un mémo, envoyés proprement et relancés au bon moment. Vous validez, le reste se fait sans vous.</p>
+            </div>
+            <div class="bento-stage" aria-hidden="true">
+              <div class="iso-plane">
+                <div class="iso-pill iso-pill--main">
+                  <div class="iso-pill__title">Devis #2026-184 · 2 340 €</div>
+                  <div class="iso-pill__meta">
+                    <span class="mini-chip mini-chip--green">✓ Validé</span>
+                    <span class="mini-chip mini-chip--blue">Envoyé au client</span>
+                    <span>Relance auto J+4</span>
+                  </div>
+                </div>
+                <div class="iso-pill iso-pill--float iso-float-a" style="top: 8px; right: 16px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--blue);"></span>
+                  <span>Facture générée en 1 clic</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bento 2: Appels et messages -->
+          <article class="bento-card bento-card--green" data-reveal style="--reveal-delay: 90ms;">
+            <div class="bento-card__text">
+              <h3 class="bento-card__title">Appels et messages</h3>
+              <p class="bento-card__desc">Une réponse immédiate à chaque demande, même quand vous êtes sur un chantier, en atelier ou avec un client. Plus aucun prospect oublié.</p>
+            </div>
+            <div class="bento-stage" aria-hidden="true">
+              <div class="iso-plane">
+                <div class="iso-pill iso-pill--main">
+                  <div class="iso-stack">
+                    <div class="iso-row">
+                      <span class="iso-row__left">
+                        <span class="iso-check">✓</span>
+                        <span>Appel manqué · 06 84 •• 12</span>
+                      </span>
+                      <span class="mini-chip mini-chip--green">SMS envoyé</span>
+                    </div>
+                    <div class="iso-row">
+                      <span class="iso-row__left">
+                        <span class="iso-check" style="background: var(--blue-deep);">→</span>
+                        <span>Demande qualifiée</span>
+                      </span>
+                      <span class="mini-chip">Rappel 18h</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="iso-pill iso-pill--float iso-float-b" style="bottom: 10px; left: 14px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--green);"></span>
+                  <span>Réponse en &lt; 10 sec</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bento 3: Rendez-vous et tournées -->
+          <article class="bento-card bento-card--cream" data-reveal style="--reveal-delay: 160ms;">
+            <div class="bento-card__text">
+              <h3 class="bento-card__title">Rendez-vous et tournées</h3>
+              <p class="bento-card__desc">Les créneaux se calent selon vos zones, les rappels partent la veille et un rendez-vous annulé se repropose automatiquement.</p>
+            </div>
+            <div class="bento-stage" aria-hidden="true">
+              <div class="iso-plane">
+                <div class="iso-pill iso-pill--main">
+                  <div class="iso-pill__title">Tournée jeudi · 4 interventions</div>
+                  <div class="iso-pill__meta">
+                    <span class="mini-chip mini-chip--amber">Rappels SMS envoyés</span>
+                    <span class="mini-chip mini-chip--green">0 lapin</span>
+                  </div>
+                </div>
+                <div class="iso-pill iso-pill--float iso-float-a" style="top: 10px; left: 16px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--yellow);"></span>
+                  <span>Trajets regroupés par secteur</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bento 4: Papiers et suivi comptable -->
+          <article class="bento-card bento-card--sky" data-reveal style="--reveal-delay: 240ms;">
+            <div class="bento-card__text">
+              <h3 class="bento-card__title">Papiers et suivi</h3>
+              <p class="bento-card__desc">Photos de chantier, bons de livraison, factures fournisseurs : tout est renommé, rangé par dossier et prêt pour votre comptable sans ressaisie.</p>
+            </div>
+            <div class="bento-stage" aria-hidden="true">
+              <div class="iso-plane">
+                <div class="iso-pill iso-pill--main">
+                  <div class="iso-stack">
+                    <div class="iso-row">
+                      <span class="iso-row__left">
+                        <span class="iso-check">✓</span>
+                        <span>Factures fournisseurs · Mai</span>
+                      </span>
+                      <span class="mini-chip mini-chip--blue">18 pièces</span>
+                    </div>
+                    <div class="iso-row">
+                      <span class="iso-row__left">
+                        <span class="iso-check">✓</span>
+                        <span>Export cabinet comptable</span>
+                      </span>
+                      <span class="mini-chip mini-chip--green">Prêt</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 3 — Sticky Stacking Method Cards (« Comment ça se passe »)
+         ==================================================================== -->
+    <section class="band method-section" id="methode" aria-labelledby="method-heading">
+      <div class="container">
+        <div class="section-split method-sticky-head" data-reveal>
+          <div>
+            <span class="section-eyebrow section-eyebrow--warm">Méthode en 4 temps</span>
+            <h2 class="display-h2" id="method-heading">Un déploiement simple, <br>étape par étape.</h2>
+          </div>
+          <p class="lead">
+            Vous validez chaque étape avant qu’on passe à la suivante. Pas de tunnel technique interminable : vous voyez l’outil tourner sur vos vrais cas dès les premières semaines.
+          </p>
+        </div>
+
+        <div class="stack-track" id="stack-track">
+          <!-- Step 1 -->
+          <article class="stack-card" style="--stack-index: 0;">
+            <div>
+              <div class="stack-card__meta">
+                <span class="step-num">01</span>
+                <span class="step-duration">Une semaine</span>
+              </div>
+              <h3 class="display-h3 stack-card__title">On regarde ensemble.</h3>
+              <p class="stack-card__desc">
+                Une heure d’échange gratuit pour repérer ce qui vous mange le plus de temps, cartographier vos outils actuels et chiffrer exactement ce que vous allez gagner.
+              </p>
+              <div class="stack-card__bullets">
+                <span class="stack-tag"><i style="background: var(--blue);"></i>Diagnostic gratuit</span>
+                <span class="stack-tag"><i style="background: var(--green);"></i>Devis fixe transparent</span>
+              </div>
+            </div>
+            <div class="stack-visual" aria-hidden="true">
+              <div class="workflow-flow">
+                <div class="wf-node wf-node--active">
+                  <span>Appel découverte · 1 heure</span>
+                  <span class="wf-status wf-status--blue">Gratuit</span>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-node wf-node--offset">
+                  <span>Plan d’action &amp; gain chiffré</span>
+                  <span class="wf-status wf-status--cream">Sous 48h</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 2 -->
+          <article class="stack-card" style="--stack-index: 1;">
+            <div>
+              <div class="stack-card__meta">
+                <span class="step-num">02</span>
+                <span class="step-duration">2 à 3 semaines</span>
+              </div>
+              <h3 class="display-h3 stack-card__title">On essaie sur du réel.</h3>
+              <p class="stack-card__desc">
+                Nous construisons une première version opérationnelle qui tourne sur vos vrais devis, vos vrais mails ou vos vrais clients. Vous testez et on ajuste ensemble.
+              </p>
+              <div class="stack-card__bullets">
+                <span class="stack-tag"><i style="background: var(--yellow);"></i>Prototype fonctionnel</span>
+                <span class="stack-tag"><i style="background: var(--blue);"></i>Ajusté à votre façon de faire</span>
+              </div>
+            </div>
+            <div class="stack-visual" aria-hidden="true">
+              <div class="workflow-flow">
+                <div class="wf-node">
+                  <span>Vos modèles &amp; tarifs intégrés</span>
+                  <span class="wf-status wf-status--cream">Test réel</span>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-node wf-node--offset wf-node--active">
+                  <span>Validation sur vos 10 premiers cas</span>
+                  <span class="wf-status wf-status--green">Approuvé ✓</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 3 -->
+          <article class="stack-card" style="--stack-index: 2;">
+            <div>
+              <div class="stack-card__meta">
+                <span class="step-num">03</span>
+                <span class="step-duration">4 à 6 semaines</span>
+              </div>
+              <h3 class="display-h3 stack-card__title">On installe chez vous.</h3>
+              <p class="stack-card__desc">
+                Mise en service définitive, branchement direct à vos logiciels et boîtes mail existants, puis prise en main courte et claire avec vous et votre équipe.
+              </p>
+              <div class="stack-card__bullets">
+                <span class="stack-tag"><i style="background: var(--green);"></i>Branché à vos outils</span>
+                <span class="stack-tag"><i style="background: var(--blue);"></i>Formation incluse</span>
+              </div>
+            </div>
+            <div class="stack-visual" aria-hidden="true">
+              <div class="workflow-flow">
+                <div class="wf-node">
+                  <span>Connexion Gmail · Agenda · Logiciel</span>
+                  <span class="wf-status wf-status--blue">Connecté</span>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-node wf-node--offset wf-node--done">
+                  <span>Production active en autonomie</span>
+                  <span class="wf-status wf-status--green">En ligne</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 4 -->
+          <article class="stack-card" style="--stack-index: 3;">
+            <div>
+              <div class="stack-card__meta">
+                <span class="step-num">04</span>
+                <span class="step-duration">En continu · Optionnel</span>
+              </div>
+              <h3 class="display-h3 stack-card__title">On reste à vos côtés.</h3>
+              <p class="stack-card__desc">
+                On surveille que tout tourne sans accroc, on ajuste quand votre activité évolue, et on étend progressivement à d’autres corvées quand vous le décidez.
+              </p>
+              <div class="stack-card__bullets">
+                <span class="stack-tag"><i style="background: var(--green);"></i>Ligne directe Mathis &amp; Maxence</span>
+                <span class="stack-tag"><i style="background: var(--yellow);"></i>Sans engagement long</span>
+              </div>
+            </div>
+            <div class="stack-visual" aria-hidden="true">
+              <div class="workflow-flow">
+                <div class="wf-node wf-node--done">
+                  <span>Supervision &amp; maintenance</span>
+                  <span class="wf-status wf-status--green">Actif 24/7</span>
+                </div>
+                <div class="wf-connector"></div>
+                <div class="wf-node wf-node--offset">
+                  <span>Nouvelles automatisations à la carte</span>
+                  <span class="wf-status wf-status--blue">Évolutif</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 4 — Integrations / Tools Diagonal Isometric Card
+         ==================================================================== -->
+    <section class="band" aria-labelledby="tools-heading">
+      <div class="container">
+        <div class="tools-card" data-reveal>
+          <div class="tools-copy">
+            <h2 class="display-h2" id="tools-heading">On se branche sur vos outils actuels.</h2>
+            <p class="lead">
+              Pas besoin de changer vos habitudes ni de racheter un logiciel. Que vous travailliez sur mail, WhatsApp, Excel ou un logiciel métier, nos automatisations s’y connectent directement.
+            </p>
+            <span class="tools-note">
+              <span class="tools-note__dot" aria-hidden="true"></span>
+              <span>Compatible aussi avec papier &amp; carnet</span>
+            </span>
+          </div>
+
+          <div class="iso-tiles-stage" aria-hidden="true">
+            <div class="iso-tiles-grid">
+              <div class="tool-tile" style="--i: 0;">
+                <img class="tool-tile__logo" src="assets/logos/gmail.svg" alt="Gmail" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Gmail</span>
+              </div>
+              <div class="tool-tile" style="--i: 1;">
+                <img class="tool-tile__logo" src="assets/logos/outlook.svg" alt="Outlook" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Outlook</span>
+              </div>
+              <div class="tool-tile" style="--i: 2;">
+                <img class="tool-tile__logo" src="assets/logos/whatsapp.svg" alt="WhatsApp" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">WhatsApp</span>
+              </div>
+              <div class="tool-tile" style="--i: 3;">
+                <img class="tool-tile__logo" src="assets/logos/excel.svg" alt="Excel" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Excel</span>
+              </div>
+              <div class="tool-tile" style="--i: 4;">
+                <img class="tool-tile__logo" src="assets/logos/calendar.svg" alt="Google Agenda" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Agenda</span>
+              </div>
+              <div class="tool-tile" style="--i: 5;">
+                <img class="tool-tile__logo" src="assets/logos/drive.svg" alt="Google Drive" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Drive</span>
+              </div>
+              <div class="tool-tile" style="--i: 6;">
+                <img class="tool-tile__logo tool-tile__logo--round" src="assets/logos/ebp.png" alt="EBP" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">EBP</span>
+              </div>
+              <div class="tool-tile" style="--i: 7;">
+                <img class="tool-tile__logo tool-tile__logo--wide" src="assets/logos/sage.svg" alt="Sage" width="44" height="24" loading="lazy">
+                <span class="tool-tile__name">Sage</span>
+              </div>
+              <div class="tool-tile" style="--i: 8;">
+                <img class="tool-tile__logo" src="assets/logos/batappli.png" alt="Batappli" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Batappli</span>
+              </div>
+              <div class="tool-tile" style="--i: 9;">
+                <img class="tool-tile__logo" src="assets/logos/zelty.png" alt="Zelty" width="30" height="30" loading="lazy">
+                <span class="tool-tile__name">Zelty</span>
+              </div>
+              <div class="tool-tile" style="--i: 10;">
+                <img class="tool-tile__logo" src="assets/logos/pennylane.svg" alt="Pennylane" width="32" height="32" loading="lazy">
+                <span class="tool-tile__name">Pennylane</span>
+              </div>
+              <div class="tool-tile" style="--i: 11;">
+                <img class="tool-tile__logo" src="assets/logos/openai.svg" alt="OpenAI" width="30" height="30" loading="lazy">
+                <span class="tool-tile__name">IA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 5 — Interactive Trade Accordion + Color-Morphing Visual Stage
+         ==================================================================== -->
+    <section class="band" id="metiers" aria-labelledby="trades-heading">
+      <div class="container">
+        <div class="section-split" data-reveal>
+          <div>
+            <span class="section-eyebrow section-eyebrow--green">
+              <span class="beacon-dot" aria-hidden="true"></span>
+              Exemples concrets
+            </span>
+            <h2 class="display-h2" id="trades-heading">Chaque métier, <br>sa corvée.</h2>
+          </div>
+          <p class="lead">
+            Ce qui vous prend du temps n’a rien à voir avec l’entreprise d’à côté. Sélectionnez un métier pour voir ce que nous mettons en place concrètement.
+          </p>
+        </div>
+
+        <div class="trades-layout" id="trades-widget" data-reveal>
+          <!-- Left Interactive Accordion -->
+          <div class="accordion-list" role="region" aria-label="Exemples par métier">
+            <!-- 0: Plomberie -->
+            <div class="acc-item is-playing" data-trade-index="0" data-tint="blue" data-open="true">
+              <button class="acc-trigger" type="button" aria-expanded="true">
+                <span>Plomberie &amp; chauffage</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-dwell" aria-hidden="true"><div class="acc-dwell__fill"></div></div>
+              <div class="acc-panel">
+                <div class="acc-panel__inner">
+                  <ul class="acc-bullets">
+                    <li class="acc-bullet" style="--i: 0;">
+                      <span class="acc-dot acc-dot--amber"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qui prend du temps</div>
+                        <div class="acc-bullet__text">Rédiger les devis le soir, une fois la journée de chantier finie.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 1;">
+                      <span class="acc-dot acc-dot--blue"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qu’on met en place</div>
+                        <div class="acc-bullet__text">Vous dictez l’intervention ; le devis sort chiffré, mis en forme et prêt à envoyer avec relance auto.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 2;">
+                      <span class="acc-dot acc-dot--green"></span>
+                      <div>
+                        <div class="acc-bullet__label">Le résultat</div>
+                        <div class="acc-bullet__text">Les soirées ne servent plus à faire de la paperasse.</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1: Garage -->
+            <div class="acc-item" data-trade-index="1" data-tint="green" data-open="false">
+              <button class="acc-trigger" type="button" aria-expanded="false">
+                <span>Garage &amp; mécanique</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-dwell" aria-hidden="true"><div class="acc-dwell__fill"></div></div>
+              <div class="acc-panel">
+                <div class="acc-panel__inner">
+                  <ul class="acc-bullets">
+                    <li class="acc-bullet" style="--i: 0;">
+                      <span class="acc-dot acc-dot--amber"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qui prend du temps</div>
+                        <div class="acc-bullet__text">Répondre au téléphone les mains dans le moteur, ou laisser filer des clients.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 1;">
+                      <span class="acc-dot acc-dot--blue"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qu’on met en place</div>
+                        <div class="acc-bullet__text">Les appels manqués reçoivent un SMS immédiat et les rendez-vous atelier se calent tout seuls.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 2;">
+                      <span class="acc-dot acc-dot--green"></span>
+                      <div>
+                        <div class="acc-bullet__label">Le résultat</div>
+                        <div class="acc-bullet__text">Plus aucun client perdu faute d’avoir pu décrocher.</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2: Cabinet comptable -->
+            <div class="acc-item" data-trade-index="2" data-tint="cream" data-open="false">
+              <button class="acc-trigger" type="button" aria-expanded="false">
+                <span>Cabinet comptable</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-dwell" aria-hidden="true"><div class="acc-dwell__fill"></div></div>
+              <div class="acc-panel">
+                <div class="acc-panel__inner">
+                  <ul class="acc-bullets">
+                    <li class="acc-bullet" style="--i: 0;">
+                      <span class="acc-dot acc-dot--amber"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qui prend du temps</div>
+                        <div class="acc-bullet__text">Courir après les justificatifs et factures que les clients n’envoient jamais à temps.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 1;">
+                      <span class="acc-dot acc-dot--blue"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qu’on met en place</div>
+                        <div class="acc-bullet__text">Les relances partent seules avec la liste exacte de ce qui manque à chaque dossier, et les pièces reçues se classent.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 2;">
+                      <span class="acc-dot acc-dot--green"></span>
+                      <div>
+                        <div class="acc-bullet__label">Le résultat</div>
+                        <div class="acc-bullet__text">Les bilans ne se jouent plus dans l’urgence la dernière semaine.</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3: Restauration -->
+            <div class="acc-item" data-trade-index="3" data-tint="pink" data-open="false">
+              <button class="acc-trigger" type="button" aria-expanded="false">
+                <span>Restauration</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-dwell" aria-hidden="true"><div class="acc-dwell__fill"></div></div>
+              <div class="acc-panel">
+                <div class="acc-panel__inner">
+                  <ul class="acc-bullets">
+                    <li class="acc-bullet" style="--i: 0;">
+                      <span class="acc-dot acc-dot--amber"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qui prend du temps</div>
+                        <div class="acc-bullet__text">Refaire chaque commande fournisseur à la main chaque semaine après le service.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 1;">
+                      <span class="acc-dot acc-dot--blue"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qu’on met en place</div>
+                        <div class="acc-bullet__text">La commande se pré-remplit depuis vos ventes et habitudes ; vous vérifiez et validez en un clic.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 2;">
+                      <span class="acc-dot acc-dot--green"></span>
+                      <div>
+                        <div class="acc-bullet__label">Le résultat</div>
+                        <div class="acc-bullet__text">Une commande passée en deux minutes, zéro rupture imprévue.</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4: Coiffure & esthétique -->
+            <div class="acc-item" data-trade-index="4" data-tint="sky" data-open="false">
+              <button class="acc-trigger" type="button" aria-expanded="false">
+                <span>Coiffure &amp; esthétique</span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+              <div class="acc-dwell" aria-hidden="true"><div class="acc-dwell__fill"></div></div>
+              <div class="acc-panel">
+                <div class="acc-panel__inner">
+                  <ul class="acc-bullets">
+                    <li class="acc-bullet" style="--i: 0;">
+                      <span class="acc-dot acc-dot--amber"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qui prend du temps</div>
+                        <div class="acc-bullet__text">Rappeler les rendez-vous un par un pour limiter les oublis et les trous dans la journée.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 1;">
+                      <span class="acc-dot acc-dot--blue"></span>
+                      <div>
+                        <div class="acc-bullet__label">Ce qu’on met en place</div>
+                        <div class="acc-bullet__text">Les rappels SMS partent tout seuls, et un créneau libéré se repropose aussitôt aux clientes en attente.</div>
+                      </div>
+                    </li>
+                    <li class="acc-bullet" style="--i: 2;">
+                      <span class="acc-dot acc-dot--green"></span>
+                      <div>
+                        <div class="acc-bullet__label">Le résultat</div>
+                        <div class="acc-bullet__text">Moins de fauteuils vides et zéro temps passé au téléphone.</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Color-Morphing Isometric Stage -->
+          <div class="trade-stage" id="trade-stage" data-tint="blue" aria-live="polite">
+            <!-- Scene 0: Plomberie -->
+            <div class="trade-scene" data-scene-index="0" data-active="true">
+              <div class="scene-iso-group">
+                <div class="scene-card scene-card--top">
+                  <span class="scene-label"><svg width="18" height="18" aria-hidden="true"><use href="#app-devis"/></svg>Note vocale · 38 s</span>
+                  <span class="mini-chip mini-chip--blue">Transcrite</span>
+                </div>
+                <div class="scene-card scene-card--main">
+                  <div class="scene-card__head">
+                    <span class="scene-card__title">Devis chauffage prêt</span>
+                    <span class="mini-chip mini-chip--green">1 480 € TTC</span>
+                  </div>
+                  <div class="scene-card__lines">
+                    <div class="scene-line">Fourniture + main d’œuvre calculées</div>
+                    <div class="scene-line scene-line--green">PDF aux couleurs de l’entreprise</div>
+                    <div class="scene-line scene-line--amber">Relance automatique programmée à J+4</div>
+                  </div>
+                </div>
+                <div class="scene-card scene-card--bottom">
+                  <span>Valider et envoyer au client</span>
+                  <span>→</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scene 1: Garage -->
+            <div class="trade-scene" data-scene-index="1" data-active="false">
+              <div class="scene-iso-group">
+                <div class="scene-card scene-card--top">
+                  <span class="scene-label"><svg width="18" height="18" aria-hidden="true"><use href="#app-appel"/></svg>Appel manqué · 10h22</span>
+                  <span class="mini-chip mini-chip--green">SMS en 8 s</span>
+                </div>
+                <div class="scene-card scene-card--main">
+                  <div class="scene-card__head">
+                    <span class="scene-card__title">Créneau atelier réservé</span>
+                    <span class="mini-chip mini-chip--blue">Jeudi 9h30</span>
+                  </div>
+                  <div class="scene-card__lines">
+                    <div class="scene-line scene-line--green">« Bonjour, je suis sous pont. Besoin d’un RDV ? »</div>
+                    <div class="scene-line">Plaque &amp; motif récupérés par SMS</div>
+                    <div class="scene-line scene-line--amber">Ajouté au planning + rappel veille</div>
+                  </div>
+                </div>
+                <div class="scene-card scene-card--bottom">
+                  <span>Client accueilli sans lâcher les outils</span>
+                  <span>✓</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scene 2: Cabinet comptable -->
+            <div class="trade-scene" data-scene-index="2" data-active="false">
+              <div class="scene-iso-group">
+                <div class="scene-card scene-card--top">
+                  <span class="scene-label"><svg width="18" height="18" aria-hidden="true"><use href="#app-dossier"/></svg>Dossier SARL Moreau</span>
+                  <span class="mini-chip mini-chip--amber">3 pièces manquantes</span>
+                </div>
+                <div class="scene-card scene-card--main">
+                  <div class="scene-card__head">
+                    <span class="scene-card__title">Relance ciblée envoyée</span>
+                    <span class="mini-chip mini-chip--green">Auto</span>
+                  </div>
+                  <div class="scene-card__lines">
+                    <div class="scene-line scene-line--amber">Liste exacte des factures manquantes</div>
+                    <div class="scene-line">Lien de dépôt simple en 1 clic</div>
+                    <div class="scene-line scene-line--green">Classement &amp; renommage automatiques</div>
+                  </div>
+                </div>
+                <div class="scene-card scene-card--bottom">
+                  <span>Dossier complet 10 jours avant clôture</span>
+                  <span>✓</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scene 3: Restauration -->
+            <div class="trade-scene" data-scene-index="3" data-active="false">
+              <div class="scene-iso-group">
+                <div class="scene-card scene-card--top">
+                  <span class="scene-label"><svg width="18" height="18" aria-hidden="true"><use href="#app-dossier"/></svg>Stocks &amp; ventes semaine</span>
+                  <span class="mini-chip mini-chip--blue">Analysés</span>
+                </div>
+                <div class="scene-card scene-card--main">
+                  <div class="scene-card__head">
+                    <span class="scene-card__title">Bon de commande prêt</span>
+                    <span class="mini-chip mini-chip--green">2 min</span>
+                  </div>
+                  <div class="scene-card__lines">
+                    <div class="scene-line">Quantités ajustées selon météo &amp; réservations</div>
+                    <div class="scene-line scene-line--amber">3 fournisseurs regroupés automatiquement</div>
+                    <div class="scene-line scene-line--green">Envoi mail/SMS après validation</div>
+                  </div>
+                </div>
+                <div class="scene-card scene-card--bottom">
+                  <span>Valider la commande du lundi</span>
+                  <span>→</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scene 4: Coiffure & esthétique -->
+            <div class="trade-scene" data-scene-index="4" data-active="false">
+              <div class="scene-iso-group">
+                <div class="scene-card scene-card--top">
+                  <span class="scene-label"><svg width="18" height="18" aria-hidden="true"><use href="#app-rdv"/></svg>Annulation 14h30</span>
+                  <span class="mini-chip mini-chip--amber">Liste d’attente</span>
+                </div>
+                <div class="scene-card scene-card--main">
+                  <div class="scene-card__head">
+                    <span class="scene-card__title">Créneau repris aussitôt</span>
+                    <span class="mini-chip mini-chip--green">Confirmé</span>
+                  </div>
+                  <div class="scene-card__lines">
+                    <div class="scene-line">Rappel SMS envoyé 24h avant chaque RDV</div>
+                    <div class="scene-line">Proposition auto aux clientes intéressées</div>
+                    <div class="scene-line scene-line--green">Agenda mis à jour en temps réel</div>
+                  </div>
+                </div>
+                <div class="scene-card scene-card--bottom">
+                  <span>Planning complet toute la journée</span>
+                  <span>✓</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scene-caption">
+              <span>Exemples illustratifs · taillés sur votre cas réel</span>
+              <button class="scene-cta" type="button" data-open-modal="Mon métier personnalisé">
+                Décrire mon cas →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 6 — Tarifs Clairs
+         ==================================================================== -->
+    <section class="band" id="tarifs" aria-labelledby="pricing-heading">
+      <div class="container">
+        <div class="section-split" data-reveal>
+          <div>
+            <span class="section-eyebrow">Tarifs transparents</span>
+            <h2 class="display-h2" id="pricing-heading">Des tarifs clairs, <br>pensés pour se rembourser vite.</h2>
+          </div>
+          <p class="lead">
+            Vous payez à l’installation sur devis fixe, sans frais cachés. Notre règle : une automatisation doit se rentabiliser en quelques mois grâce au temps réellement rendu.
+          </p>
+        </div>
+
+        <!-- 3 Core Pricing Cards -->
+        <div class="pricing-grid">
+          <!-- Tier 1: Diagnostic Gratuit -->
+          <article class="price-card" data-reveal style="--reveal-delay: 0ms;">
+            <div>
+              <span class="price-badge price-badge--stone">Pour commencer</span>
+              <h3 class="price-name">Diagnostic &amp; Feuille de route</h3>
+              <p class="price-desc">Un échange concret d’une heure pour identifier vos meilleurs gains de temps avant toute dépense.</p>
+              <div class="price-amount-wrap">
+                <span class="price-prefix">Sans engagement</span>
+                <div class="price-value">Gratuit</div>
+                <span class="price-note">1 heure ensemble · visio ou téléphone</span>
+              </div>
+              <ul class="price-features">
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Audit de vos 3 tâches les plus chronophages</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Chiffrage précis du temps et de l’argent récupérés</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Plan d’action concret et devis fixe sous 48h</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Échange direct avec Mathis ou Maxence</span>
+                </li>
+              </ul>
+            </div>
+            <a class="btn btn--md btn--beige" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+              Réserver mon créneau gratuit
+            </a>
+          </article>
+
+          <!-- Tier 2: Automatisation Ciblée (Featured) -->
+          <article class="price-card price-card--featured" data-reveal style="--reveal-delay: 90ms;">
+            <div>
+              <span class="price-badge price-badge--blue">Le plus choisi pour démarrer</span>
+              <h3 class="price-name">Automatisation Ciblée</h3>
+              <p class="price-desc">On supprime complètement une corvée précise qui vous coûte plusieurs heures chaque semaine.</p>
+              <div class="price-amount-wrap">
+                <span class="price-prefix">À partir de</span>
+                <div class="price-value">1 490 €<span class="price-unit">HT</span></div>
+                <span class="price-note">Paiement unique · Livré en 2 à 3 semaines</span>
+              </div>
+              <ul class="price-features">
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>1 processus complet automatisé (devis, relances, appels/SMS ou classement)</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Prototype testé sur vos vrais dossiers avant validation</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Branchement direct à vos outils (mail, WhatsApp, agenda, logiciel)</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Formation prise en main + 30 jours d’ajustements inclus</span>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn--md btn--dark" type="button" data-open-modal="Automatisation Ciblée (dès 1 490 € HT)">
+              <span>Chiffrer mon automatisation</span>
+              <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+            </button>
+          </article>
+
+          <!-- Tier 3: Système Sur-Mesure (Dark Charcoal Grain) -->
+          <article class="price-card price-card--dark" data-reveal style="--reveal-delay: 180ms;">
+            <div>
+              <span class="price-badge price-badge--dark">Transformation complète</span>
+              <h3 class="price-name">Système Sur-Mesure</h3>
+              <p class="price-desc">Plusieurs automatisations reliées entre elles + assistant IA taillé sur vos habitudes et votre équipe.</p>
+              <div class="price-amount-wrap">
+                <span class="price-prefix">À partir de</span>
+                <div class="price-value">3 490 €<span class="price-unit">HT</span></div>
+                <span class="price-note">Paiement échelonné possible · 4 à 6 semaines</span>
+              </div>
+              <ul class="price-features">
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Chaîne complète : demande client → devis → planning → facturation → comptable</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Assistant IA personnalisé (tri messages, rédaction, réponses clients)</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Intégration avancée logiciel métier (EBP, Sage, Batappli, CRM…)</span>
+                </li>
+                <li>
+                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
+                  <span>Formation équipe + accompagnement lancement inclus</span>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn--md btn--blue" type="button" data-open-modal="Système Sur-Mesure (dès 3 490 € HT)">
+              <span>Parler de mon projet</span>
+              <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+            </button>
+          </article>
+        </div>
+
+        <!-- Optional Retainer Banner -->
+        <div class="retainer-bar" data-reveal>
+          <div class="retainer-bar__left">
+            <div class="retainer-dot" aria-hidden="true">
+              <svg width="42" height="42"><use href="#app-suivi"/></svg>
+            </div>
+            <div>
+              <div class="retainer-title">Option « On reste » — Suivi, maintenance &amp; évolutions</div>
+              <div class="retainer-desc">Surveillance des automatisations, mises à jour des connecteurs, support prioritaire direct et petites améliorations mensuelles. Résiliable à tout moment.</div>
+            </div>
+          </div>
+          <div class="retainer-price">
+            <span>Dès</span>
+            <strong>190 €</strong>
+            <span>HT / mois</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 7 — Dark Charcoal Grain Security & Trust Card
+         ==================================================================== -->
+    <section class="band" id="securite" aria-labelledby="security-heading">
+      <div class="container">
+        <div class="security-card" data-reveal>
+          <!-- Subtle Floating Single-Piece Derovia Monogram Watermark -->
+          <svg class="security-watermark" viewBox="0 0 220 180" fill="none" aria-hidden="true">
+            <rect x="44" y="18" width="132" height="144" rx="34" stroke="#ffffff" stroke-width="1.5" fill="rgba(255,255,255,0.06)"/>
+            <path fill="#ffffff" d="M88 52H112C134 52 152 70 152 92C152 114 134 132 112 132H88C82.5 132 78 127.5 78 122V92C78 86.5 82.5 82 88 82H108C113.5 82 118 86.5 118 92C118 97.5 113.5 102 108 102H98V112H111C122.5 112 132 103 132 92C132 81 122.5 72 111 72H88C82.5 72 78 67.5 78 62C78 56.5 82.5 52 88 52Z"/>
+          </svg>
+
+          <div class="security-head">
+            <h2 class="display-h2" id="security-heading">Simple, fiable et privé.</h2>
+            <p class="lead">
+              Conçu pour que vous puissiez déléguer vos tâches sensibles l’esprit tranquille, sans perdre la main sur vos clients ni vos données.
+            </p>
+          </div>
+
+          <div class="security-grid">
+            <div>
+              <h3 class="security-item__title">Vos données restent les vôtres</h3>
+              <p class="security-item__desc">Jamais revendues, jamais partagées, jamais utilisées pour entraîner des modèles d’IA publics.</p>
+            </div>
+            <div>
+              <h3 class="security-item__title">Rien ne part sans votre accord</h3>
+              <p class="security-item__desc">Vous choisissez ce qui est envoyé automatiquement et ce qui attend votre validation en un clic.</p>
+            </div>
+            <div>
+              <h3 class="security-item__title">Zéro cookie, zéro traceur</h3>
+              <p class="security-item__desc">Notre site ne dépose aucun cookie publicitaire et respecte strictement le RGPD.</p>
+            </div>
+            <div>
+              <h3 class="security-item__title">Ligne directe avec vos créateurs</h3>
+              <p class="security-item__desc">En cas de question ou d’ajustement, vous appelez Mathis ou Maxence directement — pas un ticket.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Band 8 — Final CTA & Unified Full-Bleed Progressive Amphitheater Frieze
+         (Zero horizontal split — single continuous sculpted horizon rising into view)
+         ==================================================================== -->
+    <section class="final-cta" id="final-cta" data-inview="false" aria-labelledby="cta-heading">
+      <div class="final-cta__inner" data-reveal>
+        <h2 class="display-h2" id="cta-heading">Reprenez vos soirées.</h2>
+        <p class="lead">
+          Décrivez-nous votre métier ou réservez un échange gratuit :<br>
+          on vous dit honnêtement ce qui vaut le coup d’être automatisé.
+        </p>
+        <div class="final-cta__buttons">
+          <a class="btn btn--lg btn--blue" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+            <span>Réserver un créneau gratuit</span>
+            <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+          </a>
+          <button class="btn btn--lg btn--white" type="button" data-open-modal="Demande de contact">
+            Décrire mon besoin en 30 s
+          </button>
+        </div>
+        <div class="final-cta__direct">
+          <span>Ou en direct :</span>
+          <a href="tel:+33766830091">07 66 83 00 91</a>
+          <a href="mailto:contact@derovia.fr">contact@derovia.fr</a>
+        </div>
+      </div>
+
+      <!-- Single Continuous Full-Bleed Architectural Amphitheater (tall flanks + low center cascade) -->
+      <div class="cta-frieze" aria-hidden="true">
+        <svg viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" fill="none">
+          <g filter="url(#riso-ink)">
+            <!-- 1. Far-Left Tall Sage Arch (flanking headline left) -->
+            <g class="frieze-piece" style="--d: 0ms;">
+              <path d="M-40 420 V116 C-40 52 10 12 76 12 H174 V420 Z" fill="#2d9d78"/>
+              <path d="M-40 420 V192 C-40 152 -10 124 30 124 H174 V420 Z" fill="#b7e5d5"/>
+            </g>
+
+            <!-- 2. Far-Right Tall Warm Sand / Ochre Arch (flanking headline right) -->
+            <g class="frieze-piece" style="--d: 70ms;">
+              <path d="M1248 420 V106 C1248 46 1296 6 1362 6 H1480 V420 Z" fill="#e6a83c"/>
+              <path d="M1308 420 V184 C1308 144 1338 118 1378 118 H1480 V420 Z" fill="#f5e2ba"/>
+            </g>
+
+            <!-- 3. Mid-Left Tall Cobalt Sweeping Arch -->
+            <g class="frieze-piece" style="--d: 140ms;">
+              <path d="M98 420 V198 C98 118 160 66 244 66 H342 C412 66 462 114 462 184 V420 H364 V192 C364 156 340 136 306 136 H252 C214 136 188 160 188 198 V420 H98 Z" fill="#4f7df7"/>
+              <path d="M188 420 V198 C188 160 214 136 252 136 H306 C340 136 364 156 364 192 V420 H188 Z" fill="#c3d4fd"/>
+            </g>
+
+            <!-- 4. Mid-Right Tall Cobalt Sweeping Viaduct Arch -->
+            <g class="frieze-piece" style="--d: 210ms;">
+              <path d="M1032 420 V172 C1032 94 1094 44 1178 44 H1282 C1354 44 1404 94 1404 166 V420 H1306 V174 C1306 138 1282 118 1246 118 H1188 C1150 118 1124 142 1124 180 V420 H1032 Z" fill="#4f7df7"/>
+              <path d="M1124 420 V180 C1124 142 1150 118 1188 118 H1246 C1282 118 1306 138 1306 174 V420 H1124 Z" fill="#c3d4fd"/>
+            </g>
+
+            <!-- 5. Left-Inner Warm Terracotta Stepped Arch -->
+            <g class="frieze-piece" style="--d: 280ms;">
+              <path d="M276 420 V268 C276 208 324 164 388 164 H512 C576 164 624 208 624 268 V420 H530 V274 C530 246 510 228 482 228 H418 C390 228 370 246 370 274 V420 H276 Z" fill="#e56b4e"/>
+              <path d="M370 420 V274 C370 246 390 228 418 228 H482 C510 228 530 246 530 274 V420 H370 Z" fill="#f6c5b7"/>
+            </g>
+
+            <!-- 6. Right-Inner Terracotta & Warm Sand Arch -->
+            <g class="frieze-piece" style="--d: 340ms;">
+              <path d="M842 420 V254 C842 194 890 150 954 150 H1072 C1136 150 1184 194 1184 254 V420 H1092 V260 C1092 232 1072 214 1044 214 H982 C954 214 934 232 934 260 V420 H842 Z" fill="#e56b4e"/>
+              <path d="M934 420 V260 C934 232 954 214 982 214 H1044 C1072 214 1092 232 1092 260 V420 H934 Z" fill="#f6c5b7"/>
+            </g>
+
+            <!-- 7. Center Valley Sage & Warm Sand Interlocking Bridge (right under CTA) -->
+            <g class="frieze-piece" style="--d: 400ms;">
+              <path d="M538 420 V308 C538 258 578 222 634 222 H806 C862 222 902 258 902 308 V420 H814 V314 C814 290 796 276 772 276 H668 C644 276 626 290 626 314 V420 H538 Z" fill="#2d9d78"/>
+              <path d="M626 420 V314 C626 290 644 276 668 276 H772 C796 276 814 290 814 314 V420 H626 Z" fill="#b7e5d5"/>
+            </g>
+
+            <!-- 8. Foreground Low Accent Ribbons (anchoring bottom corners cleanly) -->
+            <g class="frieze-piece" style="--d: 460ms;">
+              <rect x="-12" y="308" width="236" height="122" rx="48" fill="#e6a83c"/>
+              <rect x="24" y="346" width="164" height="84" rx="34" fill="#f5e2ba"/>
+              <rect x="1196" y="294" width="256" height="136" rx="54" fill="#2d9d78"/>
+              <rect x="1244" y="338" width="164" height="92" rx="36" fill="#b7e5d5"/>
+              <rect x="652" y="344" width="136" height="86" rx="36" fill="#e6a83c"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       Band 9 — Minimal Footer + Giant Watermark (sits flush below frieze)
+       ====================================================================== -->
+  <footer class="site-footer">
+
+    <div class="container footer-body">
+      <div>
+        <a href="#top" class="brand">
+          <svg class="brand-mark" aria-hidden="true"><use href="#derovia-mark"/></svg>
+          <span>Derovia</span>
+        </a>
+        <p class="footer-copy">
+          Intelligence Artificielle &amp; Automatisation sur-mesure.<br>
+          Mathis Derory &amp; Maxence Catesson.<br>
+          © 2026 Derovia. Tous droits réservés.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Navigation</div>
+        <ul>
+          <li><a class="footer-link" href="#services">Services</a></li>
+          <li><a class="footer-link" href="#methode">Méthode</a></li>
+          <li><a class="footer-link" href="#metiers">Métiers</a></li>
+          <li><a class="footer-link" href="#tarifs">Tarifs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Contact</div>
+        <ul>
+          <li><a class="footer-link" href="tel:+33766830091">07 66 83 00 91</a></li>
+          <li><a class="footer-link" href="mailto:contact@derovia.fr">contact@derovia.fr</a></li>
+          <li><a class="footer-link" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">Réserver un appel</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Confiance</div>
+        <ul>
+          <li><a class="footer-link" href="mentions-legales.html">Mentions légales</a></li>
+          <li><a class="footer-link" href="confidentialite.html">Confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-watermark" aria-hidden="true">Derovia</div>
+  </footer>
+
+  <!-- ======================================================================
+       Quick Qualification Modal (30-Second Brief)
+       ====================================================================== -->
+  <div class="modal-backdrop" id="contact-modal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <h3 id="modal-title">Décrivez votre besoin</h3>
+          <p>Mathis ou Maxence vous répond personnellement sous 2 jours ouvrés.</p>
+        </div>
+        <button class="modal-close" type="button" id="modal-close" aria-label="Fermer la fenêtre">
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-close"/></svg>
+        </button>
+      </div>
+
+      <form class="form-grid" id="lead-form" name="besoin" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="besoin">
+        <input type="hidden" name="formule" id="form-formule" value="Diagnostic gratuit">
+        <input type="hidden" name="taches" id="form-taches" value="">
+        <p class="sr-only" aria-hidden="true">
+          <label>Ne pas remplir : <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </p>
+
+        <div class="field">
+          <label>Qu’est-ce qui vous prend le plus de temps ?</label>
+          <div class="chip-group" id="task-chips">
+            <button type="button" class="choice-chip" aria-pressed="false">Devis &amp; factures</button>
+            <button type="button" class="choice-chip" aria-pressed="false">Relances clients</button>
+            <button type="button" class="choice-chip" aria-pressed="false">Appels &amp; messages</button>
+            <button type="button" class="choice-chip" aria-pressed="false">Rendez-vous &amp; planning</button>
+            <button type="button" class="choice-chip" aria-pressed="false">Papiers &amp; comptable</button>
+            <button type="button" class="choice-chip" aria-pressed="false">Autre automatisation</button>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="field">
+            <label for="f-metier">Votre métier *</label>
+            <input id="f-metier" name="metier" type="text" required maxlength="100" placeholder="Ex. Plombier, garage, cabinet…">
+          </div>
+          <div class="field">
+            <label for="f-nom">Votre nom</label>
+            <input id="f-nom" name="nom" type="text" maxlength="100" autocomplete="name" placeholder="Prénom &amp; nom">
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="field">
+            <label for="f-email">Adresse e-mail *</label>
+            <input id="f-email" name="email" type="email" required maxlength="160" autocomplete="email" placeholder="vous@entreprise.fr">
+          </div>
+          <div class="field">
+            <label for="f-tel">Téléphone (pour vous rappeler)</label>
+            <input id="f-tel" name="telephone" type="tel" maxlength="30" autocomplete="tel" placeholder="06 12 34 56 78">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-msg">Un mot sur votre situation (facultatif)</label>
+          <textarea id="f-msg" name="message" rows="2" maxlength="1200" placeholder="Ex. Je passe 4h par semaine sur mes devis le soir…"></textarea>
+        </div>
+
+        <p class="form-error" id="lead-error" role="alert" hidden>
+          L’envoi a échoué. Écrivez-nous directement à <a href="mailto:contact@derovia.fr">contact@derovia.fr</a> ou appelez le <a href="tel:+33766830091">07 66 83 00 91</a>.
+        </p>
+
+        <div class="modal-foot">
+          <button class="btn btn--lg btn--dark btn--full" type="submit" id="lead-submit">
+            <span>Envoyer ma demande</span>
+            <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+          </button>
+          <p class="modal-privacy">
+            Vos informations servent uniquement à préparer notre échange et ne sont jamais cédées. <a href="confidentialite.html">Confidentialité</a>.
+          </p>
+        </div>
+      </form>
+
+      <div class="modal-success" id="modal-success" data-visible="false">
+        <div class="modal-success__icon" aria-hidden="true">
+          <svg width="24" height="24"><use href="#icon-check"/></svg>
+        </div>
+        <h4>C’est bien transmis !</h4>
+        <p>Mathis ou Maxence revient vers vous sous 2 jours ouvrés. Si vous préférez bloquer un créneau tout de suite, choisissez votre heure ci-dessous.</p>
+        <a class="btn btn--lg btn--blue btn--full" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+          Réserver un créneau sur Cal.com
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>

@@ -1,21 +1,92 @@
+"$schema" = "https://open-api.netlify.com/netlify.schema.json"
+
 [build]
-  # Site statique : rien à compiler, rien à exécuter côté serveur.
-  # `public/` est publié tel quel.
   publish = "public"
+
+# ============================================================================
+# Security & Privacy Headers (A+ Hardening)
+# ============================================================================
 
 [[headers]]
   for = "/*"
-
   [headers.values]
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; manifest-src 'self'; upgrade-insecure-requests;"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Permissions-Policy = "accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-origin"
+    X-DNS-Prefetch-Control = "off"
 
-# Les noms de fichiers ne portent pas d'empreinte : le navigateur doit donc
-# revalider les sources à chaque visite pour voir le dernier déploiement.
+# Static brand assets — long-lived immutable CDN cache
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/logos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/assets/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Unhashed CSS & JS — instant revalidation with ETag 304
+[[headers]]
+  for = "/assets/css/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/.well-known/security.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+
+# ============================================================================
+# Clean URLs, Legacy Redirects & Custom 404
+# ============================================================================
+
+[[redirects]]
+  from = "/mentions-legales"
+  to = "/mentions-legales.html"
+  status = 200
+
+[[redirects]]
+  from = "/confidentialite"
+  to = "/confidentialite.html"
+  status = 200
+
+[[redirects]]
+  from = "/logiciel"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/logiciel.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/logiciel/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/video"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/video.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

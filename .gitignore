@@ -1,22 +1,18 @@
-# Secrets et configuration locale — ne doit jamais partir sur le dépôt
-.env
-.env.local
-
-# Données collectées en développement
-leads.jsonl
-
-# Netlify
-.netlify/
-
-# Node (seulement si des dépendances sont ajoutées plus tard)
-node_modules/
-
-# Python
-__pycache__/
-*.py[cod]
-
-# Systèmes d'exploitation et éditeurs
+# OS & editor files
 .DS_Store
 Thumbs.db
+desktop.ini
+*.swp
+*.swo
 .vscode/
-.idea/
+
+# Environment & local secrets
+.env
+.env.*
+!.env.example
+
+# Netlify local CLI cache
+.netlify/
+
+# Logs
+*.log

@@ -3,56 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Page introuvable — Derovia</title>
-  <meta name="description" content="Cette page n'existe pas ou a été déplacée.">
-  <meta name="robots" content="noindex, follow">
-  <meta name="theme-color" content="#fbfbfd">
-
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f6f4f0">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-
 <body>
-
-  <div class="legal-page">
-
-    <header class="legal-header">
-      <a href="/" class="brand-mark" aria-label="Derovia, accueil">
-        <span class="brand-symbol">
-          <svg class="brand-glyph" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
-                  d="M7 4.5H12C16.142 4.5 19 7.858 19 12C19 16.142 16.142 19.5 12 19.5H7V4.5ZM9.6 7.2V16.8H11.8C14.5 16.8 16.3 14.8 16.3 12C16.3 9.2 14.5 7.2 11.8 7.2H9.6Z"/>
-          </svg>
-        </span>
-        <span class="brand-name">Derovia</span>
+  <header class="nav-wrap" data-stuck="true">
+    <div class="nav-sheet" aria-hidden="true"></div>
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <img class="brand-mark" src="/assets/favicon.svg" alt="" width="24" height="24">
+        <span>Derovia</span>
       </a>
-      <a href="/">Retour au site</a>
-    </header>
+      <a class="btn btn--sm btn--beige" href="/">← Retour à l’accueil</a>
+    </div>
+  </header>
 
-    <main>
-      <h1>Page introuvable</h1>
-      <p class="legal-updated">Erreur 404</p>
-      <p>
-        Cette adresse ne correspond à aucune page. Elle a peut-être été déplacée,
-        ou le lien que vous avez suivi comporte une erreur.
+  <main class="not-found">
+    <section class="not-found__card" aria-labelledby="not-found-title">
+      <span class="not-found__code">Erreur 404</span>
+      <h1 class="display-h2" id="not-found-title">Cette page n’existe pas.</h1>
+      <p class="lead">
+        Le lien a peut-être été déplacé ou supprimé. Vous pouvez revenir sur la page d’accueil ou nous contacter directement.
       </p>
-      <p>
-        Vous pouvez revenir à l’<a href="/">accueil</a>, ou nous écrire à
-        <a href="mailto:contact@derovia.fr">contact@derovia.fr</a>.
-      </p>
-    </main>
-
-    <footer class="legal-footer">
-      <p>© 2026 Derovia. Tous droits réservés.</p>
-      <nav>
-        <a href="/">Accueil</a>
-        <a href="/mentions-legales.html">Mentions légales</a>
-        <a href="/confidentialite.html">Confidentialité</a>
-      </nav>
-    </footer>
-
-  </div>
-
+      <div class="not-found__actions">
+        <a class="btn btn--md btn--dark" href="/">Retour à l’accueil</a>
+        <a class="btn btn--md btn--white" href="mailto:contact@derovia.fr">contact@derovia.fr</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
