@@ -3,6 +3,9 @@
    Zero dependencies · 60fps CSS-driven choreography · Reduced-motion safe
    ========================================================================== */
 
+(() => {
+'use strict';
+
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* --------------------------------------------------------------------------
@@ -601,10 +604,31 @@ function initModal() {
     });
   });
 
-  // Form submission (Netlify Forms in prod + safe honeypot + honest error reporting)
+  // Strip control characters and neutralize spreadsheet/CSV formula prefixes
+  const sanitizeField = (raw, maxLen, { multiline = false, allowPhonePlus = false } = {}) => {
+    const ctrl = multiline ? /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g : /[\u0000-\u001F\u007F]/g;
+    let val = String(raw || '').replace(ctrl, '').trim().slice(0, maxLen);
+    if (!val) return '';
+    if (allowPhonePlus && /^\+[\d\s().-]+$/.test(val)) return val;
+    if (/^[=+\-@]/.test(val)) val = `'${val}`;
+    return val;
+  };
+
+  let submitting = false;
+  let lastSubmitAt = 0;
+  const metierEl = document.getElementById('f-metier');
+  const emailEl = document.getElementById('f-email');
+
+  if (metierEl) metierEl.addEventListener('input', () => metierEl.setCustomValidity(''));
+  if (emailEl) emailEl.addEventListener('input', () => emailEl.setCustomValidity(''));
+
+  // Form submission (Netlify Forms in prod + honeypot + input hygiene + cooldown)
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (submitting) return;
     if (errorEl) errorEl.hidden = true;
+    if (metierEl) metierEl.setCustomValidity('');
+    if (emailEl) emailEl.setCustomValidity('');
 
     const data = new FormData(form);
     const botField = String(data.get('bot-field') || '').trim();
@@ -613,25 +637,25 @@ function initModal() {
       return;
     }
 
-    const metier = String(data.get('metier') || '').trim().slice(0, 100);
-    const nom = String(data.get('nom') || '').trim().slice(0, 100);
-    const email = String(data.get('email') || '').trim().slice(0, 160);
-    const telephone = String(data.get('telephone') || '').trim().slice(0, 30);
-    const message = String(data.get('message') || '').trim().slice(0, 1200);
-    if (!metier || !email) {
+    const metier = sanitizeField(data.get('metier'), 100);
+    const nom = sanitizeField(data.get('nom'), 100);
+    const email = sanitizeField(data.get('email'), 160);
+    const telephone = sanitizeField(data.get('telephone'), 30, { allowPhonePlus: true });
+    const message = sanitizeField(data.get('message'), 1200, { multiline: true });
+    const formule = sanitizeField(data.get('formule'), 80);
+    const taches = sanitizeField(data.get('taches'), 200);
+
+    if (!metier) {
+      if (metierEl) metierEl.setCustomValidity('Veuillez indiquer votre métier.');
       form.reportValidity();
       return;
     }
 
-    data.set('metier', metier);
-    data.set('nom', nom);
-    data.set('email', email);
-    data.set('telephone', telephone);
-    data.set('message', message);
-    data.set('subject', `Derovia — ${metier} — ${email}`);
-
-    const body = new URLSearchParams();
-    data.forEach((val, key) => body.append(key, String(val)));
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      if (emailEl) emailEl.setCustomValidity('Veuillez saisir une adresse e-mail valide.');
+      form.reportValidity();
+      return;
+    }
 
     const isLocalPreview =
       window.location.protocol === 'file:' ||
@@ -643,6 +667,26 @@ function initModal() {
       return;
     }
 
+    // 10s anti-flood cooldown between real submissions
+    const now = Date.now();
+    if (now - lastSubmitAt < 10000) {
+      showSuccess();
+      return;
+    }
+
+    const body = new URLSearchParams();
+    body.append('form-name', 'besoin');
+    body.append('bot-field', '');
+    body.append('subject', `Derovia — ${metier} — ${email}`);
+    body.append('formule', formule);
+    body.append('taches', taches);
+    body.append('metier', metier);
+    body.append('nom', nom);
+    body.append('email', email);
+    body.append('telephone', telephone);
+    body.append('message', message);
+
+    submitting = true;
     if (submitBtn) submitBtn.disabled = true;
     try {
       const res = await fetch('/', {
@@ -651,10 +695,12 @@ function initModal() {
         body: body.toString(),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      lastSubmitAt = Date.now();
       showSuccess();
     } catch {
       if (errorEl) errorEl.hidden = false;
     } finally {
+      submitting = false;
       if (submitBtn) submitBtn.disabled = false;
     }
   });
@@ -671,3 +717,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initTradesAccordion();
   initModal();
 });
+})();

@@ -19,7 +19,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -502,7 +502,7 @@
 
         <div class="bento-grid">
           <!-- Bento 1: Devis et factures -->
-          <article class="bento-card bento-card--blue" data-reveal style="--reveal-delay: 0ms;">
+          <article class="bento-card bento-card--blue" data-reveal>
             <div class="bento-card__text">
               <h3 class="bento-card__title">Devis et factures</h3>
               <p class="bento-card__desc">Rédigés à partir d’une note vocale ou d’un mémo, envoyés proprement et relancés au bon moment. Vous validez, le reste se fait sans vous.</p>
@@ -517,7 +517,7 @@
                     <span>Relance auto J+4</span>
                   </div>
                 </div>
-                <div class="iso-pill iso-pill--float iso-float-a" style="top: 8px; right: 16px;">
+                <div class="iso-pill iso-pill--float iso-float-a iso-float--tr">
                   <span>Facture générée en 1 clic</span>
                 </div>
               </div>
@@ -525,7 +525,7 @@
           </article>
 
           <!-- Bento 2: Appels et messages -->
-          <article class="bento-card bento-card--green" data-reveal style="--reveal-delay: 90ms;">
+          <article class="bento-card bento-card--green" data-reveal>
             <div class="bento-card__text">
               <h3 class="bento-card__title">Appels et messages</h3>
               <p class="bento-card__desc">Une réponse immédiate à chaque demande, même quand vous êtes sur un chantier, en atelier ou avec un client. Plus aucun prospect oublié.</p>
@@ -543,14 +543,14 @@
                     </div>
                     <div class="iso-row">
                       <span class="iso-row__left">
-                        <span class="iso-check" style="background: var(--blue-deep);">→</span>
+                        <span class="iso-check iso-check--blue">→</span>
                         <span>Demande qualifiée</span>
                       </span>
                       <span class="mini-chip">Rappel 18h</span>
                     </div>
                   </div>
                 </div>
-                <div class="iso-pill iso-pill--float iso-float-b" style="bottom: 10px; left: 14px;">
+                <div class="iso-pill iso-pill--float iso-float-b iso-float--bl">
                   <span>Réponse en &lt; 10 sec</span>
                 </div>
               </div>
@@ -558,7 +558,7 @@
           </article>
 
           <!-- Bento 3: Rendez-vous et tournées -->
-          <article class="bento-card bento-card--cream" data-reveal style="--reveal-delay: 160ms;">
+          <article class="bento-card bento-card--cream" data-reveal>
             <div class="bento-card__text">
               <h3 class="bento-card__title">Rendez-vous et tournées</h3>
               <p class="bento-card__desc">Les créneaux se calent selon vos zones, les rappels partent la veille et un rendez-vous annulé se repropose automatiquement.</p>
@@ -572,7 +572,7 @@
                     <span class="mini-chip mini-chip--green">0 lapin</span>
                   </div>
                 </div>
-                <div class="iso-pill iso-pill--float iso-float-a" style="top: 10px; left: 16px;">
+                <div class="iso-pill iso-pill--float iso-float-a iso-float--tl">
                   <span>Trajets regroupés par secteur</span>
                 </div>
               </div>
@@ -580,7 +580,7 @@
           </article>
 
           <!-- Bento 4: Papiers et suivi comptable -->
-          <article class="bento-card bento-card--sky" data-reveal style="--reveal-delay: 240ms;">
+          <article class="bento-card bento-card--sky" data-reveal>
             <div class="bento-card__text">
               <h3 class="bento-card__title">Papiers et suivi</h3>
               <p class="bento-card__desc">Photos de chantier, bons de livraison, factures fournisseurs : tout est renommé, rangé par dossier et prêt pour votre comptable sans ressaisie.</p>
@@ -629,7 +629,7 @@
 
         <div class="stack-track" id="stack-track">
           <!-- Step 1 -->
-          <article class="stack-card" data-step="1" style="--stack-index: 0;">
+          <article class="stack-card" data-step="1">
             <div class="stack-card__content">
               <div class="stack-card__meta">
                 <span class="step-rail" aria-label="Étape 1 sur 4">
@@ -645,7 +645,7 @@
           </article>
 
           <!-- Step 2 -->
-          <article class="stack-card" data-step="2" style="--stack-index: 1;">
+          <article class="stack-card" data-step="2">
             <div class="stack-card__content">
               <div class="stack-card__meta">
                 <span class="step-rail" aria-label="Étape 2 sur 4">
@@ -661,7 +661,7 @@
           </article>
 
           <!-- Step 3 -->
-          <article class="stack-card" data-step="3" style="--stack-index: 2;">
+          <article class="stack-card" data-step="3">
             <div class="stack-card__content">
               <div class="stack-card__meta">
                 <span class="step-rail" aria-label="Étape 3 sur 4">
@@ -677,7 +677,7 @@
           </article>
 
           <!-- Step 4 -->
-          <article class="stack-card" data-step="4" style="--stack-index: 3;">
+          <article class="stack-card" data-step="4">
             <div class="stack-card__content">
               <div class="stack-card__meta">
                 <span class="step-rail" aria-label="Étape 4 sur 4">
@@ -714,51 +714,51 @@
 
           <div class="iso-tiles-stage" aria-hidden="true">
             <div class="iso-tiles-grid">
-              <div class="tool-tile" style="--i: 0;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/gmail.svg" alt="Gmail" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Gmail</span>
               </div>
-              <div class="tool-tile" style="--i: 1;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/outlook.svg" alt="Outlook" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Outlook</span>
               </div>
-              <div class="tool-tile" style="--i: 2;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/whatsapp.svg" alt="WhatsApp" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">WhatsApp</span>
               </div>
-              <div class="tool-tile" style="--i: 3;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/excel.svg" alt="Excel" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Excel</span>
               </div>
-              <div class="tool-tile" style="--i: 4;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/calendar.svg" alt="Google Agenda" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Agenda</span>
               </div>
-              <div class="tool-tile" style="--i: 5;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/drive.svg" alt="Google Drive" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Drive</span>
               </div>
-              <div class="tool-tile" style="--i: 6;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo tool-tile__logo--round" src="assets/logos/ebp.png" alt="EBP" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">EBP</span>
               </div>
-              <div class="tool-tile" style="--i: 7;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo tool-tile__logo--wide" src="assets/logos/sage.svg" alt="Sage" width="44" height="24" loading="lazy">
                 <span class="tool-tile__name">Sage</span>
               </div>
-              <div class="tool-tile" style="--i: 8;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/batappli.png" alt="Batappli" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Batappli</span>
               </div>
-              <div class="tool-tile" style="--i: 9;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/zelty.png" alt="Zelty" width="30" height="30" loading="lazy">
                 <span class="tool-tile__name">Zelty</span>
               </div>
-              <div class="tool-tile" style="--i: 10;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/pennylane.svg" alt="Pennylane" width="32" height="32" loading="lazy">
                 <span class="tool-tile__name">Pennylane</span>
               </div>
-              <div class="tool-tile" style="--i: 11;">
+              <div class="tool-tile">
                 <img class="tool-tile__logo" src="assets/logos/openai.svg" alt="OpenAI" width="30" height="30" loading="lazy">
                 <span class="tool-tile__name">IA</span>
               </div>
@@ -796,21 +796,21 @@
               <div class="acc-panel">
                 <div class="acc-panel__inner">
                   <ul class="acc-bullets">
-                    <li class="acc-bullet" style="--i: 0;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--amber"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qui prend du temps</div>
                         <div class="acc-bullet__text">Rédiger les devis le soir, une fois la journée de chantier finie.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 1;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--blue"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qu’on met en place</div>
                         <div class="acc-bullet__text">Vous dictez l’intervention ; le devis sort chiffré, mis en forme et prêt à envoyer avec relance auto.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 2;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--green"></span>
                       <div>
                         <div class="acc-bullet__label">Le résultat</div>
@@ -832,21 +832,21 @@
               <div class="acc-panel">
                 <div class="acc-panel__inner">
                   <ul class="acc-bullets">
-                    <li class="acc-bullet" style="--i: 0;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--amber"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qui prend du temps</div>
                         <div class="acc-bullet__text">Répondre au téléphone les mains dans le moteur, ou laisser filer des clients.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 1;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--blue"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qu’on met en place</div>
                         <div class="acc-bullet__text">Les appels manqués reçoivent un SMS immédiat et les rendez-vous atelier se calent tout seuls.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 2;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--green"></span>
                       <div>
                         <div class="acc-bullet__label">Le résultat</div>
@@ -868,21 +868,21 @@
               <div class="acc-panel">
                 <div class="acc-panel__inner">
                   <ul class="acc-bullets">
-                    <li class="acc-bullet" style="--i: 0;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--amber"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qui prend du temps</div>
                         <div class="acc-bullet__text">Courir après les justificatifs et factures que les clients n’envoient jamais à temps.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 1;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--blue"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qu’on met en place</div>
                         <div class="acc-bullet__text">Les relances partent seules avec la liste exacte de ce qui manque à chaque dossier, et les pièces reçues se classent.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 2;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--green"></span>
                       <div>
                         <div class="acc-bullet__label">Le résultat</div>
@@ -904,21 +904,21 @@
               <div class="acc-panel">
                 <div class="acc-panel__inner">
                   <ul class="acc-bullets">
-                    <li class="acc-bullet" style="--i: 0;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--amber"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qui prend du temps</div>
                         <div class="acc-bullet__text">Refaire chaque commande fournisseur à la main chaque semaine après le service.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 1;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--blue"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qu’on met en place</div>
                         <div class="acc-bullet__text">La commande se pré-remplit depuis vos ventes et habitudes ; vous vérifiez et validez en un clic.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 2;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--green"></span>
                       <div>
                         <div class="acc-bullet__label">Le résultat</div>
@@ -940,21 +940,21 @@
               <div class="acc-panel">
                 <div class="acc-panel__inner">
                   <ul class="acc-bullets">
-                    <li class="acc-bullet" style="--i: 0;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--amber"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qui prend du temps</div>
                         <div class="acc-bullet__text">Rappeler les rendez-vous un par un pour limiter les oublis et les trous dans la journée.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 1;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--blue"></span>
                       <div>
                         <div class="acc-bullet__label">Ce qu’on met en place</div>
                         <div class="acc-bullet__text">Les rappels SMS partent tout seuls, et un créneau libéré se repropose aussitôt aux clientes en attente.</div>
                       </div>
                     </li>
-                    <li class="acc-bullet" style="--i: 2;">
+                    <li class="acc-bullet">
                       <span class="acc-dot acc-dot--green"></span>
                       <div>
                         <div class="acc-bullet__label">Le résultat</div>
@@ -1123,7 +1123,7 @@
         <!-- 3 Core Pricing Cards -->
         <div class="pricing-grid">
           <!-- Tier 1: Diagnostic Gratuit -->
-          <article class="price-card" data-reveal style="--reveal-delay: 0ms;">
+          <article class="price-card" data-reveal>
             <div>
               <span class="price-badge price-badge--stone">Pour commencer</span>
               <h3 class="price-name">Diagnostic &amp; Feuille de route</h3>
@@ -1158,7 +1158,7 @@
           </article>
 
           <!-- Tier 2: Automatisation Ciblée (Featured) -->
-          <article class="price-card price-card--featured" data-reveal style="--reveal-delay: 90ms;">
+          <article class="price-card price-card--featured" data-reveal>
             <div>
               <span class="price-badge price-badge--blue">Le plus choisi pour démarrer</span>
               <h3 class="price-name">Automatisation Ciblée</h3>
@@ -1194,7 +1194,7 @@
           </article>
 
           <!-- Tier 3: Système Sur-Mesure (Dark Charcoal Grain) -->
-          <article class="price-card price-card--dark" data-reveal style="--reveal-delay: 180ms;">
+          <article class="price-card price-card--dark" data-reveal>
             <div>
               <span class="price-badge price-badge--dark">Transformation complète</span>
               <h3 class="price-name">Système Sur-Mesure</h3>
@@ -1323,49 +1323,49 @@
         <svg viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" fill="none">
           <g filter="url(#riso-ink)">
             <!-- 1. Far-Left Tall Sage Arch (flanking headline left) -->
-            <g class="frieze-piece" style="--d: 0ms;">
+            <g class="frieze-piece">
               <path d="M-40 420 V116 C-40 52 10 12 76 12 H174 V420 Z" fill="#2d9d78"/>
               <path d="M-40 420 V192 C-40 152 -10 124 30 124 H174 V420 Z" fill="#b7e5d5"/>
             </g>
 
             <!-- 2. Far-Right Tall Warm Sand / Ochre Arch (flanking headline right) -->
-            <g class="frieze-piece" style="--d: 70ms;">
+            <g class="frieze-piece">
               <path d="M1248 420 V106 C1248 46 1296 6 1362 6 H1480 V420 Z" fill="#e6a83c"/>
               <path d="M1308 420 V184 C1308 144 1338 118 1378 118 H1480 V420 Z" fill="#f5e2ba"/>
             </g>
 
             <!-- 3. Mid-Left Tall Cobalt Sweeping Arch -->
-            <g class="frieze-piece" style="--d: 140ms;">
+            <g class="frieze-piece">
               <path d="M98 420 V198 C98 118 160 66 244 66 H342 C412 66 462 114 462 184 V420 H364 V192 C364 156 340 136 306 136 H252 C214 136 188 160 188 198 V420 H98 Z" fill="#4f7df7"/>
               <path d="M188 420 V198 C188 160 214 136 252 136 H306 C340 136 364 156 364 192 V420 H188 Z" fill="#c3d4fd"/>
             </g>
 
             <!-- 4. Mid-Right Tall Cobalt Sweeping Viaduct Arch -->
-            <g class="frieze-piece" style="--d: 210ms;">
+            <g class="frieze-piece">
               <path d="M1032 420 V172 C1032 94 1094 44 1178 44 H1282 C1354 44 1404 94 1404 166 V420 H1306 V174 C1306 138 1282 118 1246 118 H1188 C1150 118 1124 142 1124 180 V420 H1032 Z" fill="#4f7df7"/>
               <path d="M1124 420 V180 C1124 142 1150 118 1188 118 H1246 C1282 118 1306 138 1306 174 V420 H1124 Z" fill="#c3d4fd"/>
             </g>
 
             <!-- 5. Left-Inner Warm Terracotta Stepped Arch -->
-            <g class="frieze-piece" style="--d: 280ms;">
+            <g class="frieze-piece">
               <path d="M276 420 V268 C276 208 324 164 388 164 H512 C576 164 624 208 624 268 V420 H530 V274 C530 246 510 228 482 228 H418 C390 228 370 246 370 274 V420 H276 Z" fill="#e56b4e"/>
               <path d="M370 420 V274 C370 246 390 228 418 228 H482 C510 228 530 246 530 274 V420 H370 Z" fill="#f6c5b7"/>
             </g>
 
             <!-- 6. Right-Inner Terracotta & Warm Sand Arch -->
-            <g class="frieze-piece" style="--d: 340ms;">
+            <g class="frieze-piece">
               <path d="M842 420 V254 C842 194 890 150 954 150 H1072 C1136 150 1184 194 1184 254 V420 H1092 V260 C1092 232 1072 214 1044 214 H982 C954 214 934 232 934 260 V420 H842 Z" fill="#e56b4e"/>
               <path d="M934 420 V260 C934 232 954 214 982 214 H1044 C1072 214 1092 232 1092 260 V420 H934 Z" fill="#f6c5b7"/>
             </g>
 
             <!-- 7. Center Valley Sage & Warm Sand Interlocking Bridge (right under CTA) -->
-            <g class="frieze-piece" style="--d: 400ms;">
+            <g class="frieze-piece">
               <path d="M538 420 V308 C538 258 578 222 634 222 H806 C862 222 902 258 902 308 V420 H814 V314 C814 290 796 276 772 276 H668 C644 276 626 290 626 314 V420 H538 Z" fill="#2d9d78"/>
               <path d="M626 420 V314 C626 290 644 276 668 276 H772 C796 276 814 290 814 314 V420 H626 Z" fill="#b7e5d5"/>
             </g>
 
             <!-- 8. Foreground Low Accent Ribbons (anchoring bottom corners cleanly) -->
-            <g class="frieze-piece" style="--d: 460ms;">
+            <g class="frieze-piece">
               <rect x="-12" y="308" width="236" height="122" rx="48" fill="#e6a83c"/>
               <rect x="24" y="346" width="164" height="84" rx="34" fill="#f5e2ba"/>
               <rect x="1196" y="294" width="256" height="136" rx="54" fill="#2d9d78"/>
