@@ -596,7 +596,7 @@ img, svg {
   position: relative;
   z-index: 4;
   text-align: center;
-  max-width: 800px;
+  max-width: 960px;
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
