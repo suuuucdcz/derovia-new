@@ -1382,23 +1382,79 @@ img, svg {
 }
 
 .stack-card {
+  --step-arch-outer: var(--tint-blue);
+  --step-arch-inner: #d7e3ff;
+  --step-accent: var(--blue);
   position: sticky;
   top: calc(var(--nav-h) + 22px + var(--stack-index, 0) * 18px);
   z-index: calc(2 + var(--stack-index, 0));
-  background: var(--surface);
-  background-image: var(--iso-grid);
+  background: var(--paper);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(31, 29, 27, 0.07);
-  padding: clamp(30px, 3.8vw, 48px) clamp(28px, 4.5vw, 58px);
-  min-height: 326px;
+  border: 1px solid rgba(31, 29, 27, 0.09);
+  padding: clamp(30px, 3.8vw, 46px) clamp(28px, 4.5vw, 56px);
+  min-height: 334px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
   align-items: center;
   gap: clamp(28px, 4vw, 56px);
+  overflow: hidden;
   box-shadow: 0 -8px 28px -18px rgba(46, 41, 38, 0.14), 0 18px 40px -28px rgba(46, 41, 38, 0.16);
   transform-origin: center top;
   will-change: transform, opacity;
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+/* Signature architectural arch silhouette tucked into right side (replaces iso-grid) */
+.stack-card::before,
+.stack-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+.stack-card::before {
+  top: 28px;
+  right: -46px;
+  bottom: -24px;
+  width: min(490px, 49%);
+  border-radius: 170px 170px 0 0;
+  background: var(--step-arch-outer);
+}
+.stack-card::after {
+  top: 96px;
+  right: -12px;
+  bottom: -24px;
+  width: min(350px, 36%);
+  border-radius: 130px 130px 0 0;
+  background: var(--step-arch-inner);
+  opacity: 0.65;
+}
+
+.stack-card[data-step="1"] {
+  --step-arch-outer: var(--tint-blue);
+  --step-arch-inner: #d7e3ff;
+  --step-accent: var(--blue);
+}
+.stack-card[data-step="2"] {
+  --step-arch-outer: var(--tint-cream);
+  --step-arch-inner: #f3e0b6;
+  --step-accent: var(--yellow);
+}
+.stack-card[data-step="3"] {
+  --step-arch-outer: var(--tint-green);
+  --step-arch-inner: #ccebd9;
+  --step-accent: var(--green);
+}
+.stack-card[data-step="4"] {
+  --step-arch-outer: var(--tint-pink);
+  --step-arch-inner: #f6d7cc;
+  --step-accent: var(--terra);
+}
+
+.stack-card__content {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
 }
 
 .stack-card__meta {
@@ -1427,11 +1483,28 @@ img, svg {
   height: 28px;
   padding: 0 12px;
   border-radius: var(--radius-pill);
-  background: var(--white);
+  background: var(--surface);
   box-shadow: inset 0 0 0 1px var(--beige);
   font-size: 12.5px;
   font-weight: 500;
   color: var(--muted);
+}
+
+.step-rail {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 4px;
+}
+.step-rail i {
+  display: block;
+  width: 14px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(31, 29, 27, 0.12);
+}
+.step-rail i.is-on {
+  background: var(--step-accent);
 }
 
 .stack-card__title {
@@ -1458,8 +1531,8 @@ img, svg {
   gap: 6px;
   padding: 6px 12px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(46, 41, 38, 0.08);
+  background: var(--surface);
+  border: 1px solid rgba(31, 29, 27, 0.08);
   font-size: 12.5px;
   font-weight: 500;
   color: var(--ink);
@@ -1471,82 +1544,324 @@ img, svg {
   display: inline-block;
 }
 
-/* Method Card Right Visuals */
+/* Method Card Right Visuals — Straight, Upright Editorial UI Frames */
 .stack-visual {
   position: relative;
-  min-height: 230px;
+  z-index: 2;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.workflow-flow {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: min(360px, 100%);
-  transform: rotate(-8deg) skewX(12deg);
-  transition: transform 0.6s var(--ease-out);
+.step-frame {
+  width: min(444px, 100%);
+  max-width: 100%;
+  min-width: 0;
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid rgba(31, 29, 27, 0.09);
+  padding: 20px 22px 18px;
+  box-shadow: 0 2px 6px rgba(31, 29, 27, 0.04), 0 22px 42px -24px rgba(31, 29, 27, 0.24);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
 }
-.stack-card:hover .workflow-flow {
-  transform: rotate(-5deg) skewX(8deg) translateY(-4px);
+.stack-card:hover .step-frame {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(31, 29, 27, 0.06), 0 28px 48px -24px rgba(31, 29, 27, 0.28);
 }
 
-.wf-node {
+.step-frame__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 13px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.step-frame__title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.step-pill--blue { background: var(--tint-blue); color: var(--blue-ink); }
+.step-pill--cream { background: var(--tint-cream); color: var(--yellow-ink); }
+.step-pill--green { background: var(--tint-green); color: var(--green-ink); }
+.step-pill--emerald { background: rgba(45, 157, 120, 0.22); color: #7be2be; }
+
+.live-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.step-frame__foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 13px 16px;
-  border-radius: 14px;
-  background: var(--white);
-  border: 1px solid rgba(46, 41, 38, 0.08);
-  box-shadow: var(--shadow-iso);
-  font-size: 13.5px;
-  font-weight: 500;
+  padding-top: 13px;
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted-soft);
 }
-.wf-node--offset {
-  margin-left: 28px;
-}
-.wf-node--active {
-  border-color: rgba(79, 125, 247, 0.55);
-  box-shadow: var(--shadow-iso), 0 0 0 4px rgba(79, 125, 247, 0.14);
-}
-.wf-node--done {
-  border-color: rgba(45, 157, 120, 0.45);
+.step-frame__foot strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
 }
 
-.wf-status {
-  display: inline-flex;
+/* Step 01: Diagnostic Audit Time Bars */
+.audit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.audit-row__top {
+  display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 3px 9px;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.audit-row__top strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+}
+.audit-bar {
+  height: 7px;
   border-radius: 999px;
+  background: var(--quiet);
+  overflow: hidden;
+}
+.audit-bar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+.audit-bar__fill--blue { background: var(--blue); }
+.audit-bar__fill--green { background: var(--green); }
+.audit-bar__fill--amber { background: var(--yellow); }
+
+/* Step 02: Prototype Real-Case Verification Checklist */
+.proto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.proto-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: 11px;
+  background: var(--surface);
+  font-size: 12.5px;
+}
+.proto-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--tint-green);
+  color: var(--green-ink);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.proto-label {
+  color: var(--ink);
+  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.proto-badge {
   font-size: 11px;
   font-weight: 600;
+  color: var(--muted-soft);
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  flex-shrink: 0;
 }
-.wf-status--blue { background: var(--tint-blue); color: var(--blue-ink); }
-.wf-status--green { background: var(--tint-green); color: var(--green-ink); }
-.wf-status--cream { background: var(--tint-cream); color: var(--yellow-ink); }
+.proto-badge--ok {
+  background: var(--tint-green);
+  color: var(--green-ink);
+  border-color: transparent;
+}
 
-.wf-connector {
-  width: 2px;
-  height: 16px;
-  margin-left: 44px;
-  background: linear-gradient(to bottom, var(--blue), rgba(79, 125, 247, 0.15));
-  position: relative;
+/* Step 03: Live Connected Tools Hub */
+.connect-hub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 52px auto;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
 }
-.wf-connector::after {
+.connect-apps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.connect-app {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 11px;
+  border-radius: 11px;
+  background: var(--surface);
+  border: 1px solid rgba(31, 29, 27, 0.06);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.connect-app img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.connect-wire {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(to right, rgba(45, 157, 120, 0.25), var(--green));
+  border-radius: 999px;
+}
+.connect-wire span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  transform: translateY(-50%);
+  animation: wire-pulse 2.2s ease-in-out infinite;
+}
+.connect-core {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: 0 14px 26px -14px rgba(31, 29, 27, 0.55);
+}
+
+/* Step 04: Obsidian 24/7 Supervision & Direct Line Card */
+.step-frame--dark {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+.step-frame--dark::before {
   content: "";
   position: absolute;
-  left: -2.5px;
-  top: 0;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--blue-deep);
-  animation: dot-travel 2.4s ease-in-out infinite;
+  inset: 0;
+  background-image: var(--grain-tile);
+  background-size: 160px 160px;
+  opacity: 0.22;
+  pointer-events: none;
+}
+.step-frame--dark > * {
+  position: relative;
+  z-index: 2;
+}
+.step-frame--dark .step-frame__head {
+  border-bottom-color: var(--white-line);
+}
+.step-frame--dark .step-frame__title {
+  color: var(--white);
+}
+
+.monitor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.monitor-stat {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--white-line);
+}
+.monitor-stat span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--white-muted);
+  margin-bottom: 3px;
+}
+.monitor-stat strong {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.monitor-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.monitor-line__label {
+  display: block;
+  font-size: 11px;
+  color: var(--white-muted);
+  margin-bottom: 1px;
+}
+.monitor-line strong {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--white);
+}
+.monitor-line__tel {
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ==========================================================================
@@ -2817,11 +3132,11 @@ img, svg {
   100% { transform: scale(2.8); opacity: 0; }
 }
 
-@keyframes dot-travel {
-  0% { top: 0; opacity: 0; }
-  25% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
+@keyframes wire-pulse {
+  0% { left: 0; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: calc(100% - 8px); opacity: 0; }
 }
 
 @keyframes tile-float {
@@ -2853,7 +3168,7 @@ img, svg {
   .trades-layout,
   .duo-card,
   .stack-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .security-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3123,10 +3438,28 @@ img, svg {
   .stack-card {
     position: sticky;
     top: calc(var(--nav-h) + 14px + var(--stack-index, 0) * 14px);
-    padding: 26px 22px 24px;
+    padding: 24px 20px 22px;
     min-height: 320px;
-    gap: 20px;
+    gap: 18px;
     box-shadow: 0 -14px 32px -18px rgba(31, 29, 27, 0.16), 0 14px 28px -20px rgba(31, 29, 27, 0.14);
+  }
+  .stack-card::before {
+    top: auto;
+    right: -24px;
+    left: -24px;
+    bottom: -24px;
+    width: auto;
+    height: 195px;
+    border-radius: 120px 120px 0 0;
+  }
+  .stack-card::after {
+    top: auto;
+    right: 16px;
+    left: 16px;
+    bottom: -24px;
+    width: auto;
+    height: 125px;
+    border-radius: 90px 90px 0 0;
   }
   .stack-card__meta {
     margin-bottom: 12px;
@@ -3139,22 +3472,36 @@ img, svg {
     font-size: 15px;
     margin-bottom: 14px;
   }
-  .stack-visual {
-    min-height: 156px;
+  .step-frame {
+    padding: 16px 16px 14px;
+    border-radius: 16px;
   }
-  .workflow-flow {
-    transform: rotate(-6deg) skewX(9deg) scale(0.88);
+  .step-frame__title {
+    font-size: 13px;
   }
-  .wf-node {
-    padding: 11px 13px;
-    font-size: 12.5px;
+  .proto-row {
+    padding: 8px 10px;
+    gap: 8px;
+    font-size: 11.5px;
   }
-  .wf-node--offset {
-    margin-left: 16px;
+  .proto-badge {
+    font-size: 10.5px;
+    padding: 2px 7px;
   }
-  .wf-status {
-    white-space: nowrap;
-    flex-shrink: 0;
+  .connect-hub {
+    grid-template-columns: minmax(0, 1fr) 32px auto;
+  }
+  .connect-core {
+    width: 82px;
+    height: 82px;
+    border-radius: 16px;
+    font-size: 11.5px;
+  }
+  .monitor-stat strong {
+    font-size: 16.5px;
+  }
+  .monitor-line {
+    padding: 10px 12px;
   }
 
   /* 6. Mobile Tools Integration Card (Visual ABOVE Text + Soft Fade Mask) */
