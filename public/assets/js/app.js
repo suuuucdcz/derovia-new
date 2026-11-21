@@ -126,8 +126,8 @@ function initStackCards() {
 
       const rect = card.getBoundingClientRect();
       const nextRect = next.getBoundingClientRect();
-      const overlapStart = rect.top + (isCompact ? 240 : 280);
-      const overlapEnd = rect.top + (isCompact ? 14 : 18);
+      const overlapStart = rect.top + (isCompact ? 170 : 205);
+      const overlapEnd = rect.top + (isCompact ? 14 : 16);
       const progress = Math.min(1, Math.max(0, (overlapStart - nextRect.top) / (overlapStart - overlapEnd)));
 
       const scale = 1 - progress * (isCompact ? 0.055 : 0.042);

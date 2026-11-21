@@ -252,29 +252,6 @@ img, svg {
   color: var(--green-ink);
 }
 
-.beacon-dot {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--blue-deep);
-}
-.beacon-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: var(--blue);
-  animation: beacon-pulse 2.2s var(--ease-out) infinite;
-}
-
-.section-eyebrow--green .beacon-dot {
-  background: var(--green);
-}
-.section-eyebrow--green .beacon-dot::after {
-  background: var(--green);
-}
-
 /* ==========================================================================
    Buttons & Interactive Pills
    ========================================================================== */
@@ -907,11 +884,6 @@ img, svg {
   font-weight: 500;
   color: var(--muted);
 }
-.deck-tag-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-}
 
 .deck-card__actions {
   display: flex;
@@ -1375,10 +1347,12 @@ img, svg {
 
 .stack-track {
   position: relative;
+  max-width: 1120px;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding-bottom: 24px;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 
 .stack-card {
@@ -1386,19 +1360,17 @@ img, svg {
   --step-arch-inner: #d7e3ff;
   --step-accent: var(--blue);
   position: sticky;
-  top: calc(var(--nav-h) + 22px + var(--stack-index, 0) * 18px);
+  top: calc(var(--nav-h) + 22px + var(--stack-index, 0) * 16px);
   z-index: calc(2 + var(--stack-index, 0));
   background: var(--paper);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(31, 29, 27, 0.08);
-  padding: clamp(30px, 3.8vw, 48px) clamp(28px, 4.5vw, 58px);
-  min-height: 326px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding: clamp(26px, 3vw, 38px) clamp(26px, 4vw, 50px);
+  min-height: 204px;
+  display: flex;
   align-items: center;
-  gap: clamp(28px, 4vw, 56px);
   overflow: hidden;
-  box-shadow: 0 -8px 28px -18px rgba(46, 41, 38, 0.14), 0 18px 40px -28px rgba(46, 41, 38, 0.16);
+  box-shadow: 0 -8px 28px -18px rgba(46, 41, 38, 0.14), 0 16px 36px -26px rgba(46, 41, 38, 0.16);
   transform-origin: center top;
   will-change: transform, opacity;
   transition: box-shadow 0.4s ease;
@@ -1413,19 +1385,19 @@ img, svg {
   z-index: 0;
 }
 .stack-card::before {
-  top: 28px;
-  right: -46px;
+  top: 20px;
+  right: -34px;
   bottom: -24px;
-  width: min(490px, 49%);
-  border-radius: 170px 170px 0 0;
+  width: min(370px, 36%);
+  border-radius: 160px 160px 0 0;
   background: var(--step-arch-outer);
 }
 .stack-card::after {
-  top: 96px;
-  right: -12px;
+  top: 74px;
+  right: -6px;
   bottom: -24px;
-  width: min(350px, 36%);
-  border-radius: 130px 130px 0 0;
+  width: min(255px, 25%);
+  border-radius: 120px 120px 0 0;
   background: var(--step-arch-inner);
   opacity: 0.65;
 }
@@ -1454,14 +1426,14 @@ img, svg {
 .stack-card__content {
   position: relative;
   z-index: 2;
-  min-width: 0;
+  max-width: 560px;
 }
 
 .stack-card__meta {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .step-rail {
@@ -1483,130 +1455,24 @@ img, svg {
 .step-duration {
   display: inline-flex;
   align-items: center;
-  height: 28px;
-  padding: 0 12px;
+  height: 26px;
+  padding: 0 11px;
   border-radius: var(--radius-pill);
   background: var(--surface);
   box-shadow: inset 0 0 0 1px var(--beige);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--muted);
 }
 
 .stack-card__title {
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .stack-card__desc {
-  max-width: 440px;
-  font-size: 16.5px;
-  line-height: 1.55;
+  font-size: 16px;
+  line-height: 1.54;
   color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.stack-card__bullets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.stack-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  border: 1px solid rgba(31, 29, 27, 0.08);
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--ink);
-}
-.stack-tag i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-/* Method Card Right Visuals — Light Straight Floating Pills over Colored Arch */
-.stack-visual {
-  position: relative;
-  z-index: 2;
-  min-width: 0;
-  min-height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.workflow-flow {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: min(380px, 100%);
-  transition: transform 0.55s var(--ease-out);
-}
-.stack-card:hover .workflow-flow {
-  transform: translateY(-4px);
-}
-
-.wf-node {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 15px;
-  background: var(--white);
-  border: 1px solid rgba(31, 29, 27, 0.09);
-  box-shadow: 0 2px 6px rgba(31, 29, 27, 0.04), 0 16px 32px -20px rgba(31, 29, 27, 0.22);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--ink);
-}
-.wf-node--offset {
-  margin-left: 24px;
-}
-.wf-node--accent {
-  border-color: rgba(31, 29, 27, 0.14);
-  box-shadow: 0 2px 6px rgba(31, 29, 27, 0.05), 0 18px 34px -18px rgba(31, 29, 27, 0.26);
-}
-
-.wf-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.wf-status--blue { background: var(--tint-blue); color: var(--blue-ink); }
-.wf-status--green { background: var(--tint-green); color: var(--green-ink); }
-.wf-status--cream { background: var(--tint-cream); color: var(--yellow-ink); }
-
-.wf-connector {
-  width: 2px;
-  height: 18px;
-  margin-left: 44px;
-  background: rgba(31, 29, 27, 0.14);
-  position: relative;
-}
-.wf-connector::after {
-  content: "";
-  position: absolute;
-  left: -2.5px;
-  top: 0;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--step-accent);
-  animation: dot-travel 2.4s ease-in-out infinite;
 }
 
 /* ==========================================================================
@@ -1652,11 +1518,8 @@ img, svg {
   color: var(--ink);
   white-space: nowrap;
 }
-.tools-note__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
+.tools-note__icon {
+  color: var(--green-ink);
   flex-shrink: 0;
 }
 
@@ -2872,18 +2735,6 @@ img, svg {
   50% { transform: translate3d(0, -8px, 0); }
 }
 
-@keyframes beacon-pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(2.8); opacity: 0; }
-}
-
-@keyframes dot-travel {
-  0% { top: 0; opacity: 0; }
-  25% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
 @keyframes tile-float {
   0%, 100% { transform: translate3d(0, 0, 0); }
   50% { transform: translate3d(0, -5px, 0); }
@@ -2911,8 +2762,7 @@ img, svg {
   }
   .tools-card,
   .trades-layout,
-  .duo-card,
-  .stack-card {
+  .duo-card {
     grid-template-columns: minmax(0, 1fr);
   }
   .security-grid {
@@ -3175,57 +3025,44 @@ img, svg {
     transform: rotate(-14deg) skewX(20deg) scale(0.82);
   }
 
-  /* 5. Mobile Sticky Stacking Method Cards (Symmetry Mobile Signature!) */
+  /* 5. Mobile Sticky Stacking Method Cards (Compact & Clean) */
   .stack-track {
-    gap: 20px;
+    gap: 16px;
     padding-bottom: 12px;
   }
   .stack-card {
     position: sticky;
     top: calc(var(--nav-h) + 14px + var(--stack-index, 0) * 14px);
-    padding: 24px 20px 22px;
-    min-height: 320px;
-    gap: 18px;
+    padding: 24px 20px 26px;
+    min-height: auto;
     box-shadow: 0 -14px 32px -18px rgba(31, 29, 27, 0.16), 0 14px 28px -20px rgba(31, 29, 27, 0.14);
   }
   .stack-card::before {
     top: auto;
-    right: -24px;
-    left: -24px;
+    right: -30px;
     bottom: -24px;
-    width: auto;
-    height: 195px;
-    border-radius: 120px 120px 0 0;
+    width: 170px;
+    height: 112px;
+    border-radius: 90px 90px 0 0;
   }
   .stack-card::after {
     top: auto;
-    right: 16px;
-    left: 16px;
+    right: -6px;
     bottom: -24px;
-    width: auto;
-    height: 125px;
-    border-radius: 90px 90px 0 0;
+    width: 112px;
+    height: 74px;
+    border-radius: 64px 64px 0 0;
   }
   .stack-card__meta {
     margin-bottom: 12px;
   }
   .stack-card__title {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 22px;
+    margin-bottom: 8px;
   }
   .stack-card__desc {
-    font-size: 15px;
-    margin-bottom: 14px;
-  }
-  .stack-visual {
-    min-height: 148px;
-  }
-  .wf-node {
-    padding: 12px 14px;
-    font-size: 12.5px;
-  }
-  .wf-node--offset {
-    margin-left: 14px;
+    font-size: 14.5px;
+    max-width: 92%;
   }
 
   /* 6. Mobile Tools Integration Card (Visual ABOVE Text + Soft Fade Mask) */
