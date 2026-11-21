@@ -32,16 +32,16 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Unhashed CSS & JS — instant revalidation with ETag 304
+# Unhashed CSS & JS — instant cache hits with background revalidation
 [[headers]]
   for = "/assets/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "public, max-age=300, stale-while-revalidate=86400"
 
 [[headers]]
   for = "/assets/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "public, max-age=300, stale-while-revalidate=86400"
 
 [[headers]]
   for = "/.well-known/security.txt"
