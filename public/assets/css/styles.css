@@ -2065,7 +2065,6 @@ img, svg {
   font-size: 14px;
   font-weight: 400;
   color: var(--muted);
-  margin-left: 4px;
 }
 .price-card--dark .price-unit {
   color: var(--white-muted);

@@ -17,9 +17,12 @@ Zéro dépendance, zéro étape de build : le dossier `public/` est publié tel 
     ├── 404.html               # Page d'erreur 404
     ├── robots.txt
     ├── sitemap.xml
+    ├── llms.txt               # Index Markdown pour agents IA (standard llmstxt.org)
+    ├── llms-full.txt          # Fiche complète Derovia en Markdown pour agents IA
     ├── .well-known/security.txt
     └── assets/
         ├── favicon.svg
+        ├── og-derovia.png     # Carte OpenGraph / réseaux sociaux (1200×630)
         ├── css/styles.css
         ├── js/app.js
         └── logos/             # 12 logos officiels hébergés localement

@@ -1,0 +1,90 @@
+# Derovia — Dossier complet (Markdown pour agents IA)
+
+> Derovia conçoit et déploie des automatisations et outils d’intelligence artificielle sur-mesure pour les artisans et petites entreprises en France. L’objectif : supprimer les tâches administratives répétitives sans changer les logiciels existants.
+
+- **Site officiel** : https://derovia.fr/
+- **Fondateurs** : Mathis Derory (co-fondateur — écoute métier, conception des automatisations) et Maxence Catesson (co-fondateur — intégration outils, tests sur dossiers réels, support direct).
+- **Zone d’intervention** : France (visio, téléphone et déploiement direct sur vos outils).
+- **Prise de rendez-vous (diagnostic gratuit 1 h)** : https://cal.com/derovia
+- **Téléphone direct** : +33 7 66 83 00 91 (07 66 83 00 91)
+- **E-mail** : contact@derovia.fr
+- **Délai de réponse** : sous 2 jours ouvrés, directement par Mathis ou Maxence (aucun intermédiaire).
+
+---
+
+## 1. Nos 4 expertises principales
+
+1. **Devis et factures**
+   - Rédaction de devis chiffrés à partir d’une note vocale ou d’un mémo selon les tarifs habituels de l’entreprise.
+   - Mise en page PDF propre, envoi après validation, relances automatiques programmées (ex. J+4) et facturation simplifiée.
+2. **Appels et messages**
+   - Réponse immédiate (ex. SMS automatique sur appel manqué en quelques secondes) pendant un chantier, en atelier ou avec un client.
+   - Qualification de la demande et proposition de créneau pour ne plus perdre de prospect.
+3. **Rendez-vous et tournées**
+   - Calage des créneaux par secteur géographique, envoi automatique des rappels la veille (SMS/mail).
+   - Réattribution automatique d’un créneau annulé aux clients en attente.
+4. **Papiers et suivi comptable**
+   - Photos de chantier, bons de livraison et factures fournisseurs reçus par mail ou WhatsApp renommés et classés automatiquement par dossier.
+   - Extraction des montants (HT/TVA) et préparation d’export propre pour le cabinet comptable sans ressaisie.
+
+---
+
+## 2. Méthode de déploiement en 4 étapes
+
+1. **On regarde ensemble (Une semaine)** — 1 heure d’échange gratuit pour repérer les tâches les plus chronophages, cartographier les outils existants et chiffrer le gain de temps (devis fixe sous 48 h).
+2. **On essaie sur du réel (2 à 3 semaines)** — Construction d’un premier prototype opérationnel testé sur vos vrais devis, vrais e-mails ou vrais dossiers, puis ajustements.
+3. **On installe chez vous (4 à 6 semaines)** — Mise en service définitive, connexion directe aux logiciels et boîtes mail existants, prise en main courte et claire avec l’équipe.
+4. **On reste à vos côtés (En continu · Optionnel)** — Surveillance, ajustements au fil de l’activité et extension progressive à d’autres tâches selon vos besoins.
+
+---
+
+## 3. Outils compatibles
+
+Les automatisations Derovia se branchent directement sur les outils déjà utilisés (aucune obligation de changer de logiciel) :
+- Messagerie & communication : **Gmail**, **Outlook**, **WhatsApp**
+- Bureautique & planning : **Excel**, **Google Agenda**, **Google Drive**
+- Logiciels métier & comptabilité : **EBP**, **Sage**, **Batappli**, **Zelty**, **Pennylane**
+- Briques IA : **OpenAI** et modèles privés adaptés au besoin
+- Compatible également avec des habitudes **papier & carnet** (photo ou dictée vocale).
+
+---
+
+## 4. Exemples concrets par métier
+
+- **Plomberie & chauffage** : dictée vocale de l’intervention → devis chiffré mis en forme prêt à envoyer avec relance automatique à J+4.
+- **Garage & mécanique** : SMS instantané sur appel manqué, récupération plaque et motif, prise de rendez-vous atelier synchronisée à l’agenda avec rappel la veille.
+- **Cabinet comptable** : relances clients automatiques listant les justificatifs manquants, lien de dépôt simple, classement et renommage automatique avant clôture.
+- **Restauration** : pré-remplissage des commandes fournisseurs à partir des ventes et habitudes, regroupement fournisseurs et validation en un clic.
+- **Coiffure & esthétique** : rappels SMS 24 h avant rendez-vous et réattribution automatique des créneaux annulés via liste d’attente.
+
+---
+
+## 5. Tarifs transparents (indicatifs HT)
+
+Les prestations sont réalisées sur **devis fixe signé**, sans frais cachés :
+
+- **Diagnostic & Feuille de route** : **Gratuit** (sans engagement · 1 heure en visio ou téléphone · audit des 3 tâches les plus chronophages, chiffrage du gain, plan d’action et devis fixe sous 48 h).
+- **Automatisation Ciblée** : **à partir de 1 490 € HT** (paiement unique · livré en 2 à 3 semaines · 1 processus complet automatisé, prototype testé sur dossiers réels, branchement aux outils existants, formation et 30 jours d’ajustements inclus).
+- **Système Sur-Mesure** : **à partir de 3 490 € HT** (paiement échelonné possible · 4 à 6 semaines · chaîne multi-workflows de bout en bout, assistant IA personnalisé, intégration logiciel métier avancée, formation équipe et accompagnement lancement).
+- **Option « On reste » (Suivi, maintenance & évolutions)** : **dès 190 € HT / mois** (optionnelle, résiliable à tout moment · surveillance, mises à jour des connecteurs, support prioritaire direct et petites améliorations mensuelles).
+
+*Note légale : seul un devis fixe et signé à l’issue d’un échange engage Derovia.*
+
+---
+
+## 6. Confidentialité, contrôle & sécurité
+
+- **Propriété des données** : vos données restent les vôtres — jamais revendues, jamais partagées, jamais utilisées pour entraîner des modèles d’IA publics.
+- **Contrôle humain** : vous choisissez ce qui part automatiquement et ce qui attend votre validation en un clic.
+- **Respect de la vie privée** : le site `derovia.fr` ne dépose aucun cookie publicitaire ni traceur tiers (RGPD).
+- **Interlocuteurs directs** : ligne directe avec Mathis Derory et Maxence Catesson, sans centre d’appel ni système de tickets.
+
+---
+
+## 7. Liens de référence
+
+- Page d’accueil : https://derovia.fr/
+- Index concis agents IA : https://derovia.fr/llms.txt
+- Prise de rendez-vous gratuit : https://cal.com/derovia
+- Mentions légales : https://derovia.fr/mentions-legales
+- Politique de confidentialité : https://derovia.fr/confidentialite

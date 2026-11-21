@@ -1,0 +1,20 @@
+# Derovia
+
+> Agence française d’intelligence artificielle et d’automatisation sur-mesure pour les artisans, indépendants et TPE/PME. Fondée et opérée en direct par Mathis Derory et Maxence Catesson : devis, factures, relances, appels manqués, rendez-vous et suivi administratif connectés aux outils existants.
+
+## Fiche complète pour agents IA
+- [Présentation complète de Derovia (Markdown)](https://derovia.fr/llms-full.txt): Dossier structuré complet (services, méthode en 4 étapes, outils compatibles, exemples par métier, tarifs transparents HT, engagements confidentialité et coordonnées directes).
+
+## Pages du site
+- [Accueil Derovia](https://derovia.fr/): Présentation des 4 expertises (devis et factures, appels et messages, rendez-vous et tournées, papiers et suivi), méthode de déploiement, cas métiers, tarifs et formulaire de qualification.
+- [Mentions légales](https://derovia.fr/mentions-legales): Informations légales (LCEN), éditeur, hébergement Netlify et portée indicative des tarifs.
+- [Politique de confidentialité](https://derovia.fr/confidentialite): Traitement RGPD, zéro cookie, zéro traceur, absence de décision automatisée et droits d’accès/suppression.
+
+## Contact & Prise de rendez-vous
+- [Réserver un échange gratuit (1 h)](https://cal.com/derovia): Diagnostic gratuit et sans engagement avec Mathis Derory ou Maxence Catesson.
+- Téléphone : +33 7 66 83 00 91 (07 66 83 00 91)
+- E-mail : contact@derovia.fr
+
+## Optional
+- [Sitemap XML](https://derovia.fr/sitemap.xml): Index des URLs canoniques du site.
+- [Security.txt](https://derovia.fr/.well-known/security.txt): Contact sécurité (RFC 9116).

@@ -1,4 +1,29 @@
+# Derovia (https://derovia.fr)
+# Version Markdown structurée pour agents IA : https://derovia.fr/llms.txt
+
 User-agent: *
+Allow: /
+
+# Moteurs de recherche & agents IA explicitement autorisés
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
 Allow: /
 
 Sitemap: https://derovia.fr/sitemap.xml
