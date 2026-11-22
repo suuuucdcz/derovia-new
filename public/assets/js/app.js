@@ -27,15 +27,18 @@ function initNavbar() {
 
   if (burger && mobileMenu) {
     const setMenu = (open) => {
+      const hadFocus = !open && mobileMenu.contains(document.activeElement);
       burger.setAttribute('aria-expanded', String(open));
       mobileMenu.dataset.open = String(open);
       mobileMenu.setAttribute('aria-hidden', String(!open));
+      mobileMenu.inert = !open;
       if (mobileScrim) {
         mobileScrim.dataset.open = String(open);
         mobileScrim.setAttribute('aria-hidden', String(!open));
       }
       if (navbar) navbar.dataset.menuOpen = String(open);
       document.body.style.overflow = open ? 'hidden' : '';
+      if (hadFocus) burger.focus();
     };
 
     burger.addEventListener('click', () => {
@@ -188,6 +191,15 @@ function initHeroDeck() {
     stepTimers = [];
   };
 
+  const setCardActive = (card, isFront) => {
+    card.inert = !isFront;
+    if (isFront) {
+      card.removeAttribute('aria-hidden');
+    } else {
+      card.setAttribute('aria-hidden', 'true');
+    }
+  };
+
   const renderPositions = () => {
     cards.forEach((card, idx) => {
       const pos = (idx - current + total) % total;
@@ -195,6 +207,7 @@ function initHeroDeck() {
       card.removeAttribute('data-state');
       card.removeAttribute('data-exit');
       card.querySelectorAll('[data-deck-action]').forEach((b) => b.removeAttribute('data-active'));
+      setCardActive(card, pos === 0);
     });
 
     dots.forEach((dot, idx) => {
@@ -257,9 +270,10 @@ function initHeroDeck() {
     clearStepTimers();
 
     // Ensure every card starts cleanly in its pre-deal offset above the deck
-    cards.forEach((card) => {
+    cards.forEach((card, idx) => {
       card.dataset.state = 'incoming';
       card.removeAttribute('data-exit');
+      setCardActive(card, idx === 0);
     });
 
     // Deal cards back-to-front so Card 0 ("Devis automatique") lands last on top
@@ -278,6 +292,7 @@ function initHeroDeck() {
               const card = cards[idx];
               card.dataset.pos = String(depth);
               card.removeAttribute('data-state');
+              setCardActive(card, depth === 0);
             });
           });
 
@@ -316,12 +331,14 @@ function initHeroDeck() {
     // Trigger exit fly-out
     requestAnimationFrame(() => {
       exitingCard.dataset.exit = action;
+      setCardActive(exitingCard, false);
 
       // Promote remaining cards forward simultaneously
       cards.forEach((card, idx) => {
         if (idx === current) return;
         const pos = (idx - nextIdx + total) % total;
         card.dataset.pos = String(pos);
+        setCardActive(card, pos === 0);
       });
     });
 
@@ -561,9 +578,15 @@ function initModal() {
     if (tachesInput) tachesInput.value = '';
   };
 
+  let lastOpener = null;
+
   const setOpen = (open, formule = '') => {
+    if (open) {
+      lastOpener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    }
     modal.dataset.open = String(open);
     modal.setAttribute('aria-hidden', String(!open));
+    modal.inert = !open;
     document.body.style.overflow = open ? 'hidden' : '';
 
     if (open) {
@@ -575,6 +598,9 @@ function initModal() {
         const firstInput = document.getElementById('f-metier');
         if (firstInput) firstInput.focus();
       }, 120);
+    } else if (lastOpener) {
+      lastOpener.focus();
+      lastOpener = null;
     }
   };
 

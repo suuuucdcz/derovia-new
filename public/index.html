@@ -309,7 +309,7 @@
 
   <!-- Mobile Navigation Scrim + Compact Drop-down Sheet -->
   <div class="mobile-scrim" id="mobile-scrim" data-open="false" aria-hidden="true"></div>
-  <div class="mobile-menu" id="mobile-menu" data-open="false" aria-hidden="true">
+  <div class="mobile-menu" id="mobile-menu" data-open="false" aria-hidden="true" inert>
     <nav class="mobile-menu__links" aria-label="Navigation mobile">
       <a href="#services" data-close-menu>Services</a>
       <a href="#methode" data-close-menu>Méthode</a>
@@ -444,7 +444,7 @@
           </article>
 
           <!-- Card 1: Appel manqué Garage -->
-          <article class="deck-card" data-card-index="1" data-pos="1" data-state="incoming" data-default-action="auto">
+          <article class="deck-card" data-card-index="1" data-pos="1" data-state="incoming" data-default-action="auto" aria-hidden="true" inert>
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -486,7 +486,7 @@
           </article>
 
           <!-- Card 2: Classement Comptable -->
-          <article class="deck-card" data-card-index="2" data-pos="2" data-state="incoming" data-default-action="accept">
+          <article class="deck-card" data-card-index="2" data-pos="2" data-state="incoming" data-default-action="accept" aria-hidden="true" inert>
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -528,7 +528,7 @@
           </article>
 
           <!-- Card 3: Rendez-vous & Rappels -->
-          <article class="deck-card" data-card-index="3" data-pos="3" data-state="incoming" data-default-action="auto">
+          <article class="deck-card" data-card-index="3" data-pos="3" data-state="incoming" data-default-action="auto" aria-hidden="true" inert>
             <div class="deck-card__top">
               <div class="deck-source">
                 <div class="deck-source__icon">
@@ -571,7 +571,7 @@
         </div>
 
         <!-- Deck Playback Controls -->
-        <div class="deck-controls" id="deck-controls" data-ready="false" aria-label="Contrôles de la démonstration">
+        <div class="deck-controls" id="deck-controls" data-ready="false" role="group" aria-label="Contrôles de la démonstration">
           <button class="deck-toggle" id="deck-toggle" type="button" aria-pressed="false">
             <svg id="deck-icon-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2.5" width="3.5" height="11" rx="1"/><rect x="9.5" y="2.5" width="3.5" height="11" rx="1"/></svg>
             <svg id="deck-icon-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" hidden><path d="M4 2.8v10.4L13 8 4 2.8Z"/></svg>
@@ -790,8 +790,8 @@
           <article class="stack-card" data-step="1">
             <div class="stack-card__content">
               <div class="stack-card__meta">
-                <span class="step-rail" aria-label="Étape 1 sur 4">
-                  <i class="is-on"></i><i></i><i></i><i></i>
+                <span class="step-rail" role="img" aria-label="Étape 1 sur 4">
+                  <i class="is-on" aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
                 </span>
                 <span class="step-duration">Une semaine</span>
               </div>
@@ -806,8 +806,8 @@
           <article class="stack-card" data-step="2">
             <div class="stack-card__content">
               <div class="stack-card__meta">
-                <span class="step-rail" aria-label="Étape 2 sur 4">
-                  <i class="is-on"></i><i class="is-on"></i><i></i><i></i>
+                <span class="step-rail" role="img" aria-label="Étape 2 sur 4">
+                  <i class="is-on" aria-hidden="true"></i><i class="is-on" aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
                 </span>
                 <span class="step-duration">2 à 3 semaines</span>
               </div>
@@ -822,8 +822,8 @@
           <article class="stack-card" data-step="3">
             <div class="stack-card__content">
               <div class="stack-card__meta">
-                <span class="step-rail" aria-label="Étape 3 sur 4">
-                  <i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i></i>
+                <span class="step-rail" role="img" aria-label="Étape 3 sur 4">
+                  <i class="is-on" aria-hidden="true"></i><i class="is-on" aria-hidden="true"></i><i class="is-on" aria-hidden="true"></i><i aria-hidden="true"></i>
                 </span>
                 <span class="step-duration">4 à 6 semaines</span>
               </div>
@@ -838,8 +838,8 @@
           <article class="stack-card" data-step="4">
             <div class="stack-card__content">
               <div class="stack-card__meta">
-                <span class="step-rail" aria-label="Étape 4 sur 4">
-                  <i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i>
+                <span class="step-rail" role="img" aria-label="Étape 4 sur 4">
+                  <i class="is-on" aria-hidden="true"></i><i class="is-on" aria-hidden="true"></i><i class="is-on" aria-hidden="true"></i><i class="is-on" aria-hidden="true"></i>
                 </span>
                 <span class="step-duration">En continu · Optionnel</span>
               </div>
@@ -1582,17 +1582,21 @@
       </div>
     </div>
 
-    <div class="footer-watermark" aria-hidden="true">Derovia</div>
+    <div class="footer-watermark" aria-hidden="true">
+      <svg viewBox="0 0 1200 225" aria-hidden="true" focusable="false">
+        <text x="600" y="208" text-anchor="middle">Derovia</text>
+      </svg>
+    </div>
   </footer>
 
   <!-- ======================================================================
        Quick Qualification Modal (30-Second Brief)
        ====================================================================== -->
-  <div class="modal-backdrop" id="contact-modal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-backdrop" id="contact-modal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true" inert>
     <div class="modal-dialog">
       <div class="modal-head">
         <div>
-          <h3 id="modal-title">Décrivez votre besoin</h3>
+          <h2 id="modal-title">Décrivez votre besoin</h2>
           <p>Mathis ou Maxence vous répond personnellement sous 2 jours ouvrés.</p>
         </div>
         <button class="modal-close" type="button" id="modal-close" aria-label="Fermer la fenêtre">
@@ -1605,13 +1609,13 @@
         <input type="hidden" name="subject" value="">
         <input type="hidden" name="formule" id="form-formule" value="Diagnostic gratuit">
         <input type="hidden" name="taches" id="form-taches" value="">
-        <p class="sr-only" aria-hidden="true">
+        <p class="sr-only" aria-hidden="true" inert>
           <label>Ne pas remplir : <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label>
         </p>
 
         <div class="field">
-          <label>Qu’est-ce qui vous prend le plus de temps ?</label>
-          <div class="chip-group" id="task-chips">
+          <span class="field__label" id="task-chips-label">Qu’est-ce qui vous prend le plus de temps ?</span>
+          <div class="chip-group" id="task-chips" role="group" aria-labelledby="task-chips-label">
             <button type="button" class="choice-chip" aria-pressed="false">Devis &amp; factures</button>
             <button type="button" class="choice-chip" aria-pressed="false">Relances clients</button>
             <button type="button" class="choice-chip" aria-pressed="false">Appels &amp; messages</button>
@@ -1667,7 +1671,7 @@
         <div class="modal-success__icon" aria-hidden="true">
           <svg width="24" height="24"><use href="#icon-check"/></svg>
         </div>
-        <h4>C’est bien transmis !</h4>
+        <h3>C’est bien transmis !</h3>
         <p>Mathis ou Maxence revient vers vous sous 2 jours ouvrés. Si vous préférez bloquer un créneau tout de suite, choisissez votre heure ci-dessous.</p>
         <a class="btn btn--lg btn--blue btn--full" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
           Réserver un créneau sur Cal.com

@@ -19,8 +19,8 @@
   --ink: #1f1d1b;
 
   /* Text & Hairlines */
-  --muted: rgba(31, 29, 27, 0.66);
-  --muted-soft: rgba(31, 29, 27, 0.48);
+  --muted: rgba(31, 29, 27, 0.72);
+  --muted-soft: rgba(31, 29, 27, 0.64);
   --line: rgba(31, 29, 27, 0.1);
   --line-strong: rgba(31, 29, 27, 0.18);
   --white-muted: rgba(255, 255, 255, 0.68);
@@ -306,14 +306,14 @@ img, svg {
 }
 
 .btn--blue {
-  background: var(--blue);
+  background: var(--blue-deep);
   color: var(--white);
   box-shadow: 0 1px 2px rgba(31, 29, 27, 0.08), 0 12px 24px -12px rgba(54, 99, 224, 0.55);
 }
 .btn--blue:hover {
-  background: var(--blue-deep);
+  background: #2852c8;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -8px rgba(54, 99, 224, 0.6);
+  box-shadow: 0 8px 20px -8px rgba(40, 82, 200, 0.6);
 }
 
 .btn--beige {
@@ -510,12 +510,15 @@ img, svg {
   z-index: 90;
   background: rgba(31, 29, 27, 0.2);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.4s var(--ease-out);
+  transition: opacity 0.4s var(--ease-out), visibility 0s linear 0.4s;
 }
 .mobile-scrim[data-open="true"] {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.4s var(--ease-out), visibility 0s linear 0s;
 }
 
 .mobile-menu {
@@ -531,14 +534,17 @@ img, svg {
   flex-direction: column;
   gap: 16px;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(-14px);
-  transition: opacity 0.35s var(--ease-out), transform 0.4s var(--ease-out);
+  transition: opacity 0.35s var(--ease-out), transform 0.4s var(--ease-out), visibility 0s linear 0.4s;
 }
 .mobile-menu[data-open="true"] {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
+  transition: opacity 0.35s var(--ease-out), transform 0.4s var(--ease-out), visibility 0s linear 0s;
 }
 .mobile-menu__links {
   display: flex;
@@ -971,9 +977,9 @@ img, svg {
   margin-top: 54px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  height: 34px;
-  padding: 0 14px 0 10px;
+  gap: 10px;
+  height: 36px;
+  padding: 0 8px 0 12px;
   border-radius: var(--radius-pill);
   background: rgba(31, 29, 27, 0.78);
   backdrop-filter: blur(10px);
@@ -992,6 +998,7 @@ img, svg {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 24px;
   color: var(--white);
   font-size: 12.5px;
   font-weight: 500;
@@ -1019,18 +1026,31 @@ img, svg {
 .deck-dots {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0;
 }
 .deck-dot {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: transparent;
+}
+.deck-dot::after {
+  content: "";
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.38);
   transition: transform 0.3s var(--ease-spring), background-color 0.25s ease;
 }
-.deck-dot[aria-selected="true"] {
+.deck-dot[aria-selected="true"]::after {
   background: var(--white);
   transform: scale(1.3);
+}
+.deck-dot:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: -2px;
 }
 
 /* ==========================================================================
@@ -1925,7 +1945,7 @@ img, svg {
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
-  color: rgba(46, 41, 38, 0.56);
+  color: var(--muted);
 }
 
 .scene-cta {
@@ -1933,6 +1953,9 @@ img, svg {
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 2px;
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* ==========================================================================
@@ -2411,17 +2434,24 @@ img, svg {
 
 /* Iconic Giant Cropped Footer Watermark */
 .footer-watermark {
-  font-family: var(--font-display);
-  font-size: clamp(92px, 19.5vw, 290px);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 0.78;
-  color: rgba(46, 41, 38, 0.055);
-  text-align: center;
+  width: min(1480px, 100%);
+  margin: 12px auto 0;
   user-select: none;
   pointer-events: none;
-  margin-top: 12px;
   transform: translateY(14%);
+}
+.footer-watermark svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.footer-watermark text {
+  font-family: var(--font-display);
+  font-size: 274px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  fill: rgba(46, 41, 38, 0.055);
 }
 
 /* ==========================================================================
@@ -2439,12 +2469,15 @@ img, svg {
   place-items: center;
   padding: 20px;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.35s var(--ease-out);
+  transition: opacity 0.35s var(--ease-out), visibility 0s linear 0.35s;
 }
 .modal-backdrop[data-open="true"] {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.35s var(--ease-out), visibility 0s linear 0s;
 }
 
 .modal-dialog {
@@ -2470,6 +2503,7 @@ img, svg {
   gap: 16px;
   margin-bottom: 20px;
 }
+.modal-head h2,
 .modal-head h3 {
   font-family: var(--font-display);
   font-size: 24px;
@@ -2510,7 +2544,8 @@ img, svg {
   gap: 12px;
 }
 
-.field label {
+.field label,
+.field__label {
   display: block;
   font-size: 13px;
   font-weight: 500;
@@ -2610,6 +2645,7 @@ img, svg {
   place-items: center;
   margin: 0 auto 16px;
 }
+.modal-success h3,
 .modal-success h4 {
   font-family: var(--font-display);
   font-size: 22px;
@@ -2990,8 +3026,8 @@ img, svg {
   }
   .deck-controls {
     margin-top: 40px;
-    height: 32px;
-    padding: 0 12px 0 10px;
+    height: 34px;
+    padding: 0 6px 0 10px;
     font-size: 11.5px;
   }
   .deck-progress {
@@ -3321,7 +3357,6 @@ img, svg {
     font-size: 12px;
   }
   .footer-watermark {
-    font-size: clamp(76px, 24vw, 120px);
     margin-top: 24px;
   }
 
