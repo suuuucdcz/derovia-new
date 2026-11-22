@@ -1427,7 +1427,6 @@ img, svg {
 .stack-card {
   --step-arch-outer: var(--tint-blue);
   --step-arch-inner: #d7e3ff;
-  --step-accent: var(--blue);
   position: sticky;
   top: calc(var(--nav-h) + 22px + var(--stack-index, 0) * 16px);
   z-index: calc(2 + var(--stack-index, 0));
@@ -1475,25 +1474,21 @@ img, svg {
   --stack-index: 0;
   --step-arch-outer: var(--tint-blue);
   --step-arch-inner: #d7e3ff;
-  --step-accent: var(--blue);
 }
 .stack-card[data-step="2"] {
   --stack-index: 1;
   --step-arch-outer: var(--tint-cream);
   --step-arch-inner: #f3e0b6;
-  --step-accent: var(--yellow);
 }
 .stack-card[data-step="3"] {
   --stack-index: 2;
   --step-arch-outer: var(--tint-green);
   --step-arch-inner: #ccebd9;
-  --step-accent: var(--green);
 }
 .stack-card[data-step="4"] {
   --stack-index: 3;
   --step-arch-outer: var(--tint-pink);
   --step-arch-inner: #f6d7cc;
-  --step-accent: var(--terra);
 }
 
 .stack-card__content {
@@ -1505,24 +1500,7 @@ img, svg {
 .stack-card__meta {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   margin-bottom: 14px;
-}
-
-.step-rail {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.step-rail i {
-  display: block;
-  width: 20px;
-  height: 5px;
-  border-radius: 999px;
-  background: rgba(31, 29, 27, 0.12);
-}
-.step-rail i.is-on {
-  background: var(--step-accent);
 }
 
 .step-duration {
