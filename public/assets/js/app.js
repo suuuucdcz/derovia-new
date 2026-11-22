@@ -201,9 +201,9 @@ function initHeroDeck() {
 
   const total = cards.length;
   const CYCLE_MS = 2800;
-  const DEAL_START_MS = 520;
-  const DEAL_STAGGER_MS = 420;
-  const DEAL_SETTLE_MS = 950;
+  const DEAL_START_MS = 260;
+  const DEAL_STAGGER_MS = 240;
+  const DEAL_SETTLE_MS = 650;
 
   let current = 0;
   let paused = REDUCED_MOTION;
@@ -302,10 +302,9 @@ function initHeroDeck() {
     clearStepTimers();
 
     // Ensure every card starts cleanly in its pre-deal offset above the deck
-    cards.forEach((card, idx) => {
+    cards.forEach((card) => {
       card.dataset.state = 'incoming';
       card.removeAttribute('data-exit');
-      setCardActive(card, idx === 0);
     });
 
     // Deal cards back-to-front so Card 0 ("Devis automatique") lands last on top
@@ -324,7 +323,6 @@ function initHeroDeck() {
               const card = cards[idx];
               card.dataset.pos = String(depth);
               card.removeAttribute('data-state');
-              setCardActive(card, depth === 0);
             });
           });
 

@@ -723,6 +723,10 @@ img, svg {
   transform-box: fill-box;
   transform-origin: center bottom;
 }
+.riso-ink-layer .riso-pillar,
+.riso-ink-layer .frieze-piece {
+  filter: url(#riso-ink);
+}
 .riso-pillar--1 { animation: pillar-rise 1.05s var(--ease-out) 0.08s both; }
 .riso-pillar--2 { animation: pillar-rise 1.05s var(--ease-out) 0.22s both; }
 .riso-pillar--3 { animation: pillar-rise 1.05s var(--ease-out) 0.34s both; }
@@ -2984,6 +2988,10 @@ img, svg {
     width: 150vw;
     height: 250px;
     bottom: 0;
+  }
+  .riso-ink-layer .riso-pillar,
+  .riso-ink-layer .frieze-piece {
+    filter: none;
   }
   .deck-wrapper {
     --deck-step: 15px;
