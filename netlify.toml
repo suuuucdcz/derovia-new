@@ -11,7 +11,7 @@
   for = "/*"
   [headers.values]
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'none'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests;"
+    Content-Security-Policy = "default-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests;"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     X-Permitted-Cross-Domain-Policies = "none"
@@ -21,7 +21,12 @@
     Cross-Origin-Resource-Policy = "same-origin"
     X-DNS-Prefetch-Control = "off"
 
-# Static brand assets — long-lived immutable CDN cache
+# Static brand assets & self-hosted fonts — long-lived immutable CDN cache
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/assets/logos/*"
   [headers.values]
@@ -30,7 +35,7 @@
 [[headers]]
   for = "/favicon.ico"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    Cache-Control = "public, max-age=2592000, must-revalidate"
     Cross-Origin-Resource-Policy = "cross-origin"
 
 [[headers]]
@@ -41,37 +46,37 @@
 [[headers]]
   for = "/assets/icon.svg"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    Cache-Control = "public, max-age=2592000, must-revalidate"
     Cross-Origin-Resource-Policy = "cross-origin"
 
 [[headers]]
   for = "/assets/favicon-*.png"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    Cache-Control = "public, max-age=2592000, must-revalidate"
     Cross-Origin-Resource-Policy = "cross-origin"
 
 [[headers]]
   for = "/assets/apple-touch-icon.png"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    Cache-Control = "public, max-age=2592000, must-revalidate"
     Cross-Origin-Resource-Policy = "cross-origin"
 
 [[headers]]
   for = "/assets/og-derovia.png"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    Cache-Control = "public, max-age=2592000, must-revalidate"
     Cross-Origin-Resource-Policy = "cross-origin"
 
-# Unhashed CSS & JS — instant cache hits with background revalidation
+# Versioned CSS & JS (?v=YYYYMMDD) — 1-year immutable CDN cache
 [[headers]]
   for = "/assets/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=300, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/assets/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=300, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # Discovery header & Markdown endpoints for AI agents (llms.txt v2)
 [[headers]]

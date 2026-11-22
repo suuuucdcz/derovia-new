@@ -18,11 +18,20 @@ function initNavbar() {
   const mobileScrim = document.getElementById('mobile-scrim');
 
   if (navbar) {
+    let navRaf = null;
     const updateNav = () => {
-      navbar.dataset.stuck = window.scrollY > 24 ? 'true' : 'false';
+      navRaf = null;
+      const stuck = window.scrollY > 24 ? 'true' : 'false';
+      if (navbar.dataset.stuck !== stuck) navbar.dataset.stuck = stuck;
     };
-    updateNav();
-    window.addEventListener('scroll', updateNav, { passive: true });
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!navRaf) navRaf = requestAnimationFrame(updateNav);
+      },
+      { passive: true }
+    );
+    window.addEventListener('pageshow', () => requestAnimationFrame(updateNav), { passive: true });
   }
 
   if (burger && mobileMenu) {
@@ -113,45 +122,64 @@ function initScrollReveal() {
    -------------------------------------------------------------------------- */
 function initStackCards() {
   if (REDUCED_MOTION) return;
+  const track = document.getElementById('stack-track');
   const cards = Array.from(document.querySelectorAll('.stack-card'));
-  if (cards.length < 2) return;
+  if (!track || cards.length < 2) return;
 
   let rafId = null;
+  let trackInView = !('IntersectionObserver' in window);
+  const compactMQ = window.matchMedia('(max-width: 820px)');
+  let isCompact = compactMQ.matches;
 
   const updateStack = () => {
     rafId = null;
-    const isCompact = window.innerWidth <= 820;
+    if (!trackInView) return;
 
+    // 1. Batch all DOM geometry reads before any style write (zero forced reflow)
+    const tops = cards.map((card) => card.getBoundingClientRect().top);
+
+    // 2. Batch all style writes only when changed
     cards.forEach((card, i) => {
-      const next = cards[i + 1];
-      if (!next) {
-        card.style.transform = '';
-        card.style.filter = '';
+      if (i >= cards.length - 1) {
+        if (card.style.transform) card.style.transform = '';
+        if (card.style.filter) card.style.filter = '';
         return;
       }
 
-      const rect = card.getBoundingClientRect();
-      const nextRect = next.getBoundingClientRect();
-      const overlapStart = rect.top + (isCompact ? 170 : 205);
-      const overlapEnd = rect.top + (isCompact ? 14 : 16);
-      const progress = Math.min(1, Math.max(0, (overlapStart - nextRect.top) / (overlapStart - overlapEnd)));
+      const top = tops[i];
+      const nextTop = tops[i + 1];
+      const overlapStart = top + (isCompact ? 170 : 205);
+      const overlapEnd = top + (isCompact ? 14 : 16);
+      const progress = Math.min(1, Math.max(0, (overlapStart - nextTop) / (overlapStart - overlapEnd)));
 
-      const scale = 1 - progress * (isCompact ? 0.055 : 0.042);
-      const dim = 1 - progress * 0.045;
-      card.style.transform = `scale(${scale.toFixed(4)})`;
-      card.style.filter = `brightness(${dim.toFixed(3)})`;
+      const nextTransform = progress > 0 ? `scale(${(1 - progress * (isCompact ? 0.055 : 0.042)).toFixed(4)})` : '';
+      const nextFilter = progress > 0 ? `brightness(${(1 - progress * 0.045).toFixed(3)})` : '';
+      if (card.style.transform !== nextTransform) card.style.transform = nextTransform;
+      if (card.style.filter !== nextFilter) card.style.filter = nextFilter;
     });
   };
 
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!rafId) rafId = requestAnimationFrame(updateStack);
-    },
-    { passive: true }
-  );
-  window.addEventListener('resize', updateStack, { passive: true });
-  updateStack();
+  const scheduleUpdate = () => {
+    if (trackInView && !rafId) rafId = requestAnimationFrame(updateStack);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        trackInView = entries[0].isIntersecting;
+        if (trackInView) scheduleUpdate();
+      },
+      { rootMargin: '120px 0px' }
+    );
+    obs.observe(track);
+  }
+
+  compactMQ.addEventListener('change', (e) => {
+    isCompact = e.matches;
+    scheduleUpdate();
+  });
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
 }
 
 /* --------------------------------------------------------------------------
@@ -229,9 +257,13 @@ function initHeroDeck() {
     progressBar.style.transition = 'none';
     progressBar.style.transform = 'scaleX(0)';
     if (animate && !paused) {
-      void progressBar.offsetWidth;
-      progressBar.style.transition = `transform ${CYCLE_MS}ms linear`;
-      progressBar.style.transform = 'scaleX(1)';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (paused || dealing) return;
+          progressBar.style.transition = `transform ${CYCLE_MS}ms linear`;
+          progressBar.style.transform = 'scaleX(1)';
+        });
+      });
     }
   };
 
@@ -357,10 +389,11 @@ function initHeroDeck() {
         const backPos = (Number(exitingCard.dataset.cardIndex) - current + total) % total;
         exitingCard.dataset.pos = String(backPos);
 
-        void exitingCard.offsetWidth;
-        exitingCard.style.transition = '';
-        busy = false;
-        scheduleNext();
+        requestAnimationFrame(() => {
+          exitingCard.style.transition = '';
+          busy = false;
+          scheduleNext();
+        });
       }, 500)
     );
   };
@@ -501,16 +534,30 @@ function initTradesAccordion() {
 
     clearTimeout(timer);
     if (restartAuto && inView && !userPaused) {
-      // Reflow dwell bar cleanly so CSS animation restarts
-      void activeItem.offsetWidth;
-      activeItem.classList.add('is-playing');
+      requestAnimationFrame(() => {
+        if (!inView || userPaused || activeIndex !== index) return;
+        activeItem.classList.add('is-playing');
+      });
       timer = setTimeout(() => {
         activate((activeIndex + 1) % items.length, true);
       }, DWELL_MS);
     }
   };
 
-  dockStage(0);
+  if ('IntersectionObserver' in window) {
+    const dockObs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          dockStage(activeIndex);
+          dockObs.disconnect();
+        }
+      },
+      { rootMargin: '400px 0px' }
+    );
+    dockObs.observe(widget);
+  } else {
+    dockStage(0);
+  }
 
   items.forEach((item, i) => {
     const trigger = item.querySelector('.acc-trigger');
