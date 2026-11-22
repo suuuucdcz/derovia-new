@@ -34,7 +34,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/dm-sans-var.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geist-var.woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20261122c">
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20261122d">
 
   <script type="application/ld+json">
   {
@@ -282,9 +282,12 @@
       </div>
 
       <div class="nav-actions">
-        <a class="nav-phone" href="tel:+33766830091">
+        <a class="nav-phone" href="tel:+33766830091" aria-label="Appeler le 07 66 83 00 91">
           <svg width="14" height="14" aria-hidden="true"><use href="#icon-phone"/></svg>
-          <span>07 66 83 00 91</span>
+          <span class="nav-phone__slot" aria-hidden="true">
+            <span class="nav-phone__label"><span>Appeler</span></span>
+            <span class="nav-phone__number"><span>07 66 83 00 91</span></span>
+          </span>
         </a>
         <a class="btn btn--sm btn--beige" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
           Réserver un appel
@@ -610,14 +613,14 @@
             <div class="founders-grid">
               <div class="founder-card">
                 <div class="founder-card__top">
-                  <span class="founder-card__name">Mathis Derory</span>
+                  <span class="founder-card__name">Mathis</span>
                   <span class="founder-card__tag">Co-fondateur</span>
                 </div>
                 <p class="founder-card__bio">Écoute votre métier, imagine la solution sur-mesure et conçoit vos automatisations.</p>
               </div>
               <div class="founder-card">
                 <div class="founder-card__top">
-                  <span class="founder-card__name">Maxence Catesson</span>
+                  <span class="founder-card__name">Maxence</span>
                   <span class="founder-card__tag">Co-fondateur</span>
                 </div>
                 <p class="founder-card__bio">Branche vos outils, teste sur vos vrais dossiers et reste votre ligne directe.</p>
