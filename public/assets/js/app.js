@@ -778,79 +778,6 @@ function initModal() {
 }
 
 /* --------------------------------------------------------------------------
-   Pricing Descending Arches — Gentle synchronized highlight & interactive hover
-   -------------------------------------------------------------------------- */
-function initPricingArches() {
-  const grid = document.querySelector('#tarifs .pricing-grid');
-  if (!grid) return;
-
-  const cards = Array.from(grid.querySelectorAll('.price-card--arches'));
-  if (!cards.length) return;
-
-  const notes = [
-    'Mois 1 à 3 · réglages fins sur vos vrais dossiers',
-    'Mois 4 à 6 · le système tourne seul, baisse automatique',
-    'Dès le 7e mois · tarif fidélité garanti tant que vous restez',
-  ];
-
-  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let active = 0;
-  let timer = null;
-  let inView = false;
-
-  function setLit(idx) {
-    active = idx;
-    cards.forEach((card) => {
-      card.querySelectorAll('.arch-col').forEach((col, i) => {
-        col.classList.toggle('is-lit', i === idx);
-        col.setAttribute('aria-pressed', String(i === idx));
-      });
-      const note = card.querySelector('[data-arch-note]');
-      if (note) note.textContent = notes[idx];
-    });
-  }
-
-  function schedule() {
-    clearTimeout(timer);
-    if (reduced || !inView) return;
-    timer = window.setTimeout(() => {
-      setLit((active + 1) % 3);
-      schedule();
-    }, 2500);
-  }
-
-  grid.querySelectorAll('.arch-col').forEach((col) => {
-    const idx = Number(col.dataset.archIdx);
-    const pick = () => {
-      if (!Number.isInteger(idx) || idx < 0 || idx > 2) return;
-      setLit(idx);
-      schedule();
-    };
-    col.addEventListener('mouseenter', pick);
-    col.addEventListener('click', pick);
-  });
-
-  if (!reduced) {
-    grid.classList.add('is-animated');
-    setLit(0);
-    if ('IntersectionObserver' in window) {
-      const obs = new IntersectionObserver(
-        (entries) => {
-          inView = Boolean(entries[0] && entries[0].isIntersecting);
-          if (inView) schedule();
-          else clearTimeout(timer);
-        },
-        { threshold: 0.2 },
-      );
-      obs.observe(grid);
-    } else {
-      inView = true;
-      schedule();
-    }
-  }
-}
-
-/* --------------------------------------------------------------------------
    Bootstrap
    -------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -859,7 +786,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initStackCards();
   initHeroDeck();
   initTradesAccordion();
-  initPricingArches();
   initModal();
 });
 })();
