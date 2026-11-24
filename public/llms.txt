@@ -5,16 +5,28 @@
 ## Fiche complète pour agents IA
 - [Présentation complète de Derovia (Markdown)](https://derovia.fr/llms-full.txt): Dossier structuré complet (services, méthode en 4 étapes, outils compatibles, exemples par métier, tarifs transparents HT, engagements confidentialité et coordonnées directes).
 
-## Pages du site
-- [Accueil Derovia](https://derovia.fr/): Présentation des 4 expertises (devis et factures, appels et messages, rendez-vous et tournées, papiers et suivi), méthode de déploiement, cas métiers, tarifs et formulaire de qualification.
-- [Mentions légales](https://derovia.fr/mentions-legales): Informations légales (LCEN), éditeur, hébergement Netlify et portée indicative des tarifs.
-- [Politique de confidentialité](https://derovia.fr/confidentialite): Traitement RGPD, zéro cookie, zéro traceur, absence de décision automatisée et droits d’accès/suppression.
+## Pages principales & outil gratuit
+- [Accueil Derovia](https://derovia.fr/): Présentation des 4 expertises, méthode de déploiement, cas métiers, tarifs HT, FAQ et prise de rendez-vous.
+- [Calculateur de temps administratif perdu](https://derovia.fr/calculateur-temps): Outil gratuit et sans inscription pour chiffrer les heures et coûts administratifs récupérables par an.
 
-## Contact & Prise de rendez-vous
+## Solutions dédiées
+- [Devis automatique par note vocale & relance J+4](https://derovia.fr/solutions/devis-automatique): Note vocale → devis PDF chiffré selon vos tarifs, validation en 1 clic et relance automatique.
+- [SMS automatique sur appel manqué (< 10 s)](https://derovia.fr/solutions/appels-manques-sms): Rattrapage immédiat de chaque appel non décroché, qualification et prise de rendez-vous.
+- [Rendez-vous, rappels SMS & tournées](https://derovia.fr/solutions/rendez-vous-tournees): Rappels J-1 anti-lapin, regroupement par zone et liste d’attente sur annulation.
+- [Papiers, factures fournisseurs & suivi comptable](https://derovia.fr/solutions/papiers-suivi-comptable): Extraction HT/TVA, renommage, classement par dossier et export Pennylane/Sage/EBP.
+
+## Cas concrets par métier
+- [Plomberie & chauffage](https://derovia.fr/metiers/plombier-chauffagiste): Devis vocal sur chantier, relances, SMS dépannage et classement Batappli/EBP.
+- [Garage automobile & mécanique](https://derovia.fr/metiers/garage-automobile): SMS appel manqué sous le pont, plaque & motif, rappels révision et contrôle technique.
+- [Cabinet comptable](https://derovia.fr/metiers/cabinet-comptable): Relances ciblées de pièces justificatives manquantes et classement Pennylane/Sage.
+- [Restauration & métiers de bouche](https://derovia.fr/metiers/restauration): Pré-commandes fournisseurs depuis les ventes Zelty et tri factures.
+- [Coiffure & esthétique](https://derovia.fr/metiers/coiffure-esthetique): Rappels SMS veille et remplissage automatique des créneaux annulés.
+
+## Contact & Confiance
 - [Réserver un échange gratuit (1 h)](https://cal.com/derovia): Diagnostic gratuit et sans engagement avec Mathis Derory ou Maxence Catesson.
-- Téléphone : +33 7 66 83 00 91 (07 66 83 00 91)
-- E-mail : contact@derovia.fr
+- [Mentions légales](https://derovia.fr/mentions-legales) · [Politique de confidentialité](https://derovia.fr/confidentialite)
+- Téléphone : +33 7 66 83 00 91 (07 66 83 00 91) · E-mail : contact@derovia.fr · TikTok : https://www.tiktok.com/@derovia.corp
 
 ## Optional
-- [Sitemap XML](https://derovia.fr/sitemap.xml): Index des URLs canoniques du site.
+- [Sitemap XML](https://derovia.fr/sitemap.xml): Index des 13 URLs canoniques du site.
 - [Security.txt](https://derovia.fr/.well-known/security.txt): Contact sécurité (RFC 9116).

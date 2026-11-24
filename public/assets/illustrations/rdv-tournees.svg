@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-label="Schéma automatisation rendez-vous et tournées Derovia : rappels SMS J-1, liste d'attente et créneau annulé repris automatiquement">
+  <defs>
+    <pattern id="iso3" width="64" height="36.95" patternUnits="userSpaceOnUse">
+      <path d="M0 18.475 L32 0 L64 18.475 L32 36.95 Z" fill="none" stroke="#2e2926" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="cs3" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#2e2926" flood-opacity="0.09"/>
+    </filter>
+    <filter id="core3" x="-20%" y="-20%" width="140%" height="145%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#1f1d1b" flood-opacity="0.22"/>
+    </filter>
+    <linearGradient id="w3" x1="300" y1="200" x2="660" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1f1d1b" stop-opacity="0"/>
+      <stop offset="25%" stop-color="#1f1d1b" stop-opacity="0.20"/>
+      <stop offset="75%" stop-color="#e6a83c" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#1f1d1b" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="400" rx="18" fill="#f6f4f0"/>
+  <rect width="960" height="400" rx="18" fill="url(#iso3)"/>
+
+  <path d="M300 200 L480 200" stroke="url(#w3)" stroke-width="2" fill="none"/>
+  <path d="M480 200 C555 200, 575 130, 650 130" stroke="url(#w3)" stroke-width="2" fill="none"/>
+  <path d="M480 200 C555 200, 575 270, 650 270" stroke="url(#w3)" stroke-width="2" fill="none"/>
+
+  <!-- Left Card: Planning du jour -->
+  <g filter="url(#cs3)">
+    <rect x="44" y="76" width="276" height="248" rx="20" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <text x="66" y="108" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#1f1d1b">Planning · Jeudi</text>
+  <rect x="66" y="126" width="232" height="46" rx="12" fill="#e3f5ee"/>
+  <text x="80" y="153" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#145c44">09h30 · Confirmé (SMS J-1)</text>
+  <rect x="66" y="182" width="232" height="46" rx="12" fill="#fcece7"/>
+  <text x="80" y="209" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#9c341d">14h30 · Annulé à 10h15</text>
+  <rect x="66" y="238" width="232" height="46" rx="12" fill="#e3f5ee"/>
+  <text x="80" y="265" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#145c44">16h00 · Confirmé (SMS J-1)</text>
+
+  <!-- Center: Naked Black Derovia Squircle -->
+  <g filter="url(#core3)">
+    <rect x="432" y="152" width="96" height="96" rx="24" fill="#1f1d1b"/>
+  </g>
+  <g transform="translate(454, 174) scale(1.625)">
+    <path fill="#ffffff" d="M8.2 3H15.5C22.7 3 28.5 8.8 28.5 16C28.5 23.2 22.7 29 15.5 29H8.2C6.43 29 5 27.57 5 25.8V16C5 14.23 6.43 12.8 8.2 12.8H14.6C16.37 12.8 17.8 14.23 17.8 16C17.8 17.77 16.37 19.2 14.6 19.2H11.4V22.6H15.4C19.1 22.6 22 19.7 22 16C22 12.3 19.1 9.4 15.4 9.4H8.2C6.43 9.4 5 7.97 5 6.2C5 4.43 6.43 3 8.2 3Z"/>
+  </g>
+
+  <!-- Right Card 1: Liste d'attente -->
+  <g filter="url(#cs3)">
+    <rect x="636" y="72" width="280" height="114" rx="20" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="656" y="92" width="112" height="24" rx="12" fill="#faf1dc"/>
+  <text x="668" y="108" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#7c5310">Liste d’attente</text>
+  <text x="656" y="142" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#1f1d1b">14h30 repris en 6 min ✓</text>
+  <text x="656" y="164" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="12.5" fill="#5c5751">Proposé par SMS · Agenda mis à jour</text>
+
+  <!-- Right Card 2: Secteurs -->
+  <g filter="url(#cs3)">
+    <rect x="636" y="214" width="280" height="114" rx="20" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="656" y="234" width="128" height="24" rx="12" fill="#e7eeff"/>
+  <text x="668" y="250" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#1d3da0">Tournée par zone</text>
+  <text x="656" y="284" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#1f1d1b">4 interventions groupées</text>
+  <text x="656" y="306" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="12.5" fill="#5c5751">Moins de route · 0 lapin</text>
+</svg>

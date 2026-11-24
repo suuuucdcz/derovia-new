@@ -1,0 +1,826 @@
+/* ==========================================================================
+   Derovia — SEO Pages, FAQ & Interactive Calculator Stylesheet
+   Inherits all design tokens from styles.css · 100% CSP-safe (no inline CSS)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Homepage Internal Link Accents & Expanded 4-Column SEO Footer
+   -------------------------------------------------------------------------- */
+
+.bento-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(31, 29, 27, 0.24);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, transform 0.2s var(--ease-out);
+}
+.bento-card__link:hover {
+  border-color: var(--ink);
+  transform: translateX(2px);
+}
+
+.acc-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 24px 20px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-deep);
+  text-decoration: none;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+.acc-more-link:hover {
+  gap: 9px;
+  color: var(--blue-ink);
+}
+
+.footer-body--rich {
+  grid-template-columns: minmax(0, 1.25fr) repeat(4, minmax(0, 0.72fr));
+  gap: 28px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Native Accessible FAQ Accordion (<details>/<summary> — zero CLS, crawlable)
+   -------------------------------------------------------------------------- */
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.faq-intro {
+  position: sticky;
+  top: 108px;
+}
+.faq-intro .display-h2 {
+  margin-bottom: 14px;
+}
+.faq-intro .lead {
+  margin-bottom: 24px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  transition: border-color 0.2s ease, box-shadow 0.25s ease;
+}
+.faq-item[open] {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-card);
+}
+
+.faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-family: var(--font-display);
+  font-size: 17.5px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  user-select: none;
+}
+.faq-q::-webkit-details-marker {
+  display: none;
+}
+
+.faq-q::after {
+  content: "+";
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.25s var(--ease-out), background-color 0.2s ease, color 0.2s ease;
+}
+.faq-item[open] > .faq-q::after {
+  transform: rotate(45deg);
+  background: var(--ink);
+  color: var(--white);
+}
+
+.faq-a {
+  padding: 0 24px 22px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.faq-a p + p {
+  margin-top: 10px;
+}
+.faq-a a {
+  color: var(--blue-deep);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Dedicated SEO Landing Pages (Solutions & Métiers)
+   -------------------------------------------------------------------------- */
+
+.seo-body {
+  background: var(--surface);
+}
+
+.seo-hero {
+  position: relative;
+  padding: calc(var(--nav-h) + clamp(40px, 5vw, 68px)) 0 clamp(48px, 6vw, 76px);
+  background-color: var(--surface);
+  background-image: var(--iso-grid);
+  border-bottom: 1px solid var(--line);
+}
+
+.seo-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  font-size: 13.5px;
+  color: var(--muted-soft);
+}
+.seo-crumb a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.seo-crumb a:hover {
+  color: var(--ink);
+}
+.seo-crumb__sep {
+  opacity: 0.45;
+}
+
+.seo-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(28px, 4.5vw, 60px);
+  align-items: start;
+}
+
+.seo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 18px;
+}
+.seo-pill--blue  { background: var(--tint-blue);  color: var(--blue-ink); }
+.seo-pill--green { background: var(--tint-green); color: var(--green-ink); }
+.seo-pill--cream { background: var(--tint-cream); color: var(--yellow-ink); }
+.seo-pill--pink  { background: var(--tint-pink);  color: #8b2d1b; }
+
+.seo-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4.6vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.036em;
+  line-height: 1.07;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.seo-h1__accent {
+  color: var(--blue-deep);
+}
+
+.seo-lead {
+  font-size: clamp(16.5px, 1.5vw, 19px);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+
+.seo-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Answer-First GEO / Google AI Overview Summary Card */
+.answer-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 26px 28px;
+  box-shadow: var(--shadow-card);
+}
+.answer-box__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+  margin-bottom: 10px;
+}
+.answer-box__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.answer-box__text {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.answer-box__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.answer-fact__val {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.answer-fact__lbl {
+  font-size: 12.5px;
+  color: var(--muted-soft);
+  margin-top: 2px;
+}
+
+/* Sections on SEO pages */
+.seo-section {
+  padding: clamp(56px, 6.5vw, 92px) 0;
+  background: var(--white);
+}
+.seo-section--stone {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.seo-head {
+  max-width: 720px;
+  margin-bottom: 36px;
+}
+.seo-head .display-h2 {
+  margin-bottom: 12px;
+}
+
+/* Before / After Editorial Comparison */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.compare-card {
+  border-radius: 22px;
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+}
+.compare-card--before {
+  background: var(--paper);
+}
+.compare-card--after {
+  background: var(--tint-green);
+  border-color: rgba(45, 157, 120, 0.24);
+}
+.compare-card__tag {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.compare-card--before .compare-card__tag { color: #9c341d; }
+.compare-card--after  .compare-card__tag { color: var(--green-ink); }
+
+.compare-card__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+.compare-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compare-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15.5px;
+  line-height: 1.48;
+  color: var(--ink);
+}
+.compare-mark {
+  flex-shrink: 0;
+  font-weight: 700;
+  margin-top: 1px;
+}
+.compare-mark--bad  { color: #c4452b; }
+.compare-mark--good { color: var(--green-ink); }
+
+/* 4-Step Concrete Workflow Cards */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.step-tile {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.step-tile__num {
+  width: fit-content;
+  min-width: 38px;
+  height: 34px;
+  padding: 0 11px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.step-tile__num--blue  { background: var(--tint-blue);  color: var(--blue-ink); }
+.step-tile__num--green { background: var(--tint-green); color: var(--green-ink); }
+.step-tile__num--cream { background: var(--tint-cream); color: var(--yellow-ink); }
+.step-tile__num--pink  { background: var(--tint-pink);  color: #8b2d1b; }
+
+.step-tile__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.step-tile__desc {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Real French Tools Strip */
+.tools-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.tool-chip img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Concrete Scenario / Case Card */
+.case-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(24px, 3.5vw, 38px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 32px;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+}
+.case-box__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+.case-box__desc {
+  font-size: 15.5px;
+  line-height: 1.58;
+  color: var(--muted);
+}
+.case-kpis {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.case-kpi {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--surface);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.case-kpi__val {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--blue-deep);
+}
+.case-kpi__lbl {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* Related Internal Linking Grid */
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.related-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.25s var(--ease-out), border-color 0.2s ease, box-shadow 0.25s ease;
+}
+.related-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-card);
+}
+.related-card__kicker {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue-deep);
+}
+.related-card__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.related-card__desc {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.related-card__go {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-deep);
+}
+
+/* Obsidian Closing CTA Card on Subpages */
+.seo-cta {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 28px;
+  padding: clamp(32px, 5vw, 56px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 28px;
+  align-items: center;
+}
+.seo-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+.seo-cta p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--white-muted);
+}
+.seo-cta__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.seo-cta__direct {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--white-muted);
+  margin-top: 4px;
+}
+.seo-cta__direct a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Interactive Time & ROI Calculator (/calculateur-temps)
+   -------------------------------------------------------------------------- */
+
+.calc-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.calc-preset {
+  cursor: pointer;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.calc-preset:hover {
+  border-color: var(--ink);
+}
+.calc-preset[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.calc-panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: clamp(24px, 3.5vw, 36px);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.calc-field__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.calc-field__label {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.calc-field__val {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue-deep);
+  font-variant-numeric: tabular-nums;
+}
+.calc-field__hint {
+  font-size: 13px;
+  color: var(--muted-soft);
+  margin-top: 6px;
+}
+
+.calc-range {
+  width: 100%;
+  accent-color: var(--blue-deep);
+  height: 8px;
+  cursor: pointer;
+}
+
+.calc-result {
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 26px;
+  padding: clamp(26px, 3.5vw, 38px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  box-shadow: 0 28px 60px -22px rgba(31, 29, 27, 0.42);
+}
+.calc-result__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7fa4ff;
+}
+.calc-result__big {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+}
+.calc-result__sub {
+  font-size: 15px;
+  color: var(--white-muted);
+  margin-top: 8px;
+}
+
+.calc-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--white-line);
+}
+.calc-metric {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--white-line);
+  border-radius: 16px;
+  padding: 16px;
+}
+.calc-metric__val {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+}
+.calc-metric__val--sage {
+  color: #54c99f;
+}
+.calc-metric__lbl {
+  font-size: 12.5px;
+  color: var(--white-muted);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+
+.calc-note {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--white-muted);
+}
+
+/* Editorial Visual Illustration Figures (SEO + UX, CLS=0) */
+.seo-figure {
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(14px, 2vw, 22px);
+  box-shadow: var(--shadow-card);
+}
+.seo-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+.seo-figure figcaption {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--muted-soft);
+}
+
+/* Prevent nav translucent flicker at scrollY=0 on subpages */
+.seo-body .nav-wrap {
+  animation: none;
+}
+
+/* Tablet & Mobile Navbar Polish (no clipping on home or subpages) */
+@media (max-width: 1020px) {
+  .nav-phone {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .seo-body .nav-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .seo-body .nav-actions .btn--white {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .seo-hero__grid,
+  .faq-grid,
+  .case-box,
+  .seo-cta,
+  .calc-grid {
+    grid-template-columns: 1fr;
+  }
+  .faq-intro {
+    position: static;
+  }
+  .steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-body--rich {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-body--rich > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .compare-grid,
+  .steps-grid,
+  .related-grid,
+  .calc-metrics {
+    grid-template-columns: 1fr;
+  }
+  .answer-box__facts {
+    grid-template-columns: 1fr;
+  }
+  .faq-q {
+    padding: 18px 18px;
+    font-size: 16px;
+  }
+  .faq-a {
+    padding: 0 18px 18px;
+    font-size: 14.5px;
+  }
+  .footer-body--rich {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

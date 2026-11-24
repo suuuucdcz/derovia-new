@@ -33,6 +33,12 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
+  for = "/assets/illustrations/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Cross-Origin-Resource-Policy = "cross-origin"
+
+[[headers]]
   for = "/favicon.ico"
   [headers.values]
     Cache-Control = "public, max-age=2592000, must-revalidate"
@@ -113,6 +119,56 @@
 [[redirects]]
   from = "/confidentialite"
   to = "/confidentialite.html"
+  status = 200
+
+[[redirects]]
+  from = "/calculateur-temps"
+  to = "/calculateur-temps.html"
+  status = 200
+
+[[redirects]]
+  from = "/solutions/devis-automatique"
+  to = "/solutions/devis-automatique.html"
+  status = 200
+
+[[redirects]]
+  from = "/solutions/appels-manques-sms"
+  to = "/solutions/appels-manques-sms.html"
+  status = 200
+
+[[redirects]]
+  from = "/solutions/rendez-vous-tournees"
+  to = "/solutions/rendez-vous-tournees.html"
+  status = 200
+
+[[redirects]]
+  from = "/solutions/papiers-suivi-comptable"
+  to = "/solutions/papiers-suivi-comptable.html"
+  status = 200
+
+[[redirects]]
+  from = "/metiers/plombier-chauffagiste"
+  to = "/metiers/plombier-chauffagiste.html"
+  status = 200
+
+[[redirects]]
+  from = "/metiers/garage-automobile"
+  to = "/metiers/garage-automobile.html"
+  status = 200
+
+[[redirects]]
+  from = "/metiers/cabinet-comptable"
+  to = "/metiers/cabinet-comptable.html"
+  status = 200
+
+[[redirects]]
+  from = "/metiers/restauration"
+  to = "/metiers/restauration.html"
+  status = 200
+
+[[redirects]]
+  from = "/metiers/coiffure-esthetique"
+  to = "/metiers/coiffure-esthetique.html"
   status = 200
 
 [[redirects]]

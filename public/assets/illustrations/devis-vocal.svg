@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-label="Schéma du flux devis automatique Derovia : note vocale de 35 secondes transformée en devis PDF chiffré, relance J+4 et facture">
+  <defs>
+    <pattern id="iso" width="64" height="36.95" patternUnits="userSpaceOnUse">
+      <path d="M0 18.475 L32 0 L64 18.475 L32 36.95 Z" fill="none" stroke="#2e2926" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#2e2926" flood-opacity="0.09"/>
+    </filter>
+    <filter id="coreShadow" x="-20%" y="-20%" width="140%" height="145%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#1f1d1b" flood-opacity="0.22"/>
+    </filter>
+    <linearGradient id="wireL" x1="300" y1="200" x2="480" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1f1d1b" stop-opacity="0"/>
+      <stop offset="25%" stop-color="#3663e0" stop-opacity="0.55"/>
+      <stop offset="85%" stop-color="#1f1d1b" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1f1d1b" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wireR" x1="480" y1="200" x2="660" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1f1d1b" stop-opacity="0"/>
+      <stop offset="25%" stop-color="#1f1d1b" stop-opacity="0.20"/>
+      <stop offset="78%" stop-color="#3663e0" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#1f1d1b" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="400" rx="18" fill="#f6f4f0"/>
+  <rect width="960" height="400" rx="18" fill="url(#iso)"/>
+
+  <!-- Whisper-fine organic flow hairlines (zero rainbow cables, zero sockets) -->
+  <path d="M300 200 C370 200, 415 200, 480 200" stroke="url(#wireL)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M480 200 C555 200, 575 94, 668 94" stroke="url(#wireR)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M480 200 C555 200, 600 200, 668 200" stroke="url(#wireR)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M480 200 C555 200, 575 306, 668 306" stroke="url(#wireR)" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Left Card: Note Vocale -->
+  <g filter="url(#cardShadow)">
+    <rect x="44" y="92" width="276" height="216" rx="20" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="64" y="112" width="102" height="26" rx="13" fill="#fcece7"/>
+  <circle cx="78" cy="125" r="4" fill="#e56b4e"/>
+  <text x="88" y="129.5" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#9c341d">Note vocale</text>
+  <text x="272" y="129.5" font-family="ui-monospace, Consolas, monospace" font-size="12" font-weight="600" fill="#5c5751">0:35</text>
+
+  <!-- Waveform box -->
+  <rect x="64" y="154" width="236" height="72" rx="14" fill="#edf2ff"/>
+  <circle cx="98" cy="190" r="21" fill="#3663e0"/>
+  <rect x="94.5" y="179" width="7" height="13" rx="3.5" fill="#ffffff"/>
+  <path d="M90.5 189.5 C90.5 194, 93.8 197, 98 197 C102.2 197, 105.5 194, 105.5 189.5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <line x1="98" y1="197" x2="98" y2="201" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <!-- Crisp waveform bars -->
+  <g fill="#3663e0">
+    <rect x="132" y="182" width="5" height="16" rx="2.5"/>
+    <rect x="143" y="172" width="5" height="36" rx="2.5" fill="#8aaaf9"/>
+    <rect x="154" y="167" width="5" height="46" rx="2.5"/>
+    <rect x="165" y="178" width="5" height="24" rx="2.5" fill="#8aaaf9"/>
+    <rect x="176" y="165" width="5" height="50" rx="2.5"/>
+    <rect x="187" y="175" width="5" height="30" rx="2.5"/>
+    <rect x="198" y="181" width="5" height="18" rx="2.5" fill="#8aaaf9"/>
+    <rect x="209" y="168" width="5" height="44" rx="2.5"/>
+    <rect x="220" y="174" width="5" height="32" rx="2.5" fill="#8aaaf9"/>
+    <rect x="231" y="166" width="5" height="48" rx="2.5"/>
+    <rect x="242" y="177" width="5" height="26" rx="2.5"/>
+    <rect x="253" y="171" width="5" height="38" rx="2.5" fill="#8aaaf9"/>
+    <rect x="264" y="179" width="5" height="22" rx="2.5"/>
+    <rect x="275" y="183" width="5" height="14" rx="2.5" fill="#8aaaf9"/>
+  </g>
+  <text x="64" y="264" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="14.5" font-weight="700" fill="#1f1d1b">Chauffe-eau 200 L · M. Laurent</text>
+  <text x="64" y="284" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="12" fill="#5c5751">Dictée en sortie de chantier · TVA 10 %</text>
+
+  <!-- Center: Pure Naked Black Derovia Squircle (ZERO blue circle!) -->
+  <g filter="url(#coreShadow)">
+    <rect x="432" y="152" width="96" height="96" rx="24" fill="#1f1d1b"/>
+  </g>
+  <g transform="translate(454, 174) scale(1.625)">
+    <path fill="#ffffff" d="M8.2 3H15.5C22.7 3 28.5 8.8 28.5 16C28.5 23.2 22.7 29 15.5 29H8.2C6.43 29 5 27.57 5 25.8V16C5 14.23 6.43 12.8 8.2 12.8H14.6C16.37 12.8 17.8 14.23 17.8 16C17.8 17.77 16.37 19.2 14.6 19.2H11.4V22.6H15.4C19.1 22.6 22 19.7 22 16C22 12.3 19.1 9.4 15.4 9.4H8.2C6.43 9.4 5 7.97 5 6.2C5 4.43 6.43 3 8.2 3Z"/>
+  </g>
+
+  <!-- Right Card 1: Devis PDF -->
+  <g filter="url(#cardShadow)">
+    <rect x="652" y="48" width="264" height="92" rx="18" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="670" y="68" width="52" height="52" rx="13" fill="#e7eeff"/>
+  <path d="M687 79C687 78 687.8 77 689 77H699L705 83V109C705 110 704.2 111 703 111H689C687.8 111 687 110 687 109V79Z" fill="#4f7df7"/>
+  <rect x="691" y="92" width="9" height="2.4" rx="1.2" fill="#ffffff"/>
+  <rect x="691" y="98" width="6" height="2.4" rx="1.2" fill="#c3d4fd"/>
+  <text x="736" y="87" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#1f1d1b">Devis PDF · 1 480 €</text>
+  <rect x="736" y="98" width="76" height="22" rx="11" fill="#e7eeff"/>
+  <text x="746" y="113" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#1d3da0">✓ Validé</text>
+  <text x="820" y="113" font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#5c5751">TVA 10 %</text>
+
+  <!-- Right Card 2: Relance J+4 -->
+  <g filter="url(#cardShadow)">
+    <rect x="652" y="154" width="264" height="92" rx="18" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="670" y="174" width="52" height="52" rx="13" fill="#e3f5ee"/>
+  <path d="M681 193C681 188.5 684.5 185 689 185H703C707.5 185 711 188.5 711 193V202C711 206.5 707.5 210 703 210H689L681 215V193Z" fill="#2d9d78"/>
+  <circle cx="691" cy="197.5" r="2.2" fill="#ffffff"/>
+  <circle cx="701" cy="197.5" r="2.2" fill="#b7e5d5"/>
+  <text x="736" y="193" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#1f1d1b">Relance client J+4</text>
+  <rect x="736" y="204" width="82" height="22" rx="11" fill="#e3f5ee"/>
+  <text x="745" y="219" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#145c44">✓ Auto SMS</text>
+  <text x="826" y="219" font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#5c5751">0 oubli</text>
+
+  <!-- Right Card 3: Facture 1 clic -->
+  <g filter="url(#cardShadow)">
+    <rect x="652" y="260" width="264" height="92" rx="18" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="670" y="280" width="52" height="52" rx="13" fill="#faf1dc"/>
+  <path d="M680 296C680 293.8 681.8 292 684 292H692L695 295.5H708C710.2 295.5 712 297.3 712 299.5V314C712 316.2 710.2 318 708 318H684C681.8 318 680 316.2 680 314V296Z" fill="#e6a83c"/>
+  <rect x="688" y="305" width="16" height="3" rx="1.5" fill="#fffaf0"/>
+  <text x="736" y="299" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="16" font-weight="700" fill="#1f1d1b">Facture &amp; dossier</text>
+  <rect x="736" y="310" width="86" height="22" rx="11" fill="#faf1dc"/>
+  <text x="746" y="325" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#7c5310">✓ Comptable</text>
+  <text x="830" y="325" font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#5c5751">1 clic</text>
+</svg>

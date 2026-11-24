@@ -84,6 +84,19 @@ Les prestations sont réalisées sur **devis fixe signé**, sans frais cachés :
 ## 7. Liens de référence
 
 - Page d’accueil : https://derovia.fr/
+- Calculateur gratuit de temps administratif : https://derovia.fr/calculateur-temps
+- Solutions :
+  - Devis automatique : https://derovia.fr/solutions/devis-automatique
+  - SMS appels manqués : https://derovia.fr/solutions/appels-manques-sms
+  - Rendez-vous & tournées : https://derovia.fr/solutions/rendez-vous-tournees
+  - Papiers & suivi comptable : https://derovia.fr/solutions/papiers-suivi-comptable
+- Métiers :
+  - Plomberie & chauffage : https://derovia.fr/metiers/plombier-chauffagiste
+  - Garage & mécanique : https://derovia.fr/metiers/garage-automobile
+  - Cabinet comptable : https://derovia.fr/metiers/cabinet-comptable
+  - Restauration : https://derovia.fr/metiers/restauration
+  - Coiffure & esthétique : https://derovia.fr/metiers/coiffure-esthetique
+- Réseaux officiels : https://www.tiktok.com/@derovia.corp
 - Index concis agents IA : https://derovia.fr/llms.txt
 - Prise de rendez-vous gratuit : https://cal.com/derovia
 - Mentions légales : https://derovia.fr/mentions-legales

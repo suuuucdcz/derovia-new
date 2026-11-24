@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-label="Schéma automatisation commandes fournisseurs restaurant Derovia : ventes caisse Zelty analysées et bon de commande pré-rempli en 2 minutes">
+  <defs>
+    <pattern id="iso5" width="64" height="36.95" patternUnits="userSpaceOnUse">
+      <path d="M0 18.475 L32 0 L64 18.475 L32 36.95 Z" fill="none" stroke="#2e2926" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="cs5" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#2e2926" flood-opacity="0.09"/>
+    </filter>
+    <filter id="core5" x="-20%" y="-20%" width="140%" height="145%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#1f1d1b" flood-opacity="0.22"/>
+    </filter>
+    <linearGradient id="w5" x1="300" y1="200" x2="660" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1f1d1b" stop-opacity="0"/>
+      <stop offset="28%" stop-color="#e56b4e" stop-opacity="0.50"/>
+      <stop offset="75%" stop-color="#2d9d78" stop-opacity="0.50"/>
+      <stop offset="100%" stop-color="#1f1d1b" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="400" rx="18" fill="#f6f4f0"/>
+  <rect width="960" height="400" rx="18" fill="url(#iso5)"/>
+
+  <path d="M300 200 L640 200" stroke="url(#w5)" stroke-width="2" fill="none"/>
+
+  <!-- Left: Ventes & stocks -->
+  <g filter="url(#cs5)">
+    <rect x="44" y="88" width="276" height="224" rx="20" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="64" y="108" width="136" height="24" rx="12" fill="#fcece7"/>
+  <text x="76" y="124" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#9c341d">Caisse Zelty · Semaine</text>
+  <text x="64" y="160" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="17" font-weight="700" fill="#1f1d1b">Ventes &amp; réservations</text>
+  <!-- Mini rising bars -->
+  <rect x="64" y="216" width="32" height="42" rx="6" fill="#c3d4fd"/>
+  <rect x="106" y="198" width="32" height="60" rx="6" fill="#b7e5d5"/>
+  <rect x="148" y="206" width="32" height="52" rx="6" fill="#f5e2ba"/>
+  <rect x="190" y="180" width="32" height="78" rx="6" fill="#4f7df7"/>
+  <rect x="232" y="190" width="32" height="68" rx="6" fill="#2d9d78"/>
+  <text x="64" y="286" font-family="ui-monospace, Consolas, monospace" font-size="11.5" fill="#5c5751">Ajusté selon météo &amp; couverts</text>
+
+  <!-- Center: Naked Black Derovia Squircle -->
+  <g filter="url(#core5)">
+    <rect x="432" y="152" width="96" height="96" rx="24" fill="#1f1d1b"/>
+  </g>
+  <g transform="translate(454, 174) scale(1.625)">
+    <path fill="#ffffff" d="M8.2 3H15.5C22.7 3 28.5 8.8 28.5 16C28.5 23.2 22.7 29 15.5 29H8.2C6.43 29 5 27.57 5 25.8V16C5 14.23 6.43 12.8 8.2 12.8H14.6C16.37 12.8 17.8 14.23 17.8 16C17.8 17.77 16.37 19.2 14.6 19.2H11.4V22.6H15.4C19.1 22.6 22 19.7 22 16C22 12.3 19.1 9.4 15.4 9.4H8.2C6.43 9.4 5 7.97 5 6.2C5 4.43 6.43 3 8.2 3Z"/>
+  </g>
+
+  <!-- Right: Bon de commande prêt -->
+  <g filter="url(#cs5)">
+    <rect x="616" y="76" width="300" height="248" rx="22" fill="#fdfcf9" stroke="#1f1d1b" stroke-opacity="0.09"/>
+  </g>
+  <rect x="638" y="98" width="112" height="24" rx="12" fill="#e3f5ee"/>
+  <text x="650" y="114" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="11.5" font-weight="600" fill="#145c44">Prêt en 2 min</text>
+  <text x="638" y="150" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#1f1d1b">Commandes du lundi</text>
+  <rect x="638" y="168" width="256" height="36" rx="10" fill="#f2efe9"/>
+  <text x="652" y="191" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#1f1d1b">Maraîcher · 12 références prêtes</text>
+  <rect x="638" y="212" width="256" height="36" rx="10" fill="#f2efe9"/>
+  <text x="652" y="235" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#1f1d1b">Grossiste frais · 18 lignes prêtes</text>
+  <rect x="638" y="262" width="256" height="40" rx="12" fill="#1f1d1b"/>
+  <text x="684" y="287" font-family="'DM Sans', 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#ffffff">✓ Valider &amp; envoyer en 1 clic</text>
+</svg>
