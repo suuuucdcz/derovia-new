@@ -59,16 +59,16 @@ Les automatisations Derovia se branchent directement sur les outils déjà utili
 
 ---
 
-## 5. Tarifs transparents (indicatifs HT)
+## 5. Tarifs transparents (lancement · installation + suivi dégressif)
 
-Les prestations sont réalisées sur **devis fixe signé**, sans frais cachés :
+Les prestations sont réalisées sur **devis sur-mesure signé** après diagnostic gratuit (TVA non applicable, art. 293 B du CGI). Le suivi mensuel est **sans engagement** et **baisse automatiquement au 4e puis au 7e mois** pour récompenser la fidélité (en cas d’arrêt puis de reprise, le tarif repart au palier Mois 1). Les petits frais d’API/SMS (~5 à 25 €/mois) restent au coût réel directement sur le compte du client, sans marge :
 
-- **Diagnostic & Feuille de route** : **Gratuit** (sans engagement · 1 heure en visio ou téléphone · audit des 3 tâches les plus chronophages, chiffrage du gain, plan d’action et devis fixe sous 48 h).
-- **Automatisation Ciblée** : **à partir de 1 490 € HT** (paiement unique · livré en 2 à 3 semaines · 1 processus complet automatisé, prototype testé sur dossiers réels, branchement aux outils existants, formation et 30 jours d’ajustements inclus).
-- **Système Sur-Mesure** : **à partir de 3 490 € HT** (paiement échelonné possible · 4 à 6 semaines · chaîne multi-workflows de bout en bout, assistant IA personnalisé, intégration logiciel métier avancée, formation équipe et accompagnement lancement).
-- **Option « On reste » (Suivi, maintenance & évolutions)** : **dès 190 € HT / mois** (optionnelle, résiliable à tout moment · surveillance, mises à jour des connecteurs, support prioritaire direct et petites améliorations mensuelles).
+- **Diagnostic & Feuille de route** : **Gratuit** (sans engagement · 1 heure en visio ou téléphone · audit des 3 tâches les plus chronophages, chiffrage du gain, plan d’action et devis exact sous 48 h).
+- **Automatisation Essentielle** *(flux simple : SMS appel manqué, rappels RDV, avis Google)* : **installation dès 290 €** (livrée en 1 semaine) + **suivi dégressif : 69 €/mois (M1–3) → 55 €/mois (M4–6) → 39 €/mois (M7+)**.
+- **Automatisation Métier IA** *(flux IA complet : devis note vocale → PDF + relance J+4, tri comptable)* : **installation dès 590 €** (livrée en 1 à 2 semaines, prototype sur dossiers réels et formation 1 h inclus) + **suivi dégressif : 99 €/mois (M1–3) → 79 €/mois (M4–6) → 59 €/mois (M7+)**.
+- **Système Sur-Mesure PME** *(chaîne multi-flux + assistant IA + intégration EBP/Sage/Batappli/CRM)* : **sur devis dès 1 490 €** (paiement échelonné possible · 3 à 5 semaines) + **suivi dégressif : 159 €/mois (M1–3) → 129 €/mois (M4–6) → 99 €/mois (M7+)**.
 
-*Note légale : seul un devis fixe et signé à l’issue d’un échange engage Derovia.*
+*Note légale : tarifs indicatifs de lancement — seul un devis fixe et signé à l’issue d’un échange engage les parties.*
 
 ---
 

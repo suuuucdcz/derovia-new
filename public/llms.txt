@@ -3,10 +3,10 @@
 > Agence française d’intelligence artificielle et d’automatisation sur-mesure pour les artisans, indépendants et TPE/PME. Fondée et opérée en direct par Mathis Derory et Maxence Catesson : devis, factures, relances, appels manqués, rendez-vous et suivi administratif connectés aux outils existants.
 
 ## Fiche complète pour agents IA
-- [Présentation complète de Derovia (Markdown)](https://derovia.fr/llms-full.txt): Dossier structuré complet (services, méthode en 4 étapes, outils compatibles, exemples par métier, tarifs transparents HT, engagements confidentialité et coordonnées directes).
+- [Présentation complète de Derovia (Markdown)](https://derovia.fr/llms-full.txt): Dossier structuré complet (services, méthode en 4 étapes, outils compatibles, exemples par métier, tarifs lancement avec suivi dégressif, engagements confidentialité et coordonnées directes).
 
 ## Pages principales & outil gratuit
-- [Accueil Derovia](https://derovia.fr/): Présentation des 4 expertises, méthode de déploiement, cas métiers, tarifs HT, FAQ et prise de rendez-vous.
+- [Accueil Derovia](https://derovia.fr/): Présentation des 4 expertises, méthode de déploiement, cas métiers, tarifs lancement dégressifs, FAQ et prise de rendez-vous.
 - [Calculateur de temps administratif perdu](https://derovia.fr/calculateur-temps): Outil gratuit et sans inscription pour chiffrer les heures et coûts administratifs récupérables par an.
 
 ## Solutions dédiées

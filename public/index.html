@@ -35,7 +35,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/dm-sans-var.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geist-var.woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/styles.css?v=20261122d">
-  <link rel="stylesheet" href="/assets/css/pages.css?v=20261124b">
+  <link rel="stylesheet" href="/assets/css/pages.css?v=20261124c">
 
   <script type="application/ld+json">
   {
@@ -134,45 +134,53 @@
             {
               "@type": "Offer",
               "name": "Diagnostic & Feuille de route",
-              "description": "Un échange gratuit d’une heure en visio ou par téléphone pour auditer vos 3 tâches les plus chronophages, chiffrer vos gains et établir un devis fixe sous 48 h.",
+              "description": "Un échange gratuit d’une heure en visio ou par téléphone pour auditer vos 3 tâches les plus chronophages, chiffrer vos gains et établir un devis sur-mesure sous 48 h.",
               "price": "0",
               "priceCurrency": "EUR",
               "url": "https://cal.com/derovia"
             },
             {
               "@type": "Offer",
-              "name": "Automatisation Ciblée",
-              "description": "Suppression complète d’une corvée précise (devis, relances, appels/SMS ou classement), livrée en 2 à 3 semaines avec formation et 30 jours d’ajustements inclus.",
+              "name": "Automatisation Essentielle",
+              "description": "1 flux simple livré en 1 semaine (SMS appel manqué, rappels RDV ou avis Google) : installation dès 290 € + suivi dégressif sans engagement (69 € puis 55 € puis 39 €/mois dès le 7e mois).",
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "minPrice": 290,
+                "priceCurrency": "EUR"
+              },
+              "url": "https://derovia.fr/#tarifs"
+            },
+            {
+              "@type": "Offer",
+              "name": "Automatisation Métier IA",
+              "description": "1 flux IA complet livré en 1 à 2 semaines (devis par note vocale vers PDF + relance J+4, ou tri comptable) : installation dès 590 € + suivi dégressif sans engagement (99 € puis 79 € puis 59 €/mois dès le 7e mois).",
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "minPrice": 590,
+                "priceCurrency": "EUR"
+              },
+              "url": "https://derovia.fr/#tarifs"
+            },
+            {
+              "@type": "Offer",
+              "name": "Système Sur-Mesure PME",
+              "description": "Chaîne multi-automatisations reliée à vos logiciels métier (EBP, Sage, Batappli, CRM) + assistant IA personnalisé : sur devis dès 1 490 € + suivi dégressif (159 € → 129 € → 99 €/mois).",
               "priceSpecification": {
                 "@type": "PriceSpecification",
                 "minPrice": 1490,
-                "priceCurrency": "EUR",
-                "valueAddedTaxIncluded": false
+                "priceCurrency": "EUR"
               },
               "url": "https://derovia.fr/#tarifs"
             },
             {
               "@type": "Offer",
-              "name": "Système Sur-Mesure",
-              "description": "Chaîne complète d’automatisations reliées entre elles, assistant IA personnalisé et intégration avancée aux logiciels métier (4 à 6 semaines).",
-              "priceSpecification": {
-                "@type": "PriceSpecification",
-                "minPrice": 3490,
-                "priceCurrency": "EUR",
-                "valueAddedTaxIncluded": false
-              },
-              "url": "https://derovia.fr/#tarifs"
-            },
-            {
-              "@type": "Offer",
-              "name": "Option « On reste » — Suivi, maintenance & évolutions",
-              "description": "Surveillance des automatisations, mises à jour des connecteurs, support prioritaire direct et améliorations mensuelles, résiliable à tout moment.",
+              "name": "Suivi & maintenance dégressif",
+              "description": "Surveillance, mises à jour des connecteurs et support direct avec baisse automatique au 4e puis au 7e mois tant que l’abonnement reste actif (sans engagement).",
               "priceSpecification": {
                 "@type": "UnitPriceSpecification",
-                "minPrice": 190,
+                "minPrice": 39,
                 "priceCurrency": "EUR",
-                "unitCode": "MON",
-                "valueAddedTaxIncluded": false
+                "unitCode": "MON"
               },
               "url": "https://derovia.fr/#tarifs"
             }
@@ -188,7 +196,7 @@
             "name": "Combien coûte une automatisation IA sur-mesure pour un artisan ou une PME ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Le diagnostic initial d’une heure est gratuit et sans engagement, avec un devis fixe remis sous 48 h. Une automatisation ciblée (devis vocal, SMS sur appel manqué, relances ou classement comptable) démarre à 1 490 € HT en paiement unique. Un système complet reliant plusieurs outils métier démarre à 3 490 € HT, avec une option de suivi mensuel facultative dès 190 € HT/mois."
+              "text": "Le diagnostic initial d’une heure est gratuit et sans engagement, suivi d’un devis exact adapté à vos outils. Nos tarifs de lancement fonctionnent avec une installation unique + un suivi mensuel dégressif (qui baisse automatiquement au 4e puis au 7e mois, sans engagement ; en cas d’arrêt puis reprise, le tarif repart au palier Mois 1). Une Automatisation Essentielle (SMS appel manqué, rappels RDV) démarre à 290 € + 69 €/mois → 55 € → 39 €/mois. Une Automatisation Métier IA (devis vocal → PDF, tri factures) démarre à 590 € + 99 € → 79 € → 59 €/mois. Un Système Sur-Mesure PME démarre à 1 490 € sur devis + 159 € → 129 € → 99 €/mois. Les petits frais d’API/SMS (~5 à 25 €/mois) restent au coût réel directement sur votre compte."
             }
           },
           {
@@ -204,7 +212,7 @@
             "name": "Combien de temps faut-il pour déployer une automatisation ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Comptez 2 à 3 semaines pour une automatisation ciblée opérationnelle et testée sur vos vrais dossiers, et 4 à 6 semaines pour un système complet. Chaque étape est validée avec vous avant la mise en service, suivie d’une prise en main d’une heure et de 30 jours d’ajustements inclus."
+              "text": "Comptez 1 semaine pour une automatisation essentielle, 1 à 2 semaines pour une automatisation métier IA testée sur vos vrais dossiers, et 3 à 5 semaines pour un système complet. Chaque étape est validée avec vous avant la mise en service, suivie d’une prise en main d’une heure."
             }
           },
           {
@@ -236,7 +244,7 @@
             "name": "Est-ce rentable pour une petite entreprise de 1 à 20 personnes ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Oui : récupérer ne serait-ce que 5 à 12 heures d’administratif par semaine (soirs de devis, rappels clients, tri de factures) représente plusieurs centaines d’heures par an et rentabilise généralement une automatisation ciblée en 1 à 3 mois. Vous pouvez estimer votre gain exact sur derovia.fr/calculateur-temps."
+              "text": "Oui : récupérer ne serait-ce que 5 à 12 heures d’administratif par semaine (soirs de devis, rappels clients, tri de factures) représente plusieurs centaines d’heures par an et rentabilise généralement l’installation dès le premier mois. Vous pouvez estimer votre gain exact sur derovia.fr/calculateur-temps."
             }
           }
         ]
@@ -1329,88 +1337,109 @@
     </section>
 
     <!-- ====================================================================
-         Band 6 — Tarifs Clairs
+         Band 6 — Tarifs Clairs (Installation + Suivi Dégressif)
          ==================================================================== -->
     <section class="band" id="tarifs" aria-labelledby="pricing-heading">
       <div class="container">
         <div class="section-split" data-reveal>
           <div>
-            <span class="section-eyebrow">Tarifs transparents</span>
-            <h2 class="display-h2" id="pricing-heading">Des tarifs clairs, <br>pensés pour se rembourser vite.</h2>
+            <span class="section-eyebrow">Tarifs lancement · sur-mesure</span>
+            <h2 class="display-h2" id="pricing-heading">Un tarif juste, <br>et un suivi qui baisse avec le temps.</h2>
           </div>
           <p class="lead">
-            Vous payez à l’installation sur devis fixe, sans frais cachés. Notre règle : une automatisation doit se rentabiliser en quelques mois grâce au temps réellement rendu.
+            Chaque entreprise a ses propres outils : on chiffre juste après un diagnostic gratuit d’1 heure. Vous payez l’installation selon la complexité, puis un suivi sans engagement qui baisse automatiquement au 4e puis au 7e mois.
           </p>
         </div>
 
         <!-- 3 Core Pricing Cards -->
         <div class="pricing-grid">
-          <!-- Tier 1: Diagnostic Gratuit -->
+          <!-- Tier 1: Automatisation Essentielle -->
           <article class="price-card" data-reveal>
             <div>
-              <span class="price-badge price-badge--stone">Pour commencer</span>
-              <h3 class="price-name">Diagnostic &amp; Feuille de route</h3>
-              <p class="price-desc">Un échange concret d’une heure pour identifier vos meilleurs gains de temps avant toute dépense.</p>
+              <span class="price-badge price-badge--stone">Flux simple · Lancement</span>
+              <h3 class="price-name">Automatisation Essentielle</h3>
+              <p class="price-desc">Idéal pour stopper une perte de clients ou de temps immédiate sans toucher à vos habitudes.</p>
               <div class="price-amount-wrap">
-                <span class="price-prefix">Sans engagement</span>
-                <div class="price-value">Gratuit</div>
-                <span class="price-note">1 heure ensemble · visio ou téléphone</span>
+                <span class="price-prefix">Installation · à partir de</span>
+                <div class="price-value">290 €</div>
+                <span class="price-note">Paiement unique · Livré en 1 semaine</span>
+              </div>
+              <div class="price-sub">
+                <span class="price-sub__label">Suivi dégressif · sans engagement</span>
+                <div class="price-sub__steps">
+                  <span class="price-sub__step"><strong>69 €</strong><small>Mois 1–3</small></span>
+                  <span class="price-sub__arrow" aria-hidden="true">→</span>
+                  <span class="price-sub__step"><strong>55 €</strong><small>Mois 4–6</small></span>
+                  <span class="price-sub__arrow" aria-hidden="true">→</span>
+                  <span class="price-sub__step price-sub__step--best"><strong>39 €/m</strong><small>Mois 7+</small></span>
+                </div>
               </div>
               <ul class="price-features">
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Audit de vos 3 tâches les plus chronophages</span>
+                  <span>1 flux ciblé (SMS appel manqué, rappels RDV ou relance avis Google)</span>
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Chiffrage précis du temps et de l’argent récupérés</span>
+                  <span>Branché directement sur votre téléphone, agenda ou mail</span>
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Plan d’action concret et devis fixe sous 48h</span>
+                  <span>Surveillance, mises à jour et support direct avec Mathis &amp; Maxence</span>
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Échange direct avec Mathis ou Maxence</span>
+                  <span>Tarif fidélité acquis automatiquement dès le 4e puis le 7e mois</span>
                 </li>
               </ul>
             </div>
-            <a class="btn btn--md btn--beige" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
-              Réserver mon créneau gratuit
-            </a>
+            <button class="btn btn--md btn--beige" type="button" data-open-modal="Automatisation Essentielle (dès 290 € + suivi dégressif 69€→39€/m)">
+              <span>Chiffrer mon automatisation</span>
+              <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+            </button>
           </article>
 
-          <!-- Tier 2: Automatisation Ciblée (Featured) -->
+          <!-- Tier 2: Automatisation Métier IA (Featured) -->
           <article class="price-card price-card--featured" data-reveal>
             <div>
-              <span class="price-badge price-badge--blue">Le plus choisi pour démarrer</span>
-              <h3 class="price-name">Automatisation Ciblée</h3>
-              <p class="price-desc">On supprime complètement une corvée précise qui vous coûte plusieurs heures chaque semaine.</p>
+              <span class="price-badge price-badge--blue">Le plus choisi · Lancement</span>
+              <h3 class="price-name">Automatisation Métier IA</h3>
+              <p class="price-desc">On supprime une corvée lourde qui vous prend plusieurs heures chaque semaine sur vos dossiers.</p>
               <div class="price-amount-wrap">
-                <span class="price-prefix">À partir de</span>
-                <div class="price-value">1 490 € <span class="price-unit">HT</span></div>
-                <span class="price-note">Paiement unique · Livré en 2 à 3 semaines</span>
+                <span class="price-prefix">Installation · à partir de</span>
+                <div class="price-value">590 €</div>
+                <span class="price-note">Paiement unique · Livré en 1 à 2 semaines</span>
+              </div>
+              <div class="price-sub">
+                <span class="price-sub__label">Suivi dégressif · sans engagement</span>
+                <div class="price-sub__steps">
+                  <span class="price-sub__step"><strong>99 €</strong><small>Mois 1–3</small></span>
+                  <span class="price-sub__arrow" aria-hidden="true">→</span>
+                  <span class="price-sub__step"><strong>79 €</strong><small>Mois 4–6</small></span>
+                  <span class="price-sub__arrow" aria-hidden="true">→</span>
+                  <span class="price-sub__step price-sub__step--best"><strong>59 €/m</strong><small>Mois 7+</small></span>
+                </div>
               </div>
               <ul class="price-features">
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>1 processus complet automatisé (devis, relances, appels/SMS ou classement)</span>
+                  <span>1 flux IA complet (devis vocal → PDF + relance J+4, ou tri comptable)</span>
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Prototype testé sur vos vrais dossiers avant validation</span>
+                  <span>Prototype testé sur vos vrais devis ou factures avant validation</span>
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Branchement direct à vos outils (mail, WhatsApp, agenda, logiciel)</span>
+                  <span>Connexion mail, WhatsApp, agenda, Drive ou logiciel métier</span>
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Formation prise en main + 30 jours d’ajustements inclus</span>
+                  <span>Formation prise en main 1 h + ajustements &amp; suivi dégressif inclus</span>
                 </li>
               </ul>
             </div>
-            <button class="btn btn--md btn--dark" type="button" data-open-modal="Automatisation Ciblée (dès 1 490 € HT)">
+            <button class="btn btn--md btn--dark" type="button" data-open-modal="Automatisation Métier IA (dès 590 € + suivi dégressif 99€→59€/m)">
               <span>Chiffrer mon automatisation</span>
               <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
             </button>
@@ -1419,13 +1448,23 @@
           <!-- Tier 3: Système Sur-Mesure (Dark Charcoal Grain) -->
           <article class="price-card price-card--dark" data-reveal>
             <div>
-              <span class="price-badge price-badge--dark">Transformation complète</span>
+              <span class="price-badge price-badge--dark">Transformation PME</span>
               <h3 class="price-name">Système Sur-Mesure</h3>
               <p class="price-desc">Plusieurs automatisations reliées entre elles + assistant IA taillé sur vos habitudes et votre équipe.</p>
               <div class="price-amount-wrap">
-                <span class="price-prefix">À partir de</span>
-                <div class="price-value">3 490 € <span class="price-unit">HT</span></div>
-                <span class="price-note">Paiement échelonné possible · 4 à 6 semaines</span>
+                <span class="price-prefix">Sur devis · à partir de</span>
+                <div class="price-value">1 490 €</div>
+                <span class="price-note">Paiement échelonné possible · 3 à 5 semaines</span>
+              </div>
+              <div class="price-sub">
+                <span class="price-sub__label">Suivi dégressif · sans engagement</span>
+                <div class="price-sub__steps">
+                  <span class="price-sub__step"><strong>159 €</strong><small>Mois 1–3</small></span>
+                  <span class="price-sub__arrow" aria-hidden="true">→</span>
+                  <span class="price-sub__step"><strong>129 €</strong><small>Mois 4–6</small></span>
+                  <span class="price-sub__arrow" aria-hidden="true">→</span>
+                  <span class="price-sub__step price-sub__step--best"><strong>99 €/m</strong><small>Mois 7+</small></span>
+                </div>
               </div>
               <ul class="price-features">
                 <li>
@@ -1442,34 +1481,36 @@
                 </li>
                 <li>
                   <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Formation équipe + accompagnement lancement inclus</span>
+                  <span>Formation équipe + accompagnement lancement &amp; support prioritaire</span>
                 </li>
               </ul>
             </div>
-            <button class="btn btn--md btn--blue" type="button" data-open-modal="Système Sur-Mesure (dès 3 490 € HT)">
+            <button class="btn btn--md btn--blue" type="button" data-open-modal="Système Sur-Mesure (dès 1 490 € + suivi dégressif 159€→99€/m)">
               <span>Parler de mon projet</span>
               <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
             </button>
           </article>
         </div>
 
-        <!-- Optional Retainer Banner -->
+        <!-- Declining Loyalty & Free Diagnostic Banner -->
         <div class="retainer-bar" data-reveal>
           <div class="retainer-bar__left">
             <div class="retainer-dot" aria-hidden="true">
               <svg width="42" height="42"><use href="#app-suivi"/></svg>
             </div>
             <div>
-              <div class="retainer-title">Option « On reste » — Suivi, maintenance &amp; évolutions</div>
-              <div class="retainer-desc">Surveillance des automatisations, mises à jour des connecteurs, support prioritaire direct et petites améliorations mensuelles. Résiliable à tout moment.</div>
+              <div class="retainer-title">Diagnostic 1 h offert · Abonnement qui récompense votre fidélité</div>
+              <div class="retainer-desc">Les 3 premiers mois couvrent les ajustements sur le terrain ; ensuite ça tourne seul, donc votre suivi <strong>baisse automatiquement au 4e puis au 7e mois</strong>. Sans engagement : en cas d’arrêt puis de reprise, le tarif repart simplement au palier Mois 1. Les petits frais d’API/SMS (~5 à 25 €/mois) restent au coût réel à votre nom, sans marge.</div>
             </div>
           </div>
-          <div class="retainer-price">
-            <span>Dès</span>
-            <strong>190 €</strong>
-            <span>HT / mois</span>
-          </div>
+          <a class="btn btn--md btn--dark" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
+            <span>Diagnostic gratuit (1 h)</span>
+            <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
+          </a>
         </div>
+        <p class="pricing-footnote">
+          Tarifs indicatifs de lancement — devis précis établi gratuitement après échange selon vos outils et votre volume. TVA non applicable, art. 293 B du CGI.
+        </p>
       </div>
     </section>
 
@@ -1535,7 +1576,7 @@
             <details class="faq-item" open>
               <summary class="faq-q">Combien coûte une automatisation IA sur-mesure pour un artisan ou une PME ?</summary>
               <div class="faq-a">
-                <p>Le diagnostic d’une heure avec Mathis ou Maxence est <strong>gratuit et sans engagement</strong>, suivi d’un devis fixe remis sous 48 h. Une <strong>Automatisation Ciblée</strong> (devis par note vocale, SMS sur appel manqué, relances ou classement comptable) démarre à <strong>1 490 € HT</strong> en paiement unique. Un <strong>Système Sur-Mesure</strong> reliant toute votre chaîne démarre à <strong>3 490 € HT</strong>, avec une option de suivi mensuel facultative dès 190 € HT/mois.</p>
+                <p>Le diagnostic d’une heure avec Mathis ou Maxence est <strong>gratuit et sans engagement</strong>, suivi d’un devis exact adapté à vos outils. Nos tarifs de lancement combinent une installation unique et un <strong>suivi mensuel dégressif</strong> qui baisse au 4e puis au 7e mois (sans engagement ; en cas d’arrêt puis reprise, il repart au palier Mois 1) : <strong>dès 290 €</strong> (+ 69 € → 55 € → 39 €/mois) pour un flux essentiel, <strong>dès 590 €</strong> (+ 99 € → 79 € → 59 €/mois) pour une automatisation métier IA, et <strong>sur devis dès 1 490 €</strong> (+ 159 € → 129 € → 99 €/mois) pour un système complet. Les petits frais d’API/SMS (~5 à 25 €/mois) restent au coût réel à votre nom.</p>
               </div>
             </details>
 
@@ -1549,7 +1590,7 @@
             <details class="faq-item">
               <summary class="faq-q">Combien de temps faut-il pour déployer une automatisation ?</summary>
               <div class="faq-a">
-                <p>Comptez <strong>2 à 3 semaines</strong> pour une automatisation ciblée testée sur vos vrais devis ou clients, et <strong>4 à 6 semaines</strong> pour un système complet. Vous validez chaque étape avant la mise en service, avec prise en main d’une heure et 30 jours d’ajustements inclus.</p>
+                <p>Comptez <strong>1 semaine</strong> pour une automatisation essentielle, <strong>1 à 2 semaines</strong> pour une automatisation métier IA testée sur vos vrais devis ou clients, et <strong>3 à 5 semaines</strong> pour un système complet. Vous validez chaque étape avant la mise en service, avec prise en main d’une heure incluse.</p>
               </div>
             </details>
 
@@ -1577,7 +1618,7 @@
             <details class="faq-item">
               <summary class="faq-q">Est-ce rentable pour une petite entreprise de 1 à 20 personnes ?</summary>
               <div class="faq-a">
-                <p>Oui : récupérer 5 à 12 heures d’administratif chaque semaine représente 230 à 550 heures par an et rentabilise généralement une automatisation ciblée en 1 à 3 mois. <a href="/calculateur-temps">Calculez votre propre gain en 30 secondes ici.</a></p>
+                <p>Oui : récupérer 5 à 12 heures d’administratif chaque semaine représente 230 à 550 heures par an et rentabilise généralement l’installation dès le premier mois. <a href="/calculateur-temps">Calculez votre propre gain en 30 secondes ici.</a></p>
               </div>
             </details>
           </div>

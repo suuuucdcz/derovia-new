@@ -70,17 +70,19 @@
     const savedEuroYear = costYear * 0.72;
     const monthlySaved = savedEuroYear / 12;
 
-    // Reference baseline: Automatisation Ciblée starting at 1 490 € HT
-    const paybackMonths = monthlySaved > 0 ? Math.max(0.5, 1490 / monthlySaved) : 12;
+    // Reference baseline: Automatisation Métier IA launch installation starting at 590 €
+    const paybackMonths = monthlySaved > 0 ? Math.max(0.25, 590 / monthlySaved) : 12;
 
     out.hoursYear.textContent = `${fmtInt(hYear)} h / an`;
     out.hoursWeek.textContent = `Soit ${fmtOne(hWeek)} h par semaine sur 46 semaines travaillées`;
     out.daysYear.textContent = `${fmtInt(daysYear)} jours`;
     out.costYear.textContent = `${fmtInt(costYear)} €`;
     out.savedYear.textContent = `+${fmtInt(savedHoursYear)} h / an`;
-    out.payback.textContent = paybackMonths < 1.2
-      ? `< 1 mois`
-      : `~${fmtOne(paybackMonths)} mois`;
+    out.payback.textContent = paybackMonths < 0.55
+      ? `< 2 sem.`
+      : paybackMonths < 1.2
+        ? `< 1 mois`
+        : `~${fmtOne(paybackMonths)} mois`;
   }
 
   Object.values(fields).forEach((el) => {
