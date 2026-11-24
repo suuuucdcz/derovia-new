@@ -756,80 +756,303 @@
   animation: none;
 }
 
-/* Declining Loyalty Subscription Block inside Pricing Cards (#tarifs) */
-.price-sub {
-  background: rgba(46, 41, 38, 0.035);
-  border: 1px solid rgba(46, 41, 38, 0.07);
-  border-radius: 14px;
-  padding: 12px 14px;
-  margin-bottom: 18px;
+/* Sculpted Artistic Display Font for Pricing Cards (SIL OFL, self-hosted) */
+@font-face {
+  font-family: 'Fraunces Soft';
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+  src: url('../fonts/fraunces-soft.woff2') format('woff2');
 }
-.price-card--featured .price-sub {
-  background: rgba(79, 125, 247, 0.06);
-  border-color: rgba(79, 125, 247, 0.16);
+
+/* Descending Arches Pricing Cards (#tarifs) */
+.price-art {
+  font-family: 'Fraunces Soft', Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
 }
-.price-card--dark .price-sub {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+
+.price-card--arches {
+  border-radius: 28px;
+  padding: 32px 28px 26px;
 }
-.price-sub__label {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+
+.price-card--arches .price-top-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--muted);
+  margin-bottom: 12px;
+}
+.price-card--featured.price-card--arches .price-top-tag {
+  color: var(--blue-ink);
+  background: var(--tint-blue);
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+}
+.price-card--dark.price-card--arches .price-top-tag {
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.price-card--arches .price-name {
+  font-size: 28px;
+  line-height: 1.08;
   margin-bottom: 8px;
 }
-.price-card--dark .price-sub__label {
-  color: rgba(255, 255, 255, 0.68);
+.price-card--arches .price-desc {
+  margin-bottom: 0;
 }
-.price-sub__steps {
+
+.arches-stage {
+  padding: 22px 0 20px;
+  margin: 20px 0 18px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.price-card--dark .arches-stage {
+  border-color: var(--white-line);
+}
+
+.arches-head {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 4px;
+  gap: 8px;
+  margin-bottom: 22px;
 }
-.price-sub__step {
+.arches-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.price-card--dark .arches-title {
+  color: var(--white);
+}
+.arches-sub {
+  font-size: 12.5px;
+  color: var(--muted-soft);
+}
+.price-card--dark .arches-sub {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.arches-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+
+.arch-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1.2;
-  font-variant-numeric: tabular-nums;
-  min-width: 0;
+  text-align: center;
+  padding: 0;
+  transition: transform 0.45s var(--ease-card), opacity 0.35s ease;
 }
-.price-sub__step strong {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
+
+.pricing-grid.is-animated .arch-col {
+  opacity: 0.58;
+}
+.pricing-grid.is-animated .arch-col.is-lit,
+.pricing-grid.is-animated .arch-col:hover,
+.pricing-grid.is-animated .arch-col:focus-visible {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+.arch-col:hover,
+.arch-col:focus-visible {
+  transform: translateY(-4px);
+  outline: none;
+}
+
+.arch-price {
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.05;
   color: var(--ink);
+  margin-bottom: 10px;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.35s var(--ease-card), color 0.3s ease;
 }
-.price-card--dark .price-sub__step strong {
+.price-card--dark .arch-price {
   color: var(--white);
 }
-.price-sub__step small {
-  font-size: 11px;
-  color: var(--muted-soft);
-  margin-top: 2px;
+.price-card--featured .arch-col--3 .arch-price {
+  color: var(--blue-ink);
+}
+.price-card--dark .arch-col--3 .arch-price {
+  color: #9eb9ff;
+}
+.arch-col.is-lit .arch-price {
+  transform: scale(1.06);
+}
+
+.arch-dome {
+  width: 100%;
+  max-width: 82px;
+  border-radius: 999px 999px 6px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.35s ease, transform 0.35s var(--ease-card);
+}
+.arch-col--1 .arch-dome { height: 90px; }
+.arch-col--2 .arch-dome { height: 68px; }
+.arch-col--3 .arch-dome { height: 48px; }
+
+/* Card 1 (Warm Limestone) — Warm Sunlit Stone/Honey Arches */
+.price-card--warm .arch-col--1 .arch-dome { background: #ece5d8; }
+.price-card--warm .arch-col--2 .arch-dome { background: #e7dbc4; }
+.price-card--warm .arch-col--3 .arch-dome { background: #e7d1a4; }
+.price-card--warm .arch-pct { color: #6a4a12; }
+
+/* Card 2 (Featured Pure White) — Derovia Cobalt Mist Arches */
+.price-card--featured .arch-col--1 .arch-dome { background: #edf2ff; }
+.price-card--featured .arch-col--2 .arch-dome { background: #dde7ff; }
+.price-card--featured .arch-col--3 .arch-dome { background: #c7d8ff; }
+.price-card--featured .arch-pct { color: var(--blue-ink); }
+
+/* Card 3 (Obsidian Dark) — Luminous Cobalt Arches */
+.price-card--dark .arch-col--1 .arch-dome { background: rgba(136, 168, 255, 0.14); }
+.price-card--dark .arch-col--2 .arch-dome { background: rgba(136, 168, 255, 0.24); }
+.price-card--dark .arch-col--3 .arch-dome { background: rgba(79, 125, 247, 0.44); }
+.price-card--dark .arch-pct { color: #dbe6ff; }
+
+.pricing-grid.is-animated .price-card--featured .arch-col.is-lit .arch-dome {
+  box-shadow: 0 10px 24px -10px rgba(79, 125, 247, 0.45);
+}
+.pricing-grid.is-animated .price-card--warm .arch-col.is-lit .arch-dome {
+  box-shadow: 0 10px 22px -12px rgba(106, 74, 18, 0.34);
+}
+.pricing-grid.is-animated .price-card--dark .arch-col.is-lit .arch-dome {
+  box-shadow: 0 10px 26px -10px rgba(79, 125, 247, 0.55);
+}
+
+.arch-pct {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  padding-top: 6px;
+}
+
+.arch-period {
+  margin-top: 9px;
+  font-size: 11.8px;
+  line-height: 1.25;
+  color: var(--muted);
   white-space: nowrap;
 }
-.price-card--dark .price-sub__step small {
-  color: rgba(255, 255, 255, 0.54);
+.price-card--dark .arch-period {
+  color: rgba(255, 255, 255, 0.58);
 }
-.price-sub__step--best strong {
-  color: var(--green-ink);
+.arch-col--3 .arch-period {
+  color: var(--ink);
+  font-weight: 600;
 }
-.price-card--dark .price-sub__step--best strong {
-  color: #7ee2ba;
+.price-card--dark .arch-col--3 .arch-period {
+  color: var(--white);
 }
-.price-sub__arrow {
+
+.arches-note {
   font-size: 12px;
   color: var(--muted-soft);
+  text-align: center;
+  margin-bottom: 16px;
+  min-height: 18px;
+}
+.price-card--dark .arches-note {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.setup-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 15px;
+  border-top: 1px dashed rgba(31, 29, 27, 0.14);
+}
+.price-card--dark .setup-bar {
+  border-top-color: rgba(255, 255, 255, 0.16);
+}
+.setup-left {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.price-card--dark .setup-left {
+  color: rgba(255, 255, 255, 0.72);
+}
+.setup-val {
+  font-size: 21px;
+  line-height: 1;
+  color: var(--ink);
+}
+.price-card--dark .setup-val {
+  color: var(--white);
+}
+.setup-once {
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(31, 29, 27, 0.06);
+  color: rgba(31, 29, 27, 0.82);
+  white-space: nowrap;
+}
+.price-card--dark .setup-once {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.price-dots {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.price-dots li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13.8px;
+  line-height: 1.44;
+  color: rgba(31, 29, 27, 0.84);
+}
+.price-card--dark .price-dots li {
+  color: rgba(255, 255, 255, 0.84);
+}
+.price-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0.34;
   flex-shrink: 0;
+  transform: translateY(-2px);
 }
-.price-card--dark .price-sub__arrow {
-  color: rgba(255, 255, 255, 0.42);
+.price-card--featured .price-dot {
+  background: var(--blue);
+  opacity: 0.9;
 }
+.price-card--dark .price-dot {
+  background: #9eb9ff;
+  opacity: 0.9;
+}
+
 .pricing-footnote {
   margin-top: 14px;
   text-align: center;
@@ -839,6 +1062,25 @@
 }
 .retainer-bar .btn {
   flex-shrink: 0;
+}
+
+@media (max-width: 420px) {
+  .arches-row {
+    gap: 8px;
+  }
+  .arch-period {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-grid.is-animated .arch-col {
+    opacity: 1;
+    transform: none;
+  }
+  .arch-col.is-lit .arch-price {
+    transform: none;
+  }
 }
 
 /* Tablet & Mobile Navbar Polish (no clipping on home or subpages) */

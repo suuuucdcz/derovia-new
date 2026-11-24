@@ -35,7 +35,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/dm-sans-var.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geist-var.woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/styles.css?v=20261122d">
-  <link rel="stylesheet" href="/assets/css/pages.css?v=20261124c">
+  <link rel="stylesheet" href="/assets/css/pages.css?v=20261124d">
 
   <script type="application/ld+json">
   {
@@ -1337,155 +1337,170 @@
     </section>
 
     <!-- ====================================================================
-         Band 6 — Tarifs Clairs (Installation + Suivi Dégressif)
+         Band 6 — Tarifs Clairs (Arches Dégressives + Installation 1 seule fois)
          ==================================================================== -->
     <section class="band" id="tarifs" aria-labelledby="pricing-heading">
       <div class="container">
         <div class="section-split" data-reveal>
           <div>
-            <span class="section-eyebrow">Tarifs lancement · sur-mesure</span>
-            <h2 class="display-h2" id="pricing-heading">Un tarif juste, <br>et un suivi qui baisse avec le temps.</h2>
+            <span class="section-eyebrow">Tarifs lancement · sans engagement</span>
+            <h2 class="display-h2 price-art" id="pricing-heading">Plus vous restez, <br>moins vous payez.</h2>
           </div>
           <p class="lead">
-            Chaque entreprise a ses propres outils : on chiffre juste après un diagnostic gratuit d’1 heure. Vous payez l’installation selon la complexité, puis un suivi sans engagement qui baisse automatiquement au 4e puis au 7e mois.
+            Vous payez la mise en place une seule fois après un diagnostic d’1 h offert, puis un abonnement sans engagement qui baisse automatiquement au 4e et au 7e mois.
           </p>
         </div>
 
-        <!-- 3 Core Pricing Cards -->
+        <!-- 3 Descending Arches Pricing Cards -->
         <div class="pricing-grid">
-          <!-- Tier 1: Automatisation Essentielle -->
-          <article class="price-card" data-reveal>
+          <!-- Tier 1: Essentielle (Warm Limestone + Sunlit Arches) -->
+          <article class="price-card price-card--arches price-card--warm" data-reveal>
             <div>
-              <span class="price-badge price-badge--stone">Flux simple · Lancement</span>
-              <h3 class="price-name">Automatisation Essentielle</h3>
-              <p class="price-desc">Idéal pour stopper une perte de clients ou de temps immédiate sans toucher à vos habitudes.</p>
-              <div class="price-amount-wrap">
-                <span class="price-prefix">Installation · à partir de</span>
-                <div class="price-value">290 €</div>
-                <span class="price-note">Paiement unique · Livré en 1 semaine</span>
-              </div>
-              <div class="price-sub">
-                <span class="price-sub__label">Suivi dégressif · sans engagement</span>
-                <div class="price-sub__steps">
-                  <span class="price-sub__step"><strong>69 €</strong><small>Mois 1–3</small></span>
-                  <span class="price-sub__arrow" aria-hidden="true">→</span>
-                  <span class="price-sub__step"><strong>55 €</strong><small>Mois 4–6</small></span>
-                  <span class="price-sub__arrow" aria-hidden="true">→</span>
-                  <span class="price-sub__step price-sub__step--best"><strong>39 €/m</strong><small>Mois 7+</small></span>
+              <span class="price-top-tag">Flux simple · 1 semaine</span>
+              <h3 class="price-name price-art">Essentielle</h3>
+              <p class="price-desc">Ne plus rater un seul appel ni rendez-vous sans changer d’outils.</p>
+
+              <div class="arches-stage">
+                <div class="arches-head">
+                  <span class="arches-title">Abonnement mensuel</span>
+                  <span class="arches-sub">sans engagement</span>
+                </div>
+
+                <div class="arches-row" role="group" aria-label="Paliers dégressifs Essentielle">
+                  <button type="button" class="arch-col arch-col--1 is-lit" data-arch-idx="0" aria-pressed="true">
+                    <span class="arch-price price-art">69 €</span>
+                    <span class="arch-dome" aria-hidden="true"></span>
+                    <span class="arch-period">Mois 1 à 3</span>
+                  </button>
+                  <button type="button" class="arch-col arch-col--2" data-arch-idx="1" aria-pressed="false">
+                    <span class="arch-price price-art">55 €</span>
+                    <span class="arch-dome"><span class="arch-pct">−20 %</span></span>
+                    <span class="arch-period">Mois 4 à 6</span>
+                  </button>
+                  <button type="button" class="arch-col arch-col--3" data-arch-idx="2" aria-pressed="false">
+                    <span class="arch-price price-art">39 €</span>
+                    <span class="arch-dome"><span class="arch-pct">−40 %</span></span>
+                    <span class="arch-period">Dès le 7e mois</span>
+                  </button>
+                </div>
+
+                <div class="arches-note" data-arch-note>Mois 1 à 3 · réglages fins sur vos vrais dossiers</div>
+
+                <div class="setup-bar">
+                  <div class="setup-left"><strong class="setup-val price-art">+ 290 €</strong><span>d’installation (dès)</span></div>
+                  <span class="setup-once">Payée 1 seule fois</span>
                 </div>
               </div>
-              <ul class="price-features">
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>1 flux ciblé (SMS appel manqué, rappels RDV ou relance avis Google)</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Branché directement sur votre téléphone, agenda ou mail</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Surveillance, mises à jour et support direct avec Mathis &amp; Maxence</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Tarif fidélité acquis automatiquement dès le 4e puis le 7e mois</span>
-                </li>
+
+              <ul class="price-dots">
+                <li><span class="price-dot" aria-hidden="true"></span><span>SMS appel manqué, rappels RDV ou avis Google</span></li>
+                <li><span class="price-dot" aria-hidden="true"></span><span>Branché sur votre ligne et votre agenda</span></li>
+                <li><span class="price-dot" aria-hidden="true"></span><span>Maintenance &amp; support direct Mathis &amp; Maxence</span></li>
               </ul>
             </div>
-            <button class="btn btn--md btn--beige" type="button" data-open-modal="Automatisation Essentielle (dès 290 € + suivi dégressif 69€→39€/m)">
-              <span>Chiffrer mon automatisation</span>
+            <button class="btn btn--md btn--beige" type="button" data-open-modal="Essentielle (69€→39€/m + installation dès 290€)">
+              <span>Chiffrer mon besoin</span>
               <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
             </button>
           </article>
 
-          <!-- Tier 2: Automatisation Métier IA (Featured) -->
-          <article class="price-card price-card--featured" data-reveal>
+          <!-- Tier 2: Métier IA (Featured Pure White + Cobalt Mist Arches) -->
+          <article class="price-card price-card--featured price-card--arches" data-reveal>
             <div>
-              <span class="price-badge price-badge--blue">Le plus choisi · Lancement</span>
-              <h3 class="price-name">Automatisation Métier IA</h3>
-              <p class="price-desc">On supprime une corvée lourde qui vous prend plusieurs heures chaque semaine sur vos dossiers.</p>
-              <div class="price-amount-wrap">
-                <span class="price-prefix">Installation · à partir de</span>
-                <div class="price-value">590 €</div>
-                <span class="price-note">Paiement unique · Livré en 1 à 2 semaines</span>
-              </div>
-              <div class="price-sub">
-                <span class="price-sub__label">Suivi dégressif · sans engagement</span>
-                <div class="price-sub__steps">
-                  <span class="price-sub__step"><strong>99 €</strong><small>Mois 1–3</small></span>
-                  <span class="price-sub__arrow" aria-hidden="true">→</span>
-                  <span class="price-sub__step"><strong>79 €</strong><small>Mois 4–6</small></span>
-                  <span class="price-sub__arrow" aria-hidden="true">→</span>
-                  <span class="price-sub__step price-sub__step--best"><strong>59 €/m</strong><small>Mois 7+</small></span>
+              <span class="price-top-tag">Le plus choisi · 1–2 sem.</span>
+              <h3 class="price-name price-art">Métier IA</h3>
+              <p class="price-desc">Vos devis vocaux et factures en pilote automatique.</p>
+
+              <div class="arches-stage">
+                <div class="arches-head">
+                  <span class="arches-title">Abonnement mensuel</span>
+                  <span class="arches-sub">sans engagement</span>
+                </div>
+
+                <div class="arches-row" role="group" aria-label="Paliers dégressifs Métier IA">
+                  <button type="button" class="arch-col arch-col--1 is-lit" data-arch-idx="0" aria-pressed="true">
+                    <span class="arch-price price-art">99 €</span>
+                    <span class="arch-dome" aria-hidden="true"></span>
+                    <span class="arch-period">Mois 1 à 3</span>
+                  </button>
+                  <button type="button" class="arch-col arch-col--2" data-arch-idx="1" aria-pressed="false">
+                    <span class="arch-price price-art">79 €</span>
+                    <span class="arch-dome"><span class="arch-pct">−20 %</span></span>
+                    <span class="arch-period">Mois 4 à 6</span>
+                  </button>
+                  <button type="button" class="arch-col arch-col--3" data-arch-idx="2" aria-pressed="false">
+                    <span class="arch-price price-art">59 €</span>
+                    <span class="arch-dome"><span class="arch-pct">−40 %</span></span>
+                    <span class="arch-period">Dès le 7e mois</span>
+                  </button>
+                </div>
+
+                <div class="arches-note" data-arch-note>Mois 1 à 3 · réglages fins sur vos vrais dossiers</div>
+
+                <div class="setup-bar">
+                  <div class="setup-left"><strong class="setup-val price-art">+ 590 €</strong><span>d’installation (dès)</span></div>
+                  <span class="setup-once">Payée 1 seule fois</span>
                 </div>
               </div>
-              <ul class="price-features">
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>1 flux IA complet (devis vocal → PDF + relance J+4, ou tri comptable)</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Prototype testé sur vos vrais devis ou factures avant validation</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Connexion mail, WhatsApp, agenda, Drive ou logiciel métier</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Formation prise en main 1 h + ajustements &amp; suivi dégressif inclus</span>
-                </li>
+
+              <ul class="price-dots">
+                <li><span class="price-dot" aria-hidden="true"></span><span>Note vocale → devis PDF + relance J+4, ou tri compta</span></li>
+                <li><span class="price-dot" aria-hidden="true"></span><span>Prototype testé sur vos vrais dossiers avant lancement</span></li>
+                <li><span class="price-dot" aria-hidden="true"></span><span>Formation 1 h + WhatsApp, Drive, logiciel métier</span></li>
               </ul>
             </div>
-            <button class="btn btn--md btn--dark" type="button" data-open-modal="Automatisation Métier IA (dès 590 € + suivi dégressif 99€→59€/m)">
-              <span>Chiffrer mon automatisation</span>
+            <button class="btn btn--md btn--dark" type="button" data-open-modal="Métier IA (99€→59€/m + installation dès 590€)">
+              <span>Chiffrer mon besoin</span>
               <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
             </button>
           </article>
 
-          <!-- Tier 3: Système Sur-Mesure (Dark Charcoal Grain) -->
-          <article class="price-card price-card--dark" data-reveal>
+          <!-- Tier 3: Complet PME (Obsidian Grain + Luminous Cobalt Arches) -->
+          <article class="price-card price-card--dark price-card--arches" data-reveal>
             <div>
-              <span class="price-badge price-badge--dark">Transformation PME</span>
-              <h3 class="price-name">Système Sur-Mesure</h3>
-              <p class="price-desc">Plusieurs automatisations reliées entre elles + assistant IA taillé sur vos habitudes et votre équipe.</p>
-              <div class="price-amount-wrap">
-                <span class="price-prefix">Sur devis · à partir de</span>
-                <div class="price-value">1 490 €</div>
-                <span class="price-note">Paiement échelonné possible · 3 à 5 semaines</span>
-              </div>
-              <div class="price-sub">
-                <span class="price-sub__label">Suivi dégressif · sans engagement</span>
-                <div class="price-sub__steps">
-                  <span class="price-sub__step"><strong>159 €</strong><small>Mois 1–3</small></span>
-                  <span class="price-sub__arrow" aria-hidden="true">→</span>
-                  <span class="price-sub__step"><strong>129 €</strong><small>Mois 4–6</small></span>
-                  <span class="price-sub__arrow" aria-hidden="true">→</span>
-                  <span class="price-sub__step price-sub__step--best"><strong>99 €/m</strong><small>Mois 7+</small></span>
+              <span class="price-top-tag">Sur-mesure PME · 3–5 sem.</span>
+              <h3 class="price-name price-art">Complet</h3>
+              <p class="price-desc">Toute votre chaîne reliée + assistant IA dédié à l’équipe.</p>
+
+              <div class="arches-stage">
+                <div class="arches-head">
+                  <span class="arches-title">Abonnement mensuel</span>
+                  <span class="arches-sub">sans engagement</span>
+                </div>
+
+                <div class="arches-row" role="group" aria-label="Paliers dégressifs Complet PME">
+                  <button type="button" class="arch-col arch-col--1 is-lit" data-arch-idx="0" aria-pressed="true">
+                    <span class="arch-price price-art">159 €</span>
+                    <span class="arch-dome" aria-hidden="true"></span>
+                    <span class="arch-period">Mois 1 à 3</span>
+                  </button>
+                  <button type="button" class="arch-col arch-col--2" data-arch-idx="1" aria-pressed="false">
+                    <span class="arch-price price-art">129 €</span>
+                    <span class="arch-dome"><span class="arch-pct">−19 %</span></span>
+                    <span class="arch-period">Mois 4 à 6</span>
+                  </button>
+                  <button type="button" class="arch-col arch-col--3" data-arch-idx="2" aria-pressed="false">
+                    <span class="arch-price price-art">99 €</span>
+                    <span class="arch-dome"><span class="arch-pct">−38 %</span></span>
+                    <span class="arch-period">Dès le 7e mois</span>
+                  </button>
+                </div>
+
+                <div class="arches-note" data-arch-note>Mois 1 à 3 · réglages fins sur vos vrais dossiers</div>
+
+                <div class="setup-bar">
+                  <div class="setup-left"><strong class="setup-val price-art">+ 1 490 €</strong><span>sur devis (dès)</span></div>
+                  <span class="setup-once">Payée 1 seule fois</span>
                 </div>
               </div>
-              <ul class="price-features">
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Chaîne complète : demande client → devis → planning → facturation → comptable</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Assistant IA personnalisé (tri messages, rédaction, réponses clients)</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Intégration avancée logiciel métier (EBP, Sage, Batappli, CRM…)</span>
-                </li>
-                <li>
-                  <span class="price-check"><svg width="11" height="11" aria-hidden="true"><use href="#icon-check"/></svg></span>
-                  <span>Formation équipe + accompagnement lancement &amp; support prioritaire</span>
-                </li>
+
+              <ul class="price-dots">
+                <li><span class="price-dot" aria-hidden="true"></span><span>Chaîne complète : demande → devis → planning → compta</span></li>
+                <li><span class="price-dot" aria-hidden="true"></span><span>Intégration avancée EBP, Sage, Batappli, CRM…</span></li>
+                <li><span class="price-dot" aria-hidden="true"></span><span>Formation équipe &amp; support prioritaire direct</span></li>
               </ul>
             </div>
-            <button class="btn btn--md btn--blue" type="button" data-open-modal="Système Sur-Mesure (dès 1 490 € + suivi dégressif 159€→99€/m)">
+            <button class="btn btn--md btn--blue" type="button" data-open-modal="Complet PME (159€→99€/m + sur devis dès 1 490€)">
               <span>Parler de mon projet</span>
               <svg class="icon-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg>
             </button>
@@ -1499,8 +1514,8 @@
               <svg width="42" height="42"><use href="#app-suivi"/></svg>
             </div>
             <div>
-              <div class="retainer-title">Diagnostic 1 h offert · Abonnement qui récompense votre fidélité</div>
-              <div class="retainer-desc">Les 3 premiers mois couvrent les ajustements sur le terrain ; ensuite ça tourne seul, donc votre suivi <strong>baisse automatiquement au 4e puis au 7e mois</strong>. Sans engagement : en cas d’arrêt puis de reprise, le tarif repart simplement au palier Mois 1. Les petits frais d’API/SMS (~5 à 25 €/mois) restent au coût réel à votre nom, sans marge.</div>
+              <div class="retainer-title">Diagnostic 1 h offert · Sans engagement</div>
+              <div class="retainer-desc">Votre abonnement baisse tout seul au 4e puis au 7e mois tant que vous restez abonné (en cas d’arrêt puis de reprise, il repart au tarif Mois 1). Les petits frais d’API/SMS (~5 à 25 €/m) restent au coût réel à votre nom, sans marge.</div>
             </div>
           </div>
           <a class="btn btn--md btn--dark" href="https://cal.com/derovia" target="_blank" rel="noopener noreferrer">
@@ -1871,6 +1886,6 @@
     </div>
   </div>
 
-  <script type="module" src="/assets/js/app.js?v=20261122b"></script>
+  <script type="module" src="/assets/js/app.js?v=20261124d"></script>
 </body>
 </html>
