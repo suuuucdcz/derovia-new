@@ -767,6 +767,7 @@ function initModal() {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       lastSubmitAt = Date.now();
+      window.dispatchEvent(new CustomEvent('derovia:lead-submitted'));
       showSuccess();
     } catch {
       if (errorEl) errorEl.hidden = false;

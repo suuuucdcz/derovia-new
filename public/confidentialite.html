@@ -39,8 +39,8 @@
     <div class="container">
       <article class="legal-card">
         <h1 class="display-h2">Politique de confidentialité</h1>
-        <p class="legal-meta">Dernière mise à jour : 24 novembre 2026</p>
-        <p class="lead">Ce site ne dépose aucun cookie et n’utilise aucun traceur publicitaire ni outil de mesure d’audience. Les seules données traitées sont celles que vous nous transmettez volontairement.</p>
+        <p class="legal-meta">Dernière mise à jour : 27 novembre 2026</p>
+        <p class="lead">Ce site ne dépose aucun cookie et n’utilise aucun traceur publicitaire. Une mesure d’audience interne strictement anonyme (exemptée de consentement selon les recommandations de la CNIL) nous permet uniquement de connaître la fréquentation de nos pages.</p>
 
         <section class="legal-block">
           <h2>1. Responsable du traitement</h2>
@@ -50,7 +50,12 @@
 
         <section class="legal-block">
           <h2>2. Données collectées</h2>
-          <p>Aucune donnée n’est collectée lors de la simple consultation du site. Lorsque vous remplissez le formulaire de demande, sont uniquement enregistrés les champs que vous saisissez : métier, tâches prioritaires, nom, adresse e-mail, téléphone et description libre.</p>
+          <ul>
+            <li><strong>Mesure d’audience anonyme (sans cookie) :</strong> lors de la consultation du site, notre serveur interne enregistre uniquement des statistiques agrégées (page consultée sans paramètres URL, domaine d’origine seul, type d’appareil, interactions anonymes de navigation). Aucun cookie n’est déposé, votre adresse IP n’est jamais stockée en clair et l’empreinte journalière est renouvelée chaque nuit pour empêcher tout suivi d’un jour à l’autre ou d’un site à l’autre. Les signaux <em>Do Not Track</em> et <em>Global Privacy Control</em> sont automatiquement respectés.</li>
+            <li><strong>Formulaire de contact :</strong> lorsque vous remplissez le formulaire de demande, sont uniquement enregistrés les champs que vous saisissez : métier, tâches prioritaires, nom, adresse e-mail, téléphone et description libre.</li>
+          </ul>
+          <p id="analytics-optout-status">Mesure d’audience anonyme sans cookie active sur ce navigateur.</p>
+          <p><button type="button" id="analytics-optout-btn" class="btn btn--sm btn--beige" aria-pressed="false">M’opposer à la mesure d’audience</button></p>
         </section>
 
         <section class="legal-block">
@@ -74,6 +79,7 @@
         <section class="legal-block">
           <h2>6. Durée de conservation</h2>
           <ul>
+            <li><strong>Mesure d’audience anonyme :</strong> purge automatique au-delà de 24 mois (conforme au plafond CNIL de 25 mois).</li>
             <li><strong>Prospect sans suite :</strong> 3 ans à compter du dernier contact.</li>
             <li><strong>Client :</strong> durée de la relation contractuelle puis archivage légal.</li>
             <li><strong>Sur demande d’effacement :</strong> suppression sous 30 jours.</li>
@@ -87,5 +93,6 @@
       </article>
     </div>
   </main>
+  <script src="/assets/js/analytics.js?v=20261127a" defer></script>
 </body>
 </html>
